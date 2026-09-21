@@ -129,12 +129,12 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     <label><span>Timer Alert</span>
       <select id="alertMode">
         <option value="vibrate">Vibrate</option>
-        <option value="sound">Sound + Vibrate</option>
+        <option value="sound">Sound Alert</option>
         <option value="visual">Visual Only</option>
       </select>
     </label>
   </div>
-  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support; iPhone web apps may use the visual alert only.</div>
+  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support and may not work on iPhone. Sound Alert uses a stronger three-tone courtside alert.</div>
 </section>
 
 <div id="matches"></div>
@@ -213,16 +213,24 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       if(!Ctx)return;
       if(!audioCtx)audioCtx=new Ctx();
       if(audioCtx.state==='suspended')audioCtx.resume();
-      const now=audioCtx.currentTime;
-      [0,.28].forEach(offset=>{
+      const now=audioCtx.currentTime+.03;
+      const tones=[
+        {offset:0.00,freq:740,dur:.30},
+        {offset:.40,freq:920,dur:.30},
+        {offset:.80,freq:1120,dur:.42}
+      ];
+      tones.forEach(tone=>{
         const osc=audioCtx.createOscillator();
         const gain=audioCtx.createGain();
-        osc.frequency.value=880;
-        gain.gain.setValueAtTime(.0001,now+offset);
-        gain.gain.exponentialRampToValueAtTime(.18,now+offset+.01);
-        gain.gain.exponentialRampToValueAtTime(.0001,now+offset+.18);
+        osc.type='square';
+        osc.frequency.setValueAtTime(tone.freq,now+tone.offset);
+        gain.gain.setValueAtTime(.0001,now+tone.offset);
+        gain.gain.exponentialRampToValueAtTime(.42,now+tone.offset+.015);
+        gain.gain.setValueAtTime(.42,now+tone.offset+tone.dur-.05);
+        gain.gain.exponentialRampToValueAtTime(.0001,now+tone.offset+tone.dur);
         osc.connect(gain);gain.connect(audioCtx.destination);
-        osc.start(now+offset);osc.stop(now+offset+.2);
+        osc.start(now+tone.offset);
+        osc.stop(now+tone.offset+tone.dur+.02);
       });
     }catch(e){}
   }
