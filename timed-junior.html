@@ -51,6 +51,9 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
 .timerbox{margin-top:12px;border-top:1px solid var(--line);padding-top:11px}
 .timer{font-size:34px;font-weight:900;text-align:center;letter-spacing:1px}
 .timer.running{color:var(--accent)}
+.timer.time-up{color:#9b1c1c;background:#fff0f0;border:2px solid #d84b4b;border-radius:12px;padding:5px 8px;animation:timePulse 1s ease-in-out 4}
+@keyframes timePulse{0%,100%{opacity:1}50%{opacity:.45}}
+@media (prefers-reduced-motion:reduce){.timer.time-up{animation:none}}
 .timer-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:9px}
 .timer-actions button{font-size:12px;min-height:42px;padding:7px 5px}
 .totals{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
@@ -122,7 +125,16 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       <button id="applyBtn" class="primary" type="button" style="width:100%">Apply</button>
     </div>
   </div>
-  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer.</div>
+  <div class="grid three" style="margin-top:10px">
+    <label><span>Timer Alert</span>
+      <select id="alertMode">
+        <option value="vibrate">Vibrate</option>
+        <option value="sound">Sound + Vibrate</option>
+        <option value="visual">Visual Only</option>
+      </select>
+    </label>
+  </div>
+  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support; iPhone web apps may use the visual alert only.</div>
 </section>
 
 <div id="matches"></div>
@@ -184,9 +196,48 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
   function teamA(){ return $('teamA').value.trim() || 'Team 1'; }
   function teamB(){ return $('teamB').value.trim() || 'Team 2'; }
 
+  let audioCtx=null;
+  function unlockAudio(){
+    if(state && state.setup.alertMode!=='sound')return;
+    try{
+      const Ctx=window.AudioContext||window.webkitAudioContext;
+      if(!Ctx)return;
+      if(!audioCtx)audioCtx=new Ctx();
+      if(audioCtx.state==='suspended')audioCtx.resume();
+    }catch(e){}
+  }
+
+  function playShortAlert(){
+    try{
+      const Ctx=window.AudioContext||window.webkitAudioContext;
+      if(!Ctx)return;
+      if(!audioCtx)audioCtx=new Ctx();
+      if(audioCtx.state==='suspended')audioCtx.resume();
+      const now=audioCtx.currentTime;
+      [0,.28].forEach(offset=>{
+        const osc=audioCtx.createOscillator();
+        const gain=audioCtx.createGain();
+        osc.frequency.value=880;
+        gain.gain.setValueAtTime(.0001,now+offset);
+        gain.gain.exponentialRampToValueAtTime(.18,now+offset+.01);
+        gain.gain.exponentialRampToValueAtTime(.0001,now+offset+.18);
+        osc.connect(gain);gain.connect(audioCtx.destination);
+        osc.start(now+offset);osc.stop(now+offset+.2);
+      });
+    }catch(e){}
+  }
+
+  function timerAlert(){
+    const mode=state.setup.alertMode||'vibrate';
+    if(mode==='sound')playShortAlert();
+    if(mode!=='visual' && navigator.vibrate){
+      try{navigator.vibrate([250,120,250])}catch(e){}
+    }
+  }
+
   function defaultState(){
     return {
-      setup:{ballType:'Orange Ball',singles:2,doubles:2,minutes:20},
+      setup:{ballType:'Orange Ball',singles:2,doubles:2,minutes:20,alertMode:'vibrate'},
       courts:[]
     };
   }
@@ -246,6 +297,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     $('singlesCount').value=String(state.setup.singles??2);
     $('doublesCount').value=String(state.setup.doubles??2);
     $('minutes').value=String(state.setup.minutes??20);
+    $('alertMode').value=state.setup.alertMode||'vibrate';
 
     if(!state.courts.length){
       state.courts=buildCourts(state.setup.singles,state.setup.doubles,state.setup.minutes);
@@ -317,7 +369,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
           <label><span class="team-b-label"></span><input class="score sb" type="number" inputmode="numeric" min="0" placeholder="Score" value="${escapeHtml(c.scoreB)}"></label>
         </div>
         <div class="timerbox">
-          <div class="timer ${c.running?'running':''}" data-role="timer">${fmtTime(c.remaining)}</div>
+          <div class="timer ${c.running?'running':c.ended?'time-up':''}" data-role="timer">${c.ended?'TIME':fmtTime(c.remaining)}</div>
           <div class="timer-actions">
             <button class="primary start" type="button">${c.running?'Running':'Start'}</button>
             <button class="secondary pause" type="button">Pause</button>
@@ -337,6 +389,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       q('.sb').addEventListener('input',e=>{c.scoreB=e.target.value;update();});
 
       q('.start').addEventListener('click',()=>{
+        unlockAudio();
         if(c.remaining<=0)c.remaining=c.duration;
         c.running=true;c.ended=false;c.endAt=Date.now()+c.remaining*1000;
         save();render();
@@ -435,7 +488,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     const singles=clamp(intVal($('singlesCount').value,2),0,8);
     const doubles=clamp(intVal($('doublesCount').value,2),0,8);
     const minutes=clamp(intVal($('minutes').value,20),1,90);
-    state.setup={ballType:$('ballType').value,singles,doubles,minutes};
+    state.setup={ballType:$('ballType').value,singles,doubles,minutes,alertMode:$('alertMode').value};
     state.courts=buildCourts(singles,doubles,minutes,state.courts);
     state.courts.forEach(c=>{
       if(!c.running && !c.ended){c.duration=minutes*60;c.remaining=minutes*60;}
@@ -445,6 +498,11 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
 
   ['date','teamA','teamB','sportA','sportB'].forEach(id=>$(id).addEventListener('input',()=>update()));
   $('ballType').addEventListener('change',()=>{state.setup.ballType=$('ballType').value;update();});
+  $('alertMode').addEventListener('change',()=>{
+    state.setup.alertMode=$('alertMode').value;
+    unlockAudio();
+    save();
+  });
 
   $('shareBtn').addEventListener('click',async()=>{
     const text=$('recap').textContent;
@@ -461,27 +519,35 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     try{localStorage.removeItem(storeKey)}catch(e){}
     state=defaultState();
     $('date').value='';$('teamA').value='';$('teamB').value='';$('sportA').value='';$('sportB').value='';
-    $('ballType').value='Orange Ball';$('singlesCount').value='2';$('doublesCount').value='2';$('minutes').value='20';
+    $('ballType').value='Orange Ball';$('singlesCount').value='2';$('doublesCount').value='2';$('minutes').value='20';$('alertMode').value='vibrate';
     state.courts=buildCourts(2,2,20);
     save();render();
   });
 
   function tick(){
     let changed=false;
+    let newlyExpired=false;
     const now=Date.now();
     state.courts.forEach(c=>{
       if(c.running && c.endAt){
         const next=Math.max(0,Math.ceil((c.endAt-now)/1000));
         if(next!==c.remaining){c.remaining=next;changed=true}
-        if(c.remaining<=0){c.running=false;c.ended=true;c.endAt=null;changed=true}
+        if(c.remaining<=0){
+          c.running=false;c.ended=true;c.endAt=null;changed=true;newlyExpired=true;
+        }
       }
     });
+    if(newlyExpired)timerAlert();
     if(changed){
       state.courts.forEach((c,i)=>{
         const card=matchesHost.children[i];
         if(card){
           const t=card.querySelector('[data-role=timer]');
-          if(t){t.textContent=fmtTime(c.remaining);t.classList.toggle('running',c.running)}
+          if(t){
+            t.textContent=c.ended?'TIME':fmtTime(c.remaining);
+            t.classList.toggle('running',c.running);
+            t.classList.toggle('time-up',c.ended);
+          }
           const pill=card.querySelector('[data-role=result]');
           const r=courtResult(c);
           if(pill&&c.ended&&(r==='A'||r==='B'||r==='Tie')){
