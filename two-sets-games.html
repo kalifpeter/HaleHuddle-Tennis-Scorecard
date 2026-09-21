@@ -87,7 +87,7 @@ input:focus{outline:3px solid rgba(15,81,50,.14);border-color:var(--accent)}
   white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);
   border-radius:12px;padding:10px;font-size:13px;line-height:1.45;min-height:86px
 }
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
 button{
   min-height:49px;border:0;border-radius:12px;font-weight:900;padding:10px;
 }
@@ -128,6 +128,7 @@ button{
 <section class="card">
   <div class="topgrid">
     <label><span>Date</span><input id="date" type="date"></label>
+    <label><span>Season</span><input id="seasonName" type="text" placeholder="e.g. Fall 2026"></label>
     <label><span>Team 1</span><input id="teamA" type="text" placeholder="Team name"></label>
     <label><span>Team 2</span><input id="teamB" type="text" placeholder="Team name"></label>
   </div>
@@ -271,6 +272,7 @@ button{
   <div id="recap" class="recap">Enter the match information above.</div>
   <div class="actions">
     <button id="shareBtn" class="primary" type="button">Text / Share</button>
+<button id="saveSeasonBtn" class="primary" type="button">Save Match to Season</button>
     <button id="newBtn" class="secondary" type="button">New Match</button>
   </div>
   <div class="note">Your current match saves automatically on this device.</div>
@@ -525,6 +527,70 @@ button{
 
   load();
   update();
+
+  const hhSeasonKey='halehuddle-tennis-season-history-v1';
+
+  function hhLoadSeasonHistory(){
+    try{return JSON.parse(localStorage.getItem(hhSeasonKey)||'[]')}catch(e){return[]}
+  }
+
+  function hhSaveSeasonHistory(items){
+    try{localStorage.setItem(hhSeasonKey,JSON.stringify(items))}catch(e){}
+  }
+
+  function hhSaveCurrentMatch(formatName){
+    const recapEl=document.getElementById('recap');
+    const dateEl=document.getElementById('date');
+    const teamAEl=document.getElementById('teamA');
+    const teamBEl=document.getElementById('teamB');
+    const seasonEl=document.getElementById('seasonName');
+
+    const recap=recapEl ? recapEl.textContent.trim() : '';
+    const date=dateEl ? dateEl.value : '';
+    const teamA=teamAEl ? teamAEl.value.trim() : '';
+    const teamB=teamBEl ? teamBEl.value.trim() : '';
+    const season=(seasonEl && seasonEl.value.trim()) ? seasonEl.value.trim() : 'Current Season';
+
+    if(!date && !teamA && !teamB){
+      alert('Enter the match date or team names before saving this match.');
+      return;
+    }
+
+    const history=hhLoadSeasonHistory();
+    const item={
+      id:'m-'+Date.now()+'-'+Math.random().toString(36).slice(2,8),
+      savedAt:new Date().toISOString(),
+      season,
+      format:formatName,
+      date,
+      teamA:teamA||'Team 1',
+      teamB:teamB||'Team 2',
+      recap
+    };
+    history.unshift(item);
+    hhSaveSeasonHistory(history);
+
+    const btn=document.getElementById('saveSeasonBtn');
+    if(btn){
+      const old=btn.textContent;
+      btn.textContent='Saved ✓';
+      setTimeout(()=>{btn.textContent=old},1400);
+    }
+  }
+
+  const hhSaveBtn=document.getElementById('saveSeasonBtn');
+  if(hhSaveBtn)hhSaveBtn.addEventListener('click',()=>hhSaveCurrentMatch("2 Sets + 10-Point Tiebreak"));
+
+  const hhSeasonInput=document.getElementById('seasonName');
+  if(hhSeasonInput){
+    try{
+      const last=localStorage.getItem('halehuddle-tennis-last-season');
+      if(last && !hhSeasonInput.value)hhSeasonInput.value=last;
+    }catch(e){}
+    hhSeasonInput.addEventListener('input',()=>{
+      try{localStorage.setItem('halehuddle-tennis-last-season',hhSeasonInput.value)}catch(e){}
+    });
+  }
 })();
 </script>
 </body>
