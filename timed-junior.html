@@ -9,6 +9,7 @@
 <meta http-equiv="Expires" content="0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="HaleHuddle Tennis">
+<link rel="manifest" href="manifest.webmanifest">
 <title>HaleHuddle Tennis Scorecard — Junior Timed Match</title>
 <style>
 :root{
@@ -135,7 +136,13 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       </select>
     </label>
   </div>
-  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support and may not work on iPhone. Sound Alert plays three clean notification beeps when time expires. Starting the timer is silent.</div>
+  <section class="card">
+  <div class="section-title">Locked-Screen Timer Alerts</div>
+  <button class="primary" id="enablePush" type="button">Enable iPhone Notifications</button>
+  <div class="note" id="pushStatus" style="margin-top:8px">Enable once from the Home Screen app so court timers can notify you when the screen is locked or the app is in the background.</div>
+</section>
+
+<div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support and may not work on iPhone. Sound Alert plays three clean notification beeps when time expires. Starting the timer is silent.</div>
 </section>
 
 <div id="matches"></div>
@@ -199,6 +206,63 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
 
   let audioCtx=null;
   let fileAudioReady=false;
+  const PUSH_API='https://akhnopguuqsvdondhsrh.supabase.co/functions/v1/halehuddle-timer-push';
+  const PUSH_TOKEN_KEY='halehuddle-tennis-push-device-token-v1';
+
+  function b64ToUint8(v){
+    const pad='='.repeat((4-v.length%4)%4);
+    const raw=atob((v+pad).replace(/-/g,'+').replace(/_/g,'/'));
+    return Uint8Array.from([...raw].map(c=>c.charCodeAt(0)));
+  }
+  async function pushCall(body){
+    const r=await fetch(PUSH_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok)throw new Error('Notification service '+r.status);
+    return r.json();
+  }
+  async function enablePush(){
+    const status=$('pushStatus');
+    try{
+      if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))
+        throw new Error('Notifications require the installed Home Screen app on a supported browser.');
+      const reg=await navigator.serviceWorker.register('sw.js',{scope:'./'});
+      await navigator.serviceWorker.ready;
+      const permission=await Notification.requestPermission();
+      if(permission!=='granted')throw new Error('Notifications were not allowed.');
+      let sub=await reg.pushManager.getSubscription();
+      if(!sub){
+        const k=await pushCall({action:'public-key'});
+        sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8(k.publicKey)});
+      }
+      const saved=await pushCall({action:'subscribe',subscription:sub.toJSON()});
+      localStorage.setItem(PUSH_TOKEN_KEY,saved.deviceToken);
+      status.textContent='Notifications enabled. Locked-screen/background timer alerts are ready.';
+      $('enablePush').textContent='Notifications Enabled';
+    }catch(e){
+      status.textContent=(e&&e.message)?e.message:String(e);
+    }
+  }
+  async function schedulePush(c){
+    const token=localStorage.getItem(PUSH_TOKEN_KEY);
+    if(!token||!c.endAt)return;
+    try{
+      if(c.pushAlertId)await cancelPush(c);
+      const r=await pushCall({action:'schedule',deviceToken:token,courtLabel:c.label,fireAt:new Date(c.endAt).toISOString()});
+      c.pushAlertId=r.alertId||null; save();
+    }catch(e){}
+  }
+  async function cancelPush(c){
+    const token=localStorage.getItem(PUSH_TOKEN_KEY), id=c.pushAlertId;
+    c.pushAlertId=null;
+    if(!token||!id)return;
+    try{await pushCall({action:'cancel',deviceToken:token,alertId:id})}catch(e){}
+  }
+  $('enablePush').addEventListener('click',enablePush);
+  if(localStorage.getItem(PUSH_TOKEN_KEY)){
+    $('pushStatus').textContent='Notifications previously enabled on this device.';
+    $('enablePush').textContent='Refresh Notification Permission';
+  }
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(()=>{});
+
   const timerAudio=$('timerAlertAudio');
 
   if(timerAudio){
@@ -432,17 +496,17 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
         unlockAudio();
         if(c.remaining<=0)c.remaining=c.duration;
         c.running=true;c.ended=false;c.endAt=Date.now()+c.remaining*1000;
-        save();render();
+        save();schedulePush(c);render();
       });
       q('.pause').addEventListener('click',()=>{
         if(c.running && c.endAt)c.remaining=Math.max(0,Math.ceil((c.endAt-Date.now())/1000));
-        c.running=false;c.endAt=null;save();render();
+        c.running=false;c.endAt=null;cancelPush(c);save();render();
       });
       q('.reset').addEventListener('click',()=>{
-        c.running=false;c.ended=false;c.endAt=null;c.remaining=c.duration;save();render();
+        c.running=false;c.ended=false;c.endAt=null;cancelPush(c);c.remaining=c.duration;save();render();
       });
       q('.end').addEventListener('click',()=>{
-        c.running=false;c.ended=true;c.endAt=null;c.remaining=0;save();render();
+        c.running=false;c.ended=true;c.endAt=null;cancelPush(c);c.remaining=0;save();render();
       });
     });
 
@@ -573,7 +637,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
         const next=Math.max(0,Math.ceil((c.endAt-now)/1000));
         if(next!==c.remaining){c.remaining=next;changed=true}
         if(c.remaining<=0){
-          c.running=false;c.ended=true;c.endAt=null;changed=true;newlyExpired=true;
+          c.running=false;c.ended=true;c.endAt=null;c.pushAlertId=null;changed=true;newlyExpired=true;
         }
       }
     });
