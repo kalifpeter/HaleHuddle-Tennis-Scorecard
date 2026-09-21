@@ -78,6 +78,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
 <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
+<audio id="timerAlertAudio" src="timer-alert.wav?v=1" preload="auto"></audio>
 
 <header class="hh-app-header">
   <div class="hh-app-header-inner">
@@ -134,7 +135,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       </select>
     </label>
   </div>
-  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support and may not work on iPhone. Sound Alert uses a stronger three-tone courtside alert.</div>
+  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer. When time expires, that court always shows TIME. Vibration depends on device/browser support and may not work on iPhone. Sound Alert uses a clear two-part scoreboard chime. If the audio file cannot play, the built-in alert is used automatically.</div>
 </section>
 
 <div id="matches"></div>
@@ -197,8 +198,25 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
   function teamB(){ return $('teamB').value.trim() || 'Team 2'; }
 
   let audioCtx=null;
+  let fileAudioReady=false;
+  const timerAudio=$('timerAlertAudio');
+
+  if(timerAudio){
+    timerAudio.addEventListener('canplaythrough',()=>{fileAudioReady=true},{once:true});
+    timerAudio.addEventListener('canplay',()=>{fileAudioReady=true},{once:true});
+  }
+
   function unlockAudio(){
     if(state && state.setup.alertMode!=='sound')return;
+    try{
+      if(timerAudio){
+        timerAudio.volume=1;
+        const p=timerAudio.play();
+        if(p&&p.then){
+          p.then(()=>{timerAudio.pause();timerAudio.currentTime=0;fileAudioReady=true}).catch(()=>{});
+        }
+      }
+    }catch(e){}
     try{
       const Ctx=window.AudioContext||window.webkitAudioContext;
       if(!Ctx)return;
@@ -207,7 +225,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     }catch(e){}
   }
 
-  function playShortAlert(){
+  function playFallbackAlert(){
     try{
       const Ctx=window.AudioContext||window.webkitAudioContext;
       if(!Ctx)return;
@@ -235,9 +253,20 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     }catch(e){}
   }
 
+  function playQualityAlert(){
+    if(!timerAudio){playFallbackAlert();return}
+    try{
+      timerAudio.pause();
+      timerAudio.currentTime=0;
+      timerAudio.volume=1;
+      const p=timerAudio.play();
+      if(p&&p.catch)p.catch(()=>playFallbackAlert());
+    }catch(e){playFallbackAlert()}
+  }
+
   function timerAlert(){
     const mode=state.setup.alertMode||'vibrate';
-    if(mode==='sound')playShortAlert();
+    if(mode==='sound')playQualityAlert();
     if(mode!=='visual' && navigator.vibrate){
       try{navigator.vibrate([250,120,250])}catch(e){}
     }
