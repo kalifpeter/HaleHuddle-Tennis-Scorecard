@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#135BE8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HaleHuddle Tennis">
+<title>HaleHuddle Tennis Scorecard — 2 Sets + 10-Point Tiebreak</title>
+<style>
+:root{
+  --bg:#f4f7f5; --card:#fff; --text:#17211b; --muted:#657269;
+  --line:#d7ded9; --accent:#0f5132; --accent2:#e6f1eb; --win:#dff3e7;
+  --warn:#fff4d6;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--text);
+}
+main{max-width:820px;margin:0 auto;padding:14px 12px 40px}
+h1{font-size:25px;margin:8px 0 4px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:17px;
+  padding:12px; margin-bottom:10px;
+}
+label span,.small-label{
+  display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--muted)
+}
+input,button{font:inherit}
+input[type=text],input[type=date],input[type=number]{
+  width:100%; min-height:46px; border:1px solid var(--line); border-radius:11px;
+  padding:10px 11px; background:#fff; color:var(--text); font-size:16px;
+}
+input:focus{outline:3px solid rgba(15,81,50,.14);border-color:var(--accent)}
+.topgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.matchhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.matchtitle{font-size:17px;font-weight:900}
+.winner{
+  font-size:12px;font-weight:900;background:#eef2ef;border-radius:999px;
+  padding:6px 9px;line-height:1.2;text-align:center;max-width:56%
+}
+.winner.has{background:var(--win)}
+.winner.warn{background:var(--warn)}
+.versus{
+  display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);
+  gap:8px;align-items:start;margin-bottom:10px
+}
+.side{min-width:0}
+.team-label{
+  font-size:12px;font-weight:900;color:var(--muted);margin-bottom:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.player{margin-bottom:6px}
+.vs{text-align:center;font-size:13px;font-weight:900;color:var(--muted);padding-top:36px}
+.scoreboard{
+  border-top:1px solid var(--line);padding-top:10px;
+}
+.score-head,.score-row{
+  display:grid;grid-template-columns:minmax(80px,1.2fr) minmax(64px,.8fr) minmax(64px,.8fr);
+  gap:8px;align-items:center
+}
+.score-head{
+  font-size:11px;font-weight:900;color:var(--muted);text-align:center;margin-bottom:6px
+}
+.score-head div:first-child{text-align:left}
+.score-row{margin-bottom:7px}
+.score-label{font-size:13px;font-weight:900;color:var(--text)}
+.score{
+  min-height:42px!important;font-size:20px!important;font-weight:900!important;
+  text-align:center!important;padding:6px!important
+}
+.tb-note{font-size:11px;color:var(--muted);margin-top:-1px}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.totalbox{padding:10px;background:var(--accent2);border-radius:13px}
+.totallabel{font-size:12px;font-weight:900}
+.totalnum{font-size:32px;font-weight:900;margin-top:2px}
+.overall{text-align:center;font-size:17px;font-weight:900;margin-top:10px}
+.sports{display:grid;grid-template-columns:1fr;gap:10px}
+.section-title{font-size:18px;font-weight:900;margin-bottom:10px}
+.recap{
+  white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);
+  border-radius:12px;padding:10px;font-size:13px;line-height:1.45;min-height:86px
+}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+button{
+  min-height:49px;border:0;border-radius:12px;font-weight:900;padding:10px;
+}
+.primary{background:var(--accent);color:#fff}
+.secondary{background:#e9eeeb;color:var(--text)}
+.note{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+@media(min-width:680px){
+  .topgrid{grid-template-columns:1fr 1fr 1fr}
+  .sports{grid-template-columns:1fr 1fr}
+}
+
+.format-nav{max-width:820px;margin:0 auto;padding:10px 12px 0}
+.format-nav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#0f5132;font-weight:800;font-size:14px;background:#e6f1eb;border-radius:999px;padding:9px 12px}
+
+</style>
+
+<link rel="stylesheet" href="halehuddle-tennis.css?v=brand1">
+<link rel="apple-touch-icon" href="app-icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+
+<header class="hh-app-header">
+  <div class="hh-app-header-inner">
+    <div class="hh-logo-wrap">
+      <div class="hh-logo"><span class="hale">HALE</span><span class="huddle">HUDDLE</span></div>
+      <div class="hh-product">TENNIS SCORECARD</div>
+    </div>
+    <div class="hh-tennis-chip">TENNIS</div>
+  </div>
+</header>
+
+<div class="format-nav"><a href="index.html?v=games4" aria-label="Back to scorecard formats">← Tennis Scorecards</a></div>
+<main>
+<h1>Team Tennis — 2 Sets + 10-Point Tiebreak</h1>
+<div class="sub">Two sets plus a 10-point match tiebreak for all four courts. Sets won and total games update automatically.</div>
+
+<section class="card">
+  <div class="topgrid">
+    <label><span>Date</span><input id="date" type="date"></label>
+    <label><span>Team 1</span><input id="teamA" type="text" placeholder="Team name"></label>
+    <label><span>Team 2</span><input id="teamB" type="text" placeholder="Team name"></label>
+  </div>
+</section>
+
+<section class="card match" data-name="Boys Singles">
+  <div class="matchhead">
+    <div class="matchtitle">Boys Singles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player name">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Opponent name">
+    </div>
+  </div>
+  <div class="scoreboard">
+    <div class="score-head"><div>Score</div><div class="score-team-a">Team 1</div><div class="score-team-b">Team 2</div></div>
+    <div class="score-row"><div class="score-label">Set 1</div><input class="score set1-a" type="number" inputmode="numeric" min="0" aria-label="Boys Singles Set 1 Team 1"><input class="score set1-b" type="number" inputmode="numeric" min="0" aria-label="Boys Singles Set 1 Team 2"></div>
+    <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0" aria-label="Boys Singles Set 2 Team 1"><input class="score set2-b" type="number" inputmode="numeric" min="0" aria-label="Boys Singles Set 2 Team 2"></div>
+    <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0" aria-label="Boys Singles 10 point tiebreak Team 1"><input class="score tb-b" type="number" inputmode="numeric" min="0" aria-label="Boys Singles 10 point tiebreak Team 2"></div>
+  </div>
+</section>
+
+<section class="card match" data-name="Girls Singles">
+  <div class="matchhead">
+    <div class="matchtitle">Girls Singles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player name">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Opponent name">
+    </div>
+  </div>
+  <div class="scoreboard">
+    <div class="score-head"><div>Score</div><div class="score-team-a">Team 1</div><div class="score-team-b">Team 2</div></div>
+    <div class="score-row"><div class="score-label">Set 1</div><input class="score set1-a" type="number" inputmode="numeric" min="0"><input class="score set1-b" type="number" inputmode="numeric" min="0"></div>
+    <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0"><input class="score set2-b" type="number" inputmode="numeric" min="0"></div>
+    <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0"><input class="score tb-b" type="number" inputmode="numeric" min="0"></div>
+  </div>
+</section>
+
+<section class="card match" data-name="Boys Doubles">
+  <div class="matchhead">
+    <div class="matchtitle">Boys Doubles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player 1">
+      <input class="player player-a2" type="text" placeholder="Player 2">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Player 1">
+      <input class="player player-b2" type="text" placeholder="Player 2">
+    </div>
+  </div>
+  <div class="scoreboard">
+    <div class="score-head"><div>Score</div><div class="score-team-a">Team 1</div><div class="score-team-b">Team 2</div></div>
+    <div class="score-row"><div class="score-label">Set 1</div><input class="score set1-a" type="number" inputmode="numeric" min="0"><input class="score set1-b" type="number" inputmode="numeric" min="0"></div>
+    <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0"><input class="score set2-b" type="number" inputmode="numeric" min="0"></div>
+    <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0"><input class="score tb-b" type="number" inputmode="numeric" min="0"></div>
+  </div>
+</section>
+
+<section class="card match" data-name="Girls Doubles">
+  <div class="matchhead">
+    <div class="matchtitle">Girls Doubles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player 1">
+      <input class="player player-a2" type="text" placeholder="Player 2">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Player 1">
+      <input class="player player-b2" type="text" placeholder="Player 2">
+    </div>
+  </div>
+  <div class="scoreboard">
+    <div class="score-head"><div>Score</div><div class="score-team-a">Team 1</div><div class="score-team-b">Team 2</div></div>
+    <div class="score-row"><div class="score-label">Set 1</div><input class="score set1-a" type="number" inputmode="numeric" min="0"><input class="score set1-b" type="number" inputmode="numeric" min="0"></div>
+    <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0"><input class="score set2-b" type="number" inputmode="numeric" min="0"></div>
+    <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0"><input class="score tb-b" type="number" inputmode="numeric" min="0"></div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">Team Totals</div>
+  <div class="totals">
+    <div class="totalbox">
+      <div id="setsLabelA" class="totallabel">Team 1 Sets Won</div>
+      <div id="setsA" class="totalnum">0</div>
+    </div>
+    <div class="totalbox">
+      <div id="setsLabelB" class="totallabel">Team 2 Sets Won</div>
+      <div id="setsB" class="totalnum">0</div>
+    </div>
+  </div>
+  <div class="totals" style="margin-top:10px">
+    <div class="totalbox">
+      <div id="gamesLabelA" class="totallabel">Team 1 Total Games</div>
+      <div id="gamesA" class="totalnum">0</div>
+    </div>
+    <div class="totalbox">
+      <div id="gamesLabelB" class="totallabel">Team 2 Total Games</div>
+      <div id="gamesB" class="totalnum">0</div>
+    </div>
+  </div>
+  <div id="overall" class="overall">Overall by Games: —</div>
+</section>
+
+<section class="card">
+  <div class="section-title">Sportsmanship Winners</div>
+  <div class="sports">
+    <label><span id="sportLabelA">Team 1</span><input id="sportA" type="text" placeholder="Player name"></label>
+    <label><span id="sportLabelB">Team 2</span><input id="sportB" type="text" placeholder="Player name"></label>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">Coach Recap</div>
+  <div id="recap" class="recap">Enter the match information above.</div>
+  <div class="actions">
+    <button id="shareBtn" class="primary" type="button">Text / Share</button>
+    <button id="newBtn" class="secondary" type="button">New Match</button>
+  </div>
+  <div class="note">Your current match saves automatically on this device.</div>
+</section>
+</main>
+
+<script>
+(function(){
+  const storeKey = 'jtt-scorecard-2sets-games-v4-readable';
+  const $ = id => document.getElementById(id);
+  const matches = Array.from(document.querySelectorAll('.match'));
+
+  function teamA(){ return $('teamA').value.trim() || 'Team 1'; }
+  function teamB(){ return $('teamB').value.trim() || 'Team 2'; }
+
+  function n(input){
+    if(!input || input.value === '') return null;
+    const v = Math.max(0, Math.min(99, Math.floor(Number(input.value) || 0)));
+    if(String(v) !== input.value) input.value = v;
+    return v;
+  }
+
+  function personList(card, side){
+    const vals = [];
+    const one = card.querySelector('.player-'+side+'1');
+    const two = card.querySelector('.player-'+side+'2');
+    if(one && one.value.trim()) vals.push(one.value.trim());
+    if(two && two.value.trim()) vals.push(two.value.trim());
+    return vals.join(' / ') || '—';
+  }
+
+  function matchResult(card){
+    const s1a=n(card.querySelector('.set1-a')), s1b=n(card.querySelector('.set1-b'));
+    const s2a=n(card.querySelector('.set2-a')), s2b=n(card.querySelector('.set2-b'));
+    const tba=n(card.querySelector('.tb-a')), tbb=n(card.querySelector('.tb-b'));
+
+    if(s1a===null || s1b===null || s2a===null || s2b===null){
+      return {winner:null,status:'incomplete'};
+    }
+    if(s1a===s1b || s2a===s2b){
+      return {winner:null,status:'invalid'};
+    }
+
+    let aw=0,bw=0;
+    if(s1a>s1b) aw++; else bw++;
+    if(s2a>s2b) aw++; else bw++;
+
+    if(aw===2) return {winner:'a',status:'complete'};
+    if(bw===2) return {winner:'b',status:'complete'};
+
+    if(tba===null || tbb===null) return {winner:null,status:'needtb'};
+    if(tba===tbb) return {winner:null,status:'invalidtb'};
+    return {winner:tba>tbb?'a':'b',status:'complete'};
+  }
+
+  function fmt(v){ return v===null ? '—' : String(v); }
+
+
+  function prettyDate(value){
+    if(!value) return '';
+    const parts=value.split('-');
+    if(parts.length!==3) return value;
+    const y=parts[0], m=String(Number(parts[1])), d=String(Number(parts[2]));
+    return m + '/' + d + '/' + y;
+  }
+
+  function update(){
+    let setsA=0, setsB=0, gamesA=0, gamesB=0, complete=0;
+
+    document.querySelectorAll('.team-a-label').forEach(el => el.textContent = teamA());
+    document.querySelectorAll('.team-b-label').forEach(el => el.textContent = teamB());
+    document.querySelectorAll('.score-team-a').forEach(el => el.textContent = teamA());
+    document.querySelectorAll('.score-team-b').forEach(el => el.textContent = teamB());
+
+    $('setsLabelA').textContent = teamA() + ' Sets Won';
+    $('setsLabelB').textContent = teamB() + ' Sets Won';
+    $('gamesLabelA').textContent = teamA() + ' Total Games';
+    $('gamesLabelB').textContent = teamB() + ' Total Games';
+    $('sportLabelA').textContent = teamA();
+    $('sportLabelB').textContent = teamB();
+
+    matches.forEach(card => {
+      const r = matchResult(card);
+      const w = card.querySelector('.winner');
+      const s1a=n(card.querySelector('.set1-a')), s1b=n(card.querySelector('.set1-b'));
+      const s2a=n(card.querySelector('.set2-a')), s2b=n(card.querySelector('.set2-b'));
+      const tba=n(card.querySelector('.tb-a')), tbb=n(card.querySelector('.tb-b'));
+
+      w.classList.remove('has','warn');
+
+      // Count completed set games and set wins.
+      if(s1a!==null && s1b!==null){
+        gamesA += s1a; gamesB += s1b;
+        if(s1a>s1b) setsA++;
+        else if(s1b>s1a) setsB++;
+      }
+      if(s2a!==null && s2b!==null){
+        gamesA += s2a; gamesB += s2b;
+        if(s2a>s2b) setsA++;
+        else if(s2b>s2a) setsB++;
+      }
+
+      // If a match tiebreak was played, count it as one game for the winner.
+      if(tba!==null && tbb!==null && tba!==tbb){
+        if(tba>tbb) gamesA += 1;
+        else gamesB += 1;
+      }
+
+      if(r.status==='complete'){
+        complete++;
+        w.textContent = 'Winner: ' + (r.winner==='a' ? teamA() : teamB());
+        w.classList.add('has');
+      }else if(r.status==='needtb'){
+        w.textContent = '10-pt TB needed';
+        w.classList.add('warn');
+      }else if(r.status==='invalid' || r.status==='invalidtb'){
+        w.textContent = 'Check score';
+        w.classList.add('warn');
+      }else{
+        w.textContent = 'Winner: —';
+      }
+    });
+
+    $('setsA').textContent = setsA;
+    $('setsB').textContent = setsB;
+    $('gamesA').textContent = gamesA;
+    $('gamesB').textContent = gamesB;
+
+    if(gamesA===0 && gamesB===0){
+      $('overall').textContent='Overall by Games: —';
+    }else if(gamesA>gamesB){
+      $('overall').textContent='Overall by Games: ' + teamA();
+    }else if(gamesB>gamesA){
+      $('overall').textContent='Overall by Games: ' + teamB();
+    }else{
+      $('overall').textContent='Overall by Games: Tie';
+    }
+
+    const lines=[];
+    const dateText=prettyDate($('date').value);
+
+    lines.push('JTT MATCH' + (dateText ? ' — ' + dateText : ''));
+    lines.push(teamA() + ' vs ' + teamB());
+    lines.push('');
+
+    matches.forEach(card => {
+      const r=matchResult(card);
+      const s1a=n(card.querySelector('.set1-a')), s1b=n(card.querySelector('.set1-b'));
+      const s2a=n(card.querySelector('.set2-a')), s2b=n(card.querySelector('.set2-b'));
+      const tba=n(card.querySelector('.tb-a')), tbb=n(card.querySelector('.tb-b'));
+      const win=r.status==='complete' ? (r.winner==='a' ? teamA() : teamB()) : '—';
+
+      const scores=[];
+      if(s1a!==null || s1b!==null) scores.push(fmt(s1a) + '-' + fmt(s1b));
+      if(s2a!==null || s2b!==null) scores.push(fmt(s2a) + '-' + fmt(s2b));
+      if(tba!==null || tbb!==null) scores.push('TB ' + fmt(tba) + '-' + fmt(tbb));
+
+      lines.push(card.dataset.name.toUpperCase());
+      lines.push(personList(card,'a') + ' vs ' + personList(card,'b'));
+      lines.push('Score: ' + (scores.length ? scores.join(', ') : '—'));
+      lines.push('Winner: ' + win);
+      lines.push('');
+    });
+
+    lines.push('TEAM TOTALS');
+    lines.push('Sets Won: ' + teamA() + ' ' + setsA + ' | ' + teamB() + ' ' + setsB);
+    lines.push('Total Games: ' + teamA() + ' ' + gamesA + ' | ' + teamB() + ' ' + gamesB);
+    lines.push('Overall: ' + (gamesA>gamesB ? teamA() : gamesB>gamesA ? teamB() : 'Tie'));
+    lines.push('');
+    lines.push('SPORTSMANSHIP');
+    lines.push(teamA() + ': ' + ($('sportA').value.trim() || '—'));
+    lines.push(teamB() + ': ' + ($('sportB').value.trim() || '—'));
+
+    $('recap').textContent=lines.join('\n');
+    save();
+  }
+
+  function snapshot(){
+    return {
+      date:$('date').value,
+      teamA:$('teamA').value,
+      teamB:$('teamB').value,
+      sportA:$('sportA').value,
+      sportB:$('sportB').value,
+      matches:matches.map(card => ({
+        a1:(card.querySelector('.player-a1')||{}).value || '',
+        a2:(card.querySelector('.player-a2')||{}).value || '',
+        b1:(card.querySelector('.player-b1')||{}).value || '',
+        b2:(card.querySelector('.player-b2')||{}).value || '',
+        s1a:card.querySelector('.set1-a').value,
+        s1b:card.querySelector('.set1-b').value,
+        s2a:card.querySelector('.set2-a').value,
+        s2b:card.querySelector('.set2-b').value,
+        tba:card.querySelector('.tb-a').value,
+        tbb:card.querySelector('.tb-b').value
+      }))
+    };
+  }
+
+  function save(){
+    try{ localStorage.setItem(storeKey,JSON.stringify(snapshot())); }catch(e){}
+  }
+
+  function load(){
+    try{
+      const s=JSON.parse(localStorage.getItem(storeKey)||'null');
+      if(!s) return;
+      $('date').value=s.date||'';
+      $('teamA').value=s.teamA||'';
+      $('teamB').value=s.teamB||'';
+      $('sportA').value=s.sportA||'';
+      $('sportB').value=s.sportB||'';
+
+      (s.matches||[]).forEach((m,i)=>{
+        const card=matches[i];
+        if(!card) return;
+        const pairs=[
+          ['.player-a1','a1'],['.player-a2','a2'],['.player-b1','b1'],['.player-b2','b2'],
+          ['.set1-a','s1a'],['.set1-b','s1b'],['.set2-a','s2a'],['.set2-b','s2b'],
+          ['.tb-a','tba'],['.tb-b','tbb']
+        ];
+        pairs.forEach(([sel,key])=>{
+          const el=card.querySelector(sel);
+          if(el) el.value=m[key]||'';
+        });
+      });
+    }catch(e){}
+  }
+
+  document.querySelectorAll('input').forEach(el=>el.addEventListener('input',update));
+
+  $('shareBtn').addEventListener('click',async()=>{
+    const text=$('recap').textContent;
+    if(navigator.share){
+      try{
+        await navigator.share({title:'TEAM TENNIS MATCH Recap',text});
+        return;
+      }catch(e){
+        if(e && e.name==='AbortError') return;
+      }
+    }
+    const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+    location.href=(isiOS?'sms:&body=':'sms:?body=')+encodeURIComponent(text);
+  });
+
+  $('newBtn').addEventListener('click',()=>{
+    if(!confirm('Start a new match and clear this scorecard?')) return;
+    try{localStorage.removeItem(storeKey)}catch(e){}
+    document.querySelectorAll('input').forEach(el=>el.value='');
+    update();
+  });
+
+  load();
+  update();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "HaleHuddle Tennis Scorecard",
+  "short_name": "HH Tennis",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#83B7DF",
+  "theme_color": "#135BE8",
+  "icons": [
+    {
+      "src": "app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

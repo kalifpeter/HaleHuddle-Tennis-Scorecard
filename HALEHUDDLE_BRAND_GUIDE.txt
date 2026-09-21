@@ -1,0 +1,42 @@
+HALEHUDDLE BRAND KIT
+
+CURRENT WORDMARK
+- Text: HALEHUDDLE
+- HALE: italic / approximately 7° left skew
+- HUDDLE: upright
+- Tight spacing between HALE and HUDDLE
+- Primary logo color: white (#FFFFFF)
+- Do not use the old black/gold logo treatment.
+
+CORE HEADER GRADIENT
+#135BE8 → #0797D2 (50%) → #662BD9
+
+APP BACKGROUND GRADIENT
+#76BFE1 → #83B7DF → #9AA8EA → #9C91EF
+
+PRIMARY BUTTON
+#2994FF → #1268DE
+3D shadow: #0B4FAE
+
+ACTIVE / SELECTED GRADIENT
+#27B8F3 → #5F65E8 → #8A34DC
+
+DANGER / DELETE GRADIENT
+#E53A96 → #BD2FC8 → #7B3EE2
+
+TEXT
+Main ink: #0A2442
+Strong title: #0A2948
+Secondary: #40596F
+White: #FFFFFF
+
+TENNIS ACCENT
+#69D34F → #2FAE62
+
+LIGHT CARD SURFACES
+#DCE8F2 → #C7D8E5 → #D3E1EC
+
+For the tennis match-scoring app:
+Use the blue/cyan/purple header gradient, white HALEHUDDLE wordmark,
+dark navy text, the blue primary button gradient, and tennis green as
+the sport-specific accent.

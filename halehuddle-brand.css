@@ -1,0 +1,86 @@
+/* HaleHuddle current brand system — pulled from the locked app styling */
+:root {
+  /* Core */
+  --hh-header-blue: #135BE8;
+  --hh-header-cyan: #0797D2;
+  --hh-header-purple: #662BD9;
+
+  --hh-page-blue-1: #76BFE1;
+  --hh-page-blue-2: #83B7DF;
+  --hh-page-lavender-1: #9AA8EA;
+  --hh-page-lavender-2: #9C91EF;
+
+  --hh-ink: #0A2442;
+  --hh-title: #0A2948;
+  --hh-muted: #40596F;
+  --hh-white: #FFFFFF;
+
+  /* Actions */
+  --hh-primary-top: #2994FF;
+  --hh-primary-bottom: #1268DE;
+  --hh-primary-shadow: #0B4FAE;
+
+  --hh-active-cyan: #27B8F3;
+  --hh-active-blue: #5F65E8;
+  --hh-active-purple: #8A34DC;
+
+  --hh-danger-pink: #E53A96;
+  --hh-danger-magenta: #BD2FC8;
+  --hh-danger-purple: #7B3EE2;
+
+  /* Tennis accent */
+  --hh-tennis-green-1: #69D34F;
+  --hh-tennis-green-2: #2FAE62;
+
+  /* Light surfaces */
+  --hh-card-1: #DCE8F2;
+  --hh-card-2: #C7D8E5;
+  --hh-card-3: #D3E1EC;
+}
+
+.hh-brand-header {
+  background: linear-gradient(122deg,
+    var(--hh-header-blue),
+    var(--hh-header-cyan) 50%,
+    var(--hh-header-purple));
+  color: white;
+}
+
+.hh-page-bg {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(0,224,255,.32) 0, transparent 30%),
+    radial-gradient(circle at 88% 30%, rgba(104,52,255,.30) 0, transparent 34%),
+    linear-gradient(145deg,
+      var(--hh-page-blue-1) 0%,
+      var(--hh-page-blue-2) 38%,
+      var(--hh-page-lavender-1) 70%,
+      var(--hh-page-lavender-2) 100%);
+}
+
+.hh-primary-button {
+  background: linear-gradient(180deg,
+    var(--hh-primary-top),
+    var(--hh-primary-bottom));
+  color: #fff;
+  border: 1px solid #0C56BD;
+  box-shadow: 0 7px 0 var(--hh-primary-shadow);
+}
+
+.hh-logo {
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 22px;
+  font-weight: 950;
+  letter-spacing: .7px;
+  white-space: nowrap;
+}
+.hh-logo .hale {
+  display: inline-block;
+  font-style: italic;
+  transform: skewX(-7deg);
+  transform-origin: center bottom;
+  margin-right: .035em;
+}
+.hh-logo .huddle {
+  font-style: normal;
+}

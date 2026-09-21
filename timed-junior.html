@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#135BE8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HaleHuddle Tennis">
+<title>HaleHuddle Tennis Scorecard — Junior Timed Match</title>
+<style>
+:root{
+  --bg:#f4f7f5;--card:#fff;--text:#17211b;--muted:#657269;
+  --line:#d7ded9;--accent:#0f5132;--accent2:#e6f1eb;--win:#dff3e7;--warn:#fff4d6
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+main{max-width:820px;margin:0 auto;padding:14px 12px 40px}
+.back{display:inline-block;text-decoration:none;color:var(--accent);background:var(--accent2);padding:10px 14px;border-radius:999px;font-weight:900;margin:2px 0 18px}
+h1{font-size:25px;margin:8px 0 4px}
+.sub{color:var(--muted);font-size:14px;line-height:1.4;margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:12px;margin-bottom:10px}
+.section-title{font-size:18px;font-weight:900;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+label span,.small-label{display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--muted)}
+input,select,button{font:inherit}
+input[type=text],input[type=date],input[type=number],select{
+  width:100%;min-height:46px;border:1px solid var(--line);border-radius:11px;
+  padding:10px 11px;background:#fff;color:var(--text);font-size:16px
+}
+input:focus,select:focus{outline:3px solid rgba(15,81,50,.14);border-color:var(--accent)}
+.setup-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 11px}
+.primary{background:var(--accent);color:#fff}
+.secondary{background:#e9eeeb;color:var(--text)}
+.danger{background:#f3e8e8;color:#742c2c}
+.match-card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:12px;margin-bottom:10px}
+.matchhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.matchtitle{font-size:17px;font-weight:900}
+.result{font-size:12px;font-weight:900;background:#eef2ef;border-radius:999px;padding:6px 9px;text-align:center;max-width:54%}
+.result.has{background:var(--win)}
+.result.warn{background:var(--warn)}
+.versus{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr);gap:8px;align-items:start}
+.team-label{font-size:12px;font-weight:900;color:var(--muted);margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player{margin-bottom:6px}
+.vs{text-align:center;font-size:13px;font-weight:900;color:var(--muted);padding-top:35px}
+.score-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.score{font-size:24px!important;font-weight:900!important;text-align:center!important}
+.timerbox{margin-top:12px;border-top:1px solid var(--line);padding-top:11px}
+.timer{font-size:34px;font-weight:900;text-align:center;letter-spacing:1px}
+.timer.running{color:var(--accent)}
+.timer-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:9px}
+.timer-actions button{font-size:12px;min-height:42px;padding:7px 5px}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.totalbox{padding:10px;background:var(--accent2);border-radius:13px}
+.totallabel{font-size:12px;font-weight:900}
+.totalnum{font-size:30px;font-weight:900;margin-top:2px}
+.overall{text-align:center;font-size:17px;font-weight:900;margin-top:10px}
+.sports{display:grid;grid-template-columns:1fr;gap:10px}
+.recap{white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:13px;line-height:1.45;min-height:90px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.note{font-size:12px;color:var(--muted);line-height:1.4;margin-top:8px}
+.empty{padding:20px;text-align:center;color:var(--muted);font-weight:700}
+@media(min-width:680px){
+  .grid.five{grid-template-columns:repeat(5,1fr)}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  .sports{grid-template-columns:1fr 1fr}
+}
+</style>
+
+<link rel="stylesheet" href="halehuddle-tennis.css?v=brand1">
+<link rel="apple-touch-icon" href="app-icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+</head>
+<body>
+
+<header class="hh-app-header">
+  <div class="hh-app-header-inner">
+    <div class="hh-logo-wrap">
+      <div class="hh-logo"><span class="hale">HALE</span><span class="huddle">HUDDLE</span></div>
+      <div class="hh-product">TENNIS SCORECARD</div>
+    </div>
+    <div class="hh-tennis-chip">TENNIS</div>
+  </div>
+</header>
+
+<main>
+<a class="back" href="index.html?v=timed1">← Tennis Scorecards</a>
+<h1>Junior Timed Match</h1>
+<div class="sub">For Orange Ball or Green Ball timed team matches. Choose the number of singles and doubles courts you need, then run each court's timer and enter the final score.</div>
+
+<section class="card">
+  <div class="section-title">Match Setup</div>
+  <div class="grid three">
+    <label><span>Date</span><input id="date" type="date"></label>
+    <label><span>Team 1</span><input id="teamA" type="text" placeholder="Team name"></label>
+    <label><span>Team 2</span><input id="teamB" type="text" placeholder="Team name"></label>
+  </div>
+  <div class="grid five" style="margin-top:10px">
+    <label><span>Ball</span>
+      <select id="ballType">
+        <option value="Orange Ball">Orange Ball</option>
+        <option value="Green Ball">Green Ball</option>
+      </select>
+    </label>
+    <label><span>Singles</span>
+      <select id="singlesCount">
+        <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+      </select>
+    </label>
+    <label><span>Doubles</span>
+      <select id="doublesCount">
+        <option>0</option><option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option>
+      </select>
+    </label>
+    <label><span>Minutes</span><input id="minutes" type="number" inputmode="numeric" min="1" max="90" value="20"></label>
+    <div>
+      <span class="small-label">Setup</span>
+      <button id="applyBtn" class="primary" type="button" style="width:100%">Apply</button>
+    </div>
+  </div>
+  <div class="note">Default is 2 singles + 2 doubles. Change the counts or match length, then tap Apply. Each court gets its own independent timer.</div>
+</section>
+
+<div id="matches"></div>
+
+<section class="card">
+  <div class="section-title">Team Totals</div>
+  <div class="totals">
+    <div class="totalbox">
+      <div id="winsLabelA" class="totallabel">Team 1 Match Wins</div>
+      <div id="winsA" class="totalnum">0</div>
+    </div>
+    <div class="totalbox">
+      <div id="winsLabelB" class="totallabel">Team 2 Match Wins</div>
+      <div id="winsB" class="totalnum">0</div>
+    </div>
+  </div>
+  <div class="totals" style="margin-top:10px">
+    <div class="totalbox">
+      <div id="scoreLabelA" class="totallabel">Team 1 Total Score</div>
+      <div id="scoreA" class="totalnum">0</div>
+    </div>
+    <div class="totalbox">
+      <div id="scoreLabelB" class="totallabel">Team 2 Total Score</div>
+      <div id="scoreB" class="totalnum">0</div>
+    </div>
+  </div>
+  <div id="overall" class="overall">Overall: —</div>
+</section>
+
+<section class="card">
+  <div class="section-title">Sportsmanship Winners</div>
+  <div class="sports">
+    <label><span id="sportLabelA">Team 1</span><input id="sportA" type="text" placeholder="Player name"></label>
+    <label><span id="sportLabelB">Team 2</span><input id="sportB" type="text" placeholder="Player name"></label>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">Coach Recap</div>
+  <div id="recap" class="recap">Set up the match above.</div>
+  <div class="actions">
+    <button id="shareBtn" class="primary" type="button">Text / Share</button>
+    <button id="newBtn" class="secondary" type="button">New Match</button>
+  </div>
+</section>
+</main>
+
+<script>
+(function(){
+  const storeKey='jtt-junior-timed-v1';
+  const $=id=>document.getElementById(id);
+  const matchesHost=$('matches');
+  let state=null;
+  let tickId=null;
+
+  function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
+  function intVal(v,fallback=0){ const n=Math.floor(Number(v)); return Number.isFinite(n)?n:fallback; }
+  function teamA(){ return $('teamA').value.trim() || 'Team 1'; }
+  function teamB(){ return $('teamB').value.trim() || 'Team 2'; }
+
+  function defaultState(){
+    return {
+      setup:{ballType:'Orange Ball',singles:2,doubles:2,minutes:20},
+      courts:[]
+    };
+  }
+
+  function makeCourt(type,index,minutes){
+    return {
+      id:type.toLowerCase()+'-'+index,
+      label:index+' '+type,
+      type,
+      pA1:'',pA2:'',pB1:'',pB2:'',
+      scoreA:'',scoreB:'',
+      duration:minutes*60,
+      remaining:minutes*60,
+      running:false,
+      ended:false,
+      endAt:null
+    };
+  }
+
+  function buildCourts(singles,doubles,minutes,oldCourts=[]){
+    const oldById=new Map(oldCourts.map(c=>[c.id,c]));
+    const arr=[];
+    for(let i=1;i<=singles;i++){
+      const c=makeCourt('Singles',i,minutes);
+      arr.push(Object.assign(c,oldById.get(c.id)||{}));
+    }
+    for(let i=1;i<=doubles;i++){
+      const c=makeCourt('Doubles',i,minutes);
+      arr.push(Object.assign(c,oldById.get(c.id)||{}));
+    }
+    return arr;
+  }
+
+  function save(){
+    const payload={
+      date:$('date').value,teamA:$('teamA').value,teamB:$('teamB').value,
+      sportA:$('sportA').value,sportB:$('sportB').value,
+      setup:state.setup,courts:state.courts
+    };
+    try{localStorage.setItem(storeKey,JSON.stringify(payload))}catch(e){}
+  }
+
+  function load(){
+    let saved=null;
+    try{saved=JSON.parse(localStorage.getItem(storeKey)||'null')}catch(e){}
+    state=defaultState();
+    if(saved){
+      state.setup=saved.setup||state.setup;
+      state.courts=saved.courts||[];
+      $('date').value=saved.date||'';
+      $('teamA').value=saved.teamA||'';
+      $('teamB').value=saved.teamB||'';
+      $('sportA').value=saved.sportA||'';
+      $('sportB').value=saved.sportB||'';
+    }
+    $('ballType').value=state.setup.ballType||'Orange Ball';
+    $('singlesCount').value=String(state.setup.singles??2);
+    $('doublesCount').value=String(state.setup.doubles??2);
+    $('minutes').value=String(state.setup.minutes??20);
+
+    if(!state.courts.length){
+      state.courts=buildCourts(state.setup.singles,state.setup.doubles,state.setup.minutes);
+    }
+    // Recover running timers after returning to the page.
+    const now=Date.now();
+    state.courts.forEach(c=>{
+      if(c.running && c.endAt){
+        c.remaining=Math.max(0,Math.ceil((c.endAt-now)/1000));
+        if(c.remaining<=0){ c.running=false;c.ended=true;c.endAt=null; }
+      }
+    });
+  }
+
+  function prettyDate(v){
+    if(!v)return '';
+    const p=v.split('-');
+    return p.length===3 ? Number(p[1])+'/'+Number(p[2])+'/'+p[0] : v;
+  }
+
+  function fmtTime(sec){
+    sec=Math.max(0,intVal(sec));
+    const m=Math.floor(sec/60),s=sec%60;
+    return String(m)+':'+String(s).padStart(2,'0');
+  }
+
+  function scoreNum(v){
+    if(v===''||v===null||v===undefined)return null;
+    return clamp(intVal(v),0,999);
+  }
+
+  function courtResult(c){
+    const a=scoreNum(c.scoreA),b=scoreNum(c.scoreB);
+    if(a===null||b===null)return null;
+    if(a===b)return 'Tie';
+    return a>b?'A':'B';
+  }
+
+  function render(){
+    matchesHost.innerHTML='';
+    if(!state.courts.length){
+      matchesHost.innerHTML='<section class="card empty">Choose at least one Singles or Doubles match above, then tap Apply.</section>';
+    }
+
+    state.courts.forEach((c,idx)=>{
+      const el=document.createElement('section');
+      el.className='match-card';
+      const doubles=c.type==='Doubles';
+      el.innerHTML=`
+        <div class="matchhead">
+          <div class="matchtitle">${c.label}</div>
+          <div class="result" data-role="result">Winner: —</div>
+        </div>
+        <div class="versus">
+          <div>
+            <div class="team-label team-a-label"></div>
+            <input class="player a1" type="text" placeholder="${doubles?'Player 1':'Player name'}" value="${escapeHtml(c.pA1)}">
+            ${doubles?`<input class="player a2" type="text" placeholder="Player 2" value="${escapeHtml(c.pA2)}">`:''}
+          </div>
+          <div class="vs">VS</div>
+          <div>
+            <div class="team-label team-b-label"></div>
+            <input class="player b1" type="text" placeholder="${doubles?'Player 1':'Opponent name'}" value="${escapeHtml(c.pB1)}">
+            ${doubles?`<input class="player b2" type="text" placeholder="Player 2" value="${escapeHtml(c.pB2)}">`:''}
+          </div>
+        </div>
+        <div class="score-row">
+          <label><span class="team-a-label"></span><input class="score sa" type="number" inputmode="numeric" min="0" placeholder="Score" value="${escapeHtml(c.scoreA)}"></label>
+          <label><span class="team-b-label"></span><input class="score sb" type="number" inputmode="numeric" min="0" placeholder="Score" value="${escapeHtml(c.scoreB)}"></label>
+        </div>
+        <div class="timerbox">
+          <div class="timer ${c.running?'running':''}" data-role="timer">${fmtTime(c.remaining)}</div>
+          <div class="timer-actions">
+            <button class="primary start" type="button">${c.running?'Running':'Start'}</button>
+            <button class="secondary pause" type="button">Pause</button>
+            <button class="secondary reset" type="button">Reset</button>
+            <button class="danger end" type="button">End</button>
+          </div>
+        </div>
+      `;
+      matchesHost.appendChild(el);
+
+      const q=s=>el.querySelector(s);
+      q('.a1').addEventListener('input',e=>{c.pA1=e.target.value;update();});
+      if(doubles)q('.a2').addEventListener('input',e=>{c.pA2=e.target.value;update();});
+      q('.b1').addEventListener('input',e=>{c.pB1=e.target.value;update();});
+      if(doubles)q('.b2').addEventListener('input',e=>{c.pB2=e.target.value;update();});
+      q('.sa').addEventListener('input',e=>{c.scoreA=e.target.value;update();});
+      q('.sb').addEventListener('input',e=>{c.scoreB=e.target.value;update();});
+
+      q('.start').addEventListener('click',()=>{
+        if(c.remaining<=0)c.remaining=c.duration;
+        c.running=true;c.ended=false;c.endAt=Date.now()+c.remaining*1000;
+        save();render();
+      });
+      q('.pause').addEventListener('click',()=>{
+        if(c.running && c.endAt)c.remaining=Math.max(0,Math.ceil((c.endAt-Date.now())/1000));
+        c.running=false;c.endAt=null;save();render();
+      });
+      q('.reset').addEventListener('click',()=>{
+        c.running=false;c.ended=false;c.endAt=null;c.remaining=c.duration;save();render();
+      });
+      q('.end').addEventListener('click',()=>{
+        c.running=false;c.ended=true;c.endAt=null;c.remaining=0;save();render();
+      });
+    });
+
+    update(false);
+  }
+
+  function escapeHtml(v){
+    return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function names(c,side){
+    const vals=[];
+    if(side==='A'){if(c.pA1.trim())vals.push(c.pA1.trim());if(c.pA2.trim())vals.push(c.pA2.trim());}
+    else{if(c.pB1.trim())vals.push(c.pB1.trim());if(c.pB2.trim())vals.push(c.pB2.trim());}
+    return vals.join(' / ')||'—';
+  }
+
+  function update(doSave=true){
+    let winsA=0,winsB=0,totalA=0,totalB=0;
+
+    document.querySelectorAll('.team-a-label').forEach(el=>el.textContent=teamA());
+    document.querySelectorAll('.team-b-label').forEach(el=>el.textContent=teamB());
+    $('winsLabelA').textContent=teamA()+' Match Wins';
+    $('winsLabelB').textContent=teamB()+' Match Wins';
+    $('scoreLabelA').textContent=teamA()+' Total Score';
+    $('scoreLabelB').textContent=teamB()+' Total Score';
+    $('sportLabelA').textContent=teamA();
+    $('sportLabelB').textContent=teamB();
+
+    state.courts.forEach((c,i)=>{
+      const a=scoreNum(c.scoreA),b=scoreNum(c.scoreB),r=courtResult(c);
+      if(a!==null)totalA+=a;if(b!==null)totalB+=b;
+      if(r==='A')winsA++;else if(r==='B')winsB++;
+
+      const card=matchesHost.children[i];
+      if(card){
+        const pill=card.querySelector('[data-role=result]');
+        pill.classList.remove('has','warn');
+        if(r==='Tie'){pill.textContent=(c.ended?'Result: ':'Leader: ')+'Tie';pill.classList.add('warn');}
+        else if(r==='A'||r==='B'){
+          pill.textContent=(c.ended?'Winner: ':'Leader: ')+(r==='A'?teamA():teamB());
+          pill.classList.add('has');
+        }else pill.textContent='Winner: —';
+      }
+    });
+
+    $('winsA').textContent=winsA;$('winsB').textContent=winsB;
+    $('scoreA').textContent=totalA;$('scoreB').textContent=totalB;
+    $('overall').textContent='Overall by Total Score: '+(
+      totalA===0&&totalB===0?'—':totalA>totalB?teamA():totalB>totalA?teamB():'Tie'
+    );
+
+    const lines=[];
+    const d=prettyDate($('date').value);
+    lines.push('HALEHUDDLE JUNIOR TIMED MATCH'+(d?' — '+d:''));
+    lines.push(state.setup.ballType);
+    lines.push(teamA()+' vs '+teamB());
+    lines.push('');
+
+    state.courts.forEach(c=>{
+      const r=courtResult(c);
+      lines.push(c.label.toUpperCase());
+      lines.push(names(c,'A')+' vs '+names(c,'B'));
+      lines.push('Score: '+(c.scoreA||'—')+'-'+(c.scoreB||'—'));
+      lines.push('Winner: '+(r==='A'?teamA():r==='B'?teamB():r==='Tie'?'Tie':'—'));
+      lines.push('');
+    });
+
+    lines.push('TEAM TOTALS');
+    lines.push('Match Wins: '+teamA()+' '+winsA+' | '+teamB()+' '+winsB);
+    lines.push('Total Score: '+teamA()+' '+totalA+' | '+teamB()+' '+totalB);
+    lines.push('Overall: '+(totalA>totalB?teamA():totalB>totalA?teamB():'Tie'));
+    lines.push('');
+    lines.push('SPORTSMANSHIP');
+    lines.push(teamA()+': '+($('sportA').value.trim()||'—'));
+    lines.push(teamB()+': '+($('sportB').value.trim()||'—'));
+    $('recap').textContent=lines.join('\n');
+
+    if(doSave)save();
+  }
+
+  $('applyBtn').addEventListener('click',()=>{
+    const singles=clamp(intVal($('singlesCount').value,2),0,8);
+    const doubles=clamp(intVal($('doublesCount').value,2),0,8);
+    const minutes=clamp(intVal($('minutes').value,20),1,90);
+    state.setup={ballType:$('ballType').value,singles,doubles,minutes};
+    state.courts=buildCourts(singles,doubles,minutes,state.courts);
+    state.courts.forEach(c=>{
+      if(!c.running && !c.ended){c.duration=minutes*60;c.remaining=minutes*60;}
+    });
+    save();render();
+  });
+
+  ['date','teamA','teamB','sportA','sportB'].forEach(id=>$(id).addEventListener('input',()=>update()));
+  $('ballType').addEventListener('change',()=>{state.setup.ballType=$('ballType').value;update();});
+
+  $('shareBtn').addEventListener('click',async()=>{
+    const text=$('recap').textContent;
+    if(navigator.share){
+      try{await navigator.share({title:'Junior Timed Match Recap',text});return}
+      catch(e){if(e&&e.name==='AbortError')return}
+    }
+    const isiOS=/iPad|iPhone|iPod/.test(navigator.userAgent);
+    location.href=(isiOS?'sms:&body=':'sms:?body=')+encodeURIComponent(text);
+  });
+
+  $('newBtn').addEventListener('click',()=>{
+    if(!confirm('Start a new match and clear this timed scorecard?'))return;
+    try{localStorage.removeItem(storeKey)}catch(e){}
+    state=defaultState();
+    $('date').value='';$('teamA').value='';$('teamB').value='';$('sportA').value='';$('sportB').value='';
+    $('ballType').value='Orange Ball';$('singlesCount').value='2';$('doublesCount').value='2';$('minutes').value='20';
+    state.courts=buildCourts(2,2,20);
+    save();render();
+  });
+
+  function tick(){
+    let changed=false;
+    const now=Date.now();
+    state.courts.forEach(c=>{
+      if(c.running && c.endAt){
+        const next=Math.max(0,Math.ceil((c.endAt-now)/1000));
+        if(next!==c.remaining){c.remaining=next;changed=true}
+        if(c.remaining<=0){c.running=false;c.ended=true;c.endAt=null;changed=true}
+      }
+    });
+    if(changed){
+      state.courts.forEach((c,i)=>{
+        const card=matchesHost.children[i];
+        if(card){
+          const t=card.querySelector('[data-role=timer]');
+          if(t){t.textContent=fmtTime(c.remaining);t.classList.toggle('running',c.running)}
+          const pill=card.querySelector('[data-role=result]');
+          const r=courtResult(c);
+          if(pill&&c.ended&&(r==='A'||r==='B'||r==='Tie')){
+            pill.textContent='Winner: '+(r==='A'?teamA():r==='B'?teamB():'Tie');
+          }
+        }
+      });
+      save();
+    }
+  }
+
+  load();
+  render();
+  tickId=setInterval(tick,1000);
+})();
+</script>
+</body>
+</html>

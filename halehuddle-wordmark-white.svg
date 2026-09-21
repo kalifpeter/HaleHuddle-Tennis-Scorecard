@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="180" viewBox="0 0 920 180">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="3" flood-color="#041D3E" flood-opacity="0.20"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)" fill="#FFFFFF" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif"
+     font-size="118" font-weight="900">
+    <text x="28" y="128" font-style="italic" transform="skewX(-7)">HALE</text>
+    <text x="315" y="128">HUDDLE</text>
+  </g>
+</svg>
