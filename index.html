@@ -35,16 +35,18 @@ background:linear-gradient(135deg,rgba(105,211,79,.25),rgba(47,174,98,.28));padd
   <div class="hh-app-header-inner">
     <div class="hh-logo-wrap">
       <div class="hh-logo"><span class="hale">HALE</span><span class="huddle">HUDDLE</span></div>
-      <div class="hh-product">TENNIS SCORECARD</div>
+      <div class="hh-product">TEAMS — TENNIS</div>
     </div>
     <div class="hh-tennis-chip">TENNIS</div>
   </div>
 </header>
 
 <main>
-  <div class="product-kicker">STANDALONE SCORECARD • HALEHUDDLE ADD-ON</div>
-  <h1 class="hero-title">HaleHuddle Tennis Scorecard</h1>
-  <p class="sub">Fast, phone-friendly team tennis scoring for parents, captains and coaches. Choose the match format you need; each scorecard saves separately on this device.</p>
+  <div class="product-kicker">HALEHUDDLE TEAMS — TENNIS</div>
+  <h1 class="hero-title" id="teamTitle">HaleHuddle Teams — Tennis</h1>
+  <p class="sub" id="teamSub">Fast, phone-friendly team tennis scoring for parents, captains and coaches.</p>
+
+  <a class="choice" href="team-setup.html"><div class="choice-top"><h2>Team Setup</h2><div class="arrow">›</div></div><p>Enter your team name, upload your team logo, choose team colors, competition level and season.</p><span class="badge">Customize your team</span></a>
 
   <a class="choice" href="single-set.html">
     <div class="choice-top"><h2>Single Set Team Match</h2><div class="arrow">›</div></div>
@@ -73,5 +75,5 @@ background:linear-gradient(135deg,rgba(105,211,79,.25),rgba(47,174,98,.28));padd
 
   <div class="hh-sell-banner"><strong>Track every match. Share every result. Keep the season together.</strong></div>
 </main>
-</body>
+<script>try{const t=JSON.parse(localStorage.getItem("halehuddle-teams-tennis-team-v1")||"null");if(t&&t.teamName){document.getElementById("teamTitle").textContent=t.teamName;document.getElementById("teamSub").textContent=[t.level,t.season,"HaleHuddle Teams — Tennis"].filter(Boolean).join(" • ");document.documentElement.style.setProperty("--team-primary",t.primary||"#135BE8");}}catch(e){}</script></body>
 </html>
