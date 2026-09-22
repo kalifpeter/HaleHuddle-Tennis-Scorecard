@@ -42,7 +42,7 @@ background:linear-gradient(135deg,rgba(105,211,79,.25),rgba(47,174,98,.28));padd
 </header>
 
 <main>
-  <div class="product-kicker">HALEHUDDLE TEAMS — TENNIS</div>
+  <div class="product-kicker" id="productKicker">HALEHUDDLE TEAMS — TENNIS</div>
   <h1 class="hero-title" id="teamTitle">HaleHuddle Teams — Tennis</h1>
   <p class="sub" id="teamSub">Fast, phone-friendly team tennis scoring for parents, captains and coaches.</p>
 
@@ -79,5 +79,5 @@ background:linear-gradient(135deg,rgba(105,211,79,.25),rgba(47,174,98,.28));padd
 
   <div class="hh-sell-banner"><strong>Track every match. Share every result. Keep the season together.</strong></div>
 </main>
-<script>try{const t=JSON.parse(localStorage.getItem("halehuddle-teams-tennis-team-v1")||"null");if(t&&t.teamName){document.getElementById("teamTitle").textContent=t.teamName;document.getElementById("teamSub").textContent=[t.level,t.season,"HaleHuddle Teams — Tennis"].filter(Boolean).join(" • ");document.documentElement.style.setProperty("--team-primary",t.primary||"#135BE8");}}catch(e){}</script></body>
+<script>try{const t=JSON.parse(localStorage.getItem("halehuddle-teams-tennis-team-v1")||"null");if(t&&t.teamName){document.getElementById("productKicker").textContent=["HALEHUDDLE TEAMS","TENNIS",t.level].filter(Boolean).join(" — ");document.getElementById("teamTitle").textContent=t.teamName;document.getElementById("teamSub").textContent=t.season||"";document.documentElement.style.setProperty("--team-primary",t.primary||"#135BE8");}}catch(e){}</script></body>
 </html>
