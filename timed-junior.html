@@ -224,7 +224,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     try{
       if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))
         throw new Error('Notifications require the installed Home Screen app on a supported browser.');
-      const reg=await navigator.serviceWorker.register('sw.js?v=locked-screen-2',{scope:'./',updateViaCache:'none'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=locked-screen-3',{scope:'./',updateViaCache:'none'});
       await reg.update();
       await navigator.serviceWorker.ready;
       const permission=await Notification.requestPermission();
@@ -241,14 +241,45 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       status.textContent=(e&&e.message)?e.message:String(e);
     }
   }
+  async function ensurePushReady(){
+    if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))
+      throw new Error('Locked-screen notifications are not supported here. Open the installed Home Screen app.');
+    if(Notification.permission!=='granted')
+      throw new Error('Tap Enable iPhone Notifications before starting the timer.');
+    const reg=await navigator.serviceWorker.register('sw.js?v=locked-screen-3',{scope:'./',updateViaCache:'none'});
+    await reg.update();
+    await navigator.serviceWorker.ready;
+    let sub=await reg.pushManager.getSubscription();
+    let token=localStorage.getItem(PUSH_TOKEN_KEY);
+    if(!sub){
+      const k=await pushCall({action:'public-key'});
+      sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8(k.publicKey)});
+      token=null;
+    }
+    if(!token){
+      const saved=await pushCall({action:'subscribe',subscription:sub.toJSON()});
+      token=saved.deviceToken;
+      localStorage.setItem(PUSH_TOKEN_KEY,token);
+    }
+    return token;
+  }
   async function schedulePush(c){
-    const token=localStorage.getItem(PUSH_TOKEN_KEY);
-    if(!token||!c.endAt)return;
+    if(!c.endAt)return false;
+    const status=$('pushStatus');
     try{
+      status.textContent='Scheduling locked-screen alert…';
+      const token=await ensurePushReady();
       if(c.pushAlertId)await cancelPush(c);
-      const r=await pushCall({action:'schedule',deviceToken:token,courtLabel:c.label,fireAt:new Date(c.endAt).toISOString()});
-      c.pushAlertId=r.alertId||null; save();
-    }catch(e){}
+      const fireAt=new Date(c.endAt).toISOString();
+      const r=await pushCall({action:'schedule',deviceToken:token,courtLabel:c.label,fireAt});
+      if(!r.alertId)throw new Error('The notification server did not confirm the timer alert.');
+      c.pushAlertId=r.alertId; save();
+      status.textContent='Locked-screen alert scheduled for this timer.';
+      return true;
+    }catch(e){
+      status.textContent='Locked-screen alert NOT scheduled: '+((e&&e.message)?e.message:String(e));
+      return false;
+    }
   }
   async function cancelPush(c){
     const token=localStorage.getItem(PUSH_TOKEN_KEY), id=c.pushAlertId;
@@ -261,7 +292,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     $('pushStatus').textContent='Notifications previously enabled on this device.';
     $('enablePush').textContent='Refresh Notification Permission';
   }
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=locked-screen-2',{scope:'./',updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=locked-screen-3',{scope:'./',updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 
   const timerAudio=$('timerAlertAudio');
 
