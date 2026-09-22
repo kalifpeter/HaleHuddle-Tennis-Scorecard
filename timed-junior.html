@@ -224,15 +224,15 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     try{
       if(!('serviceWorker' in navigator)||!('PushManager' in window)||!('Notification' in window))
         throw new Error('Notifications require the installed Home Screen app on a supported browser.');
-      const reg=await navigator.serviceWorker.register('sw.js',{scope:'./'});
+      const reg=await navigator.serviceWorker.register('sw.js?v=locked-screen-2',{scope:'./',updateViaCache:'none'});
+      await reg.update();
       await navigator.serviceWorker.ready;
       const permission=await Notification.requestPermission();
       if(permission!=='granted')throw new Error('Notifications were not allowed.');
-      let sub=await reg.pushManager.getSubscription();
-      if(!sub){
-        const k=await pushCall({action:'public-key'});
-        sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8(k.publicKey)});
-      }
+      const existing=await reg.pushManager.getSubscription();
+      if(existing)await existing.unsubscribe();
+      const k=await pushCall({action:'public-key'});
+      const sub=await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:b64ToUint8(k.publicKey)});
       const saved=await pushCall({action:'subscribe',subscription:sub.toJSON()});
       localStorage.setItem(PUSH_TOKEN_KEY,saved.deviceToken);
       status.textContent='Notifications enabled. Locked-screen/background timer alerts are ready.';
@@ -261,7 +261,7 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
     $('pushStatus').textContent='Notifications previously enabled on this device.';
     $('enablePush').textContent='Refresh Notification Permission';
   }
-  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(()=>{});
+  if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js?v=locked-screen-2',{scope:'./',updateViaCache:'none'}).then(r=>r.update()).catch(()=>{});
 
   const timerAudio=$('timerAlertAudio');
 
