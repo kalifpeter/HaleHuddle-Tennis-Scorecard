@@ -1,6 +1,6 @@
 {
-  "name": "HaleHuddle Tennis Scorecard",
-  "short_name": "HH Tennis",
+  "name": "HaleHuddle Teams",
+  "short_name": "HH Teams",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#83B7DF",
