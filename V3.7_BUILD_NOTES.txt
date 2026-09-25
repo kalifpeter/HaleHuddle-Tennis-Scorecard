@@ -1,0 +1,1 @@
+V3.7: Match Lineup now selects division and team, reading the team roster saved in Divisions & Teams. No separate Season Roster setup is needed. Existing team data is retained under its V3.5 storage key. Lineups are stored separately for each team. Scorecard integration is not included.
