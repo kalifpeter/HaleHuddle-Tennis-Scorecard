@@ -1,0 +1,1 @@
+V3.6: Athlete roster added inside Edit Team, alongside parent coaches. Add, edit and remove athletes; roster count updates in team list. Match lineups remain separate. Existing V3.5 local test data preserved. GitHub root ZIP: upload extracted files to repository root.
