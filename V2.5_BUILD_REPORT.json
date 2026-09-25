@@ -1,0 +1,18 @@
+{
+  "baseline": "V2.4 LOCKED unchanged",
+  "build": "V2.5 Dark Mode",
+  "pages": 8,
+  "dark_asset_source": "Approved Teams v3 clean dark",
+  "scope": "Dark/light theme only; no multi-team or cloud features yet",
+  "pages_with_toggle_loader": true,
+  "source_scripts_unchanged": {
+    "two-sets-games.html": true,
+    "team-setup.html": true,
+    "season-roster.html": true,
+    "single-set.html": true,
+    "season-history.html": true,
+    "match-lineup.html": true,
+    "index.html": true,
+    "timed-junior.html": true
+  }
+}

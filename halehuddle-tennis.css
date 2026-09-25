@@ -14,3 +14,21 @@ body.hh-home .hh-app-header-inner{padding:17px 15px 12px}
 body.hh-home .hh-app-header .hh-approved-teams-logo{width:152px!important;height:180px!important;max-width:152px!important;max-height:180px!important}
 body.hh-home .hh-app-header .hh-tennis-chip{display:none}
 @media(max-width:420px){.hh-app-header .hh-tennis-chip{right:10px;font-size:9px;padding:5px 7px}}
+
+/* V2.5: first-class, user-selectable dark theme. Existing V2.4 light layout retained. */
+html[data-hh-theme="dark"]{color-scheme:dark;--hh-title:#f1f5ff;--hh-muted:#afbdd2;--hh-bg:#101725;--hh-card:#1b2637;--hh-blue:#79a7ff}
+html[data-hh-theme="dark"] body{background:linear-gradient(180deg,#101725,#141f30);color:#edf2fb}
+html[data-hh-theme="dark"] .hh-app-header{background:#000!important;border-color:#293548!important}
+html[data-hh-theme="dark"] .choice,html[data-hh-theme="dark"] .card{background:#1b2637!important;border-color:#344257!important;color:#f1f5ff!important;box-shadow:none}
+html[data-hh-theme="dark"] .choice p,html[data-hh-theme="dark"] .sub,html[data-hh-theme="dark"] .note{color:#afbdd2!important}
+html[data-hh-theme="dark"] input,html[data-hh-theme="dark"] select,html[data-hh-theme="dark"] textarea{background:#121d2c!important;color:#f1f5ff!important;border-color:#52637a!important}
+html[data-hh-theme="dark"] input::placeholder,html[data-hh-theme="dark"] textarea::placeholder{color:#9aaec8!important}
+html[data-hh-theme="dark"] .btn.secondary,html[data-hh-theme="dark"] .empty{background:#28384b!important;color:#e8efff!important}
+html[data-hh-theme="dark"] .badge,html[data-hh-theme="dark"] .hh-tennis-chip{background:#203958!important;color:#b8d4ff!important;border-color:#45618a!important}
+html[data-hh-theme="dark"] .hh-sell-banner{color:#e8f0ff!important}
+html[data-hh-theme="dark"] .back{color:#9fc2ff!important}
+html[data-hh-theme="dark"] .product-kicker{color:#a7e5b3!important}
+html[data-hh-theme="dark"] .hh-app-header img.hh-approved-teams-logo{background:#000}
+.hh-theme-toggle{position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:2;border:1px solid #cbd5e1;background:#f0f4fa;color:#17243a;border-radius:999px;padding:7px 9px;font-size:12px;font-weight:800;cursor:pointer;min-width:57px;min-height:35px}
+html[data-hh-theme="dark"] .hh-theme-toggle{background:#243449;color:#f4f8ff;border-color:#5b708a}
+@media(max-width:380px){.hh-theme-toggle{left:6px;padding:6px;font-size:11px;min-width:49px}}
