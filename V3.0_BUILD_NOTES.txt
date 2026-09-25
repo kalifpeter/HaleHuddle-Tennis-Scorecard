@@ -1,0 +1,1 @@
+V3.0 LOCAL FOUNDATION: adds Divisions & Teams page with multiple divisions, separate rosters, per-team coach permission settings and lineup share-sheet text. Not cloud-synced; permissions are planning settings only, NOT access enforcement. Existing V2.8 scorecard/timer files preserved byte-for-byte.
