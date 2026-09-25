@@ -15,7 +15,7 @@ body.hh-home .hh-app-header .hh-tennis-chip{display:none!important}
 /* V2.6: contrast and navigation, built into stylesheet, no DOM repair or patch scripts. */
 .hh-page-home{display:inline-flex;align-items:center;gap:6px;margin:0 0 17px;padding:10px 15px;border-radius:12px;background:#eaf2ff;color:#174ea6;font-weight:850;text-decoration:none;min-height:44px}
 .hh-page-home:focus-visible{outline:3px solid #7aafff;outline-offset:3px}
-html[data-hh-theme="dark"] body{--bg:#141c2b;--card:#202b3b;--text:#f2f6ff;--muted:#b9c8dd;--line:#52627a;--accent:#83d5a5;--accent2:#2c4052;--win:#264a40;--warn:#594829;--hh-ink:#f2f6ff;--hh-card-1:#253448;--hh-card-2:#263b52;--hh-card-3:#263b52;--hh-primary-top:#326be6;--hh-primary-bottom:#2456bb;--hh-primary-shadow:#153c86;color:#f2f6ff}
+html[data-hh-theme="dark"] body{--bg:#141c2b;--card:#202b3b;--text:#f2f6ff;--muted:#b9c8dd;--line:#52627a;--accent:#135BE8;--accent2:#2c4052;--win:#264a40;--warn:#594829;--hh-ink:#f2f6ff;--hh-card-1:#253448;--hh-card-2:#263b52;--hh-card-3:#263b52;--hh-primary-top:#326be6;--hh-primary-bottom:#2456bb;--hh-primary-shadow:#153c86;color:#f2f6ff}
 html[data-hh-theme="dark"] .hh-page-home{background:#283e5c;color:#d3e5ff;border:1px solid #5476a2}
 html[data-hh-theme="dark"] :is(.match-card,.position,.summary-box,.empty,.warn,.saved){background:#253448!important;border-color:#51647e!important;color:#f1f5ff!important}
 html[data-hh-theme="dark"] :is(.matchtitle,.section-title,.position-title,.totalnum,.totallabel,.summary-num,.summary-label,.result,.small-label,.score-label,.match-card h2,.match-card h3,.position h3){color:#f2f6ff!important}
@@ -32,6 +32,15 @@ html[data-hh-theme="dark"] :is(.card,.choice) :is(.logo,.logoPick .logo){backgro
 html[data-hh-theme="dark"] .saved{background:#234d39!important;color:#d4ffe5!important}
 html[data-hh-theme="dark"] .athlete button{background:#532c37!important;color:#ffbec8!important}
 html[data-hh-theme="dark"] .hh-sell-banner{background:#263c49!important}
+
+/* V2.7 approved dark palette: HH blue actions, slate secondary controls, navy recap. */
+html[data-hh-theme="dark"] :is(button.primary,.btn.primary){background:#135BE8!important;color:#fff!important}
+html[data-hh-theme="dark"] :is(button.primary,.btn.primary):focus-visible{outline:3px solid #92b7ff;outline-offset:2px}
+html[data-hh-theme="dark"] :is(button.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
+html[data-hh-theme="dark"] .recap{background:#172438!important;color:#f2f6ff!important;border:1px solid #577395!important}
+html[data-hh-theme="dark"] .recap *{color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8!important}
+
 </style></head><body><header class="hh-app-header"><div class="hh-app-header-inner"><div class="hh-logo-wrap"><img class="hh-approved-teams-logo" src="hh-teams-approved-logo.png" width="78" height="92" style="display:block!important;box-sizing:border-box!important;width:78px!important;height:92px!important;min-width:0!important;max-width:78px!important;max-height:92px!important;object-fit:contain!important;margin:0 auto!important;" alt="HaleHuddle Teams"><div class="hh-product">TENNIS</div></div><div class="hh-tennis-chip">SETUP</div></div></header><main><nav aria-label="Page navigation"><a class="hh-page-home" href="index.html">‹ Home</a></nav><h1>Set up your team</h1><p class="sub">Start with HaleHuddle colors, then personalize HaleHuddle Teams — Tennis for your program.</p><div class="card">
 <div class="field"><label for="teamName">Team name</label><input id="teamName" placeholder="e.g. Ewa Tennis Club" autocomplete="organization"></div>
 <div class="field"><label for="abbr">Team abbreviation <span class="note">(optional)</span></label><input id="abbr" maxlength="8" placeholder="ETC"></div>

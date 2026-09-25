@@ -1,0 +1,18 @@
+{
+  "build": "v2.7",
+  "source": "v2.6",
+  "changed_html": [
+    "index.html",
+    "match-lineup.html",
+    "season-history.html",
+    "season-roster.html",
+    "single-set.html",
+    "team-setup.html",
+    "timed-junior.html",
+    "two-sets-games.html"
+  ],
+  "shared_stylesheet_updated": true,
+  "javascript_unchanged": true,
+  "logos_unchanged": true,
+  "note": "Static source CSS updated for dark-mode blue buttons, slate secondary controls, dark coach recap; no scoring/timer logic modified."
+}
