@@ -1,0 +1,1 @@
+V2.4: Original approved Teams logo resized (not redrawn) to 360x425 physical pixels to prevent huge image display if styles are stale. Self-contained, bounded inline header CSS on all eight pages. Home centered 145x171; internal centered 78x92. Scoring, roster and timer JavaScript retained from V2.3. Upload ALL extracted files, not ZIP itself. Test on iPhone.
