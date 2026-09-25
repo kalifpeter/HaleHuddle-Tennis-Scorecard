@@ -1,0 +1,1 @@
+V2.3 HEADER FIX — approved logo unchanged. Home: centered 152×180 px logo; remaining seven screens: centered 88×104 px logo. Removed redundant header TENNIS labels and home kicker. All inline application scripts, notification service worker, manifest and image bytes verified identical to V2.2. Layout requires iPhone confirmation after GitHub upload.

@@ -2,3 +2,15 @@
 
 /* Approved Teams branding; no scorecard or timer changes. */
 .hh-approved-teams-logo{display:block;height:76px;width:auto;max-width:160px;object-fit:contain;object-position:left center}.hh-app-header-inner{min-height:96px}.hh-product{margin-top:0;font-size:11px;letter-spacing:1.4px}
+
+/* V2.3: fixed, centered approved branding; keep scoring and timer unchanged. */
+.hh-app-header{position:relative}
+.hh-app-header-inner{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;padding:12px 15px 10px;gap:0}
+.hh-logo-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;max-width:100%}
+.hh-app-header .hh-approved-teams-logo{display:block!important;width:88px!important;height:104px!important;min-width:0!important;max-width:88px!important;max-height:104px!important;object-fit:contain!important;object-position:center!important;margin:0 auto!important;flex:none!important}
+.hh-app-header .hh-product{display:none!important}
+.hh-app-header .hh-tennis-chip{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:10px}
+body.hh-home .hh-app-header-inner{padding:17px 15px 12px}
+body.hh-home .hh-app-header .hh-approved-teams-logo{width:152px!important;height:180px!important;max-width:152px!important;max-height:180px!important}
+body.hh-home .hh-app-header .hh-tennis-chip{display:none}
+@media(max-width:420px){.hh-app-header .hh-tennis-chip{right:10px;font-size:9px;padding:5px 7px}}
