@@ -1,0 +1,1 @@
+V3.3: Clarified navigation to divisions and teams only; versioned the destination and script to distinguish it from stale V3.1 browser copies. Existing localStorage key and team data preserved. This is not a cloud sync release.

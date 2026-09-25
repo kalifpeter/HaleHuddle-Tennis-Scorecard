@@ -1,0 +1,1 @@
+V3.4: Separate divisions and teams. Assign division per team. Edit/save division, team and parent coach permissions. No roster or lineup forms in program setup. Retains existing localStorage key.

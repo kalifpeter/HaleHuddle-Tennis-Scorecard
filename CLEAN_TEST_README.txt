@@ -1,0 +1,1 @@
+Open program-manager-clean.html?v=35 for an isolated empty divisions/teams test. This uses its own localStorage key and does not erase prior data. Other app pages are NOT isolated and may still show prior data. For a fully clean whole-app test, deploy to a separate origin.

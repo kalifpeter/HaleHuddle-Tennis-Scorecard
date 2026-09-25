@@ -1,6 +1,6 @@
 /* HaleHuddle Teams V3.4. Clean division -> team -> parent coach setup. */
 'use strict';
-const KEY='hh-teams-program-v30', $=id=>document.getElementById(id), clean=v=>String(v||'').trim(), esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])), uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const KEY='hh-teams-program-v35-clean-test', $=id=>document.getElementById(id), clean=v=>String(v||'').trim(), esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])), uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
 let db;try{db=JSON.parse(localStorage.getItem(KEY)||'null')||{program:'',divisions:[],teams:[]};if(!Array.isArray(db.divisions)||!Array.isArray(db.teams))throw Error()}catch(e){db={program:'',divisions:[],teams:[]}}
 let current='';const team=()=>db.teams.find(t=>t.id===current);
 function save(msg){try{localStorage.setItem(KEY,JSON.stringify(db));$('status').textContent=msg||'Saved on this device.'}catch(e){$('status').textContent='Could not save. Check device storage.'}}
