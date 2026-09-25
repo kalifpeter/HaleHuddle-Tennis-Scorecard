@@ -1,0 +1,15 @@
+{
+  "source": "HaleHuddle-Teams-Tennis-v2.1-Header-Fix.zip",
+  "updated_html_headers": {
+    "two-sets-games.html": 1,
+    "team-setup.html": 1,
+    "season-roster.html": 1,
+    "single-set.html": 1,
+    "season-history.html": 1,
+    "match-lineup.html": 1,
+    "index.html": 1,
+    "timed-junior.html": 1
+  },
+  "unchanged_service_worker_sha256": "7e882f3cbd3b7dd64ec8dbf35fa4f12617d038e5922b90f8981f457916785593",
+  "verified": "Source scorecard/timer script sections byte-identical; no runtime device/push test performed."
+}
