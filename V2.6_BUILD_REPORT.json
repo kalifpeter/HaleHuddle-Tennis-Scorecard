@@ -1,0 +1,16 @@
+{
+  "base": "v2.5",
+  "updated_html": [
+    "index.html",
+    "match-lineup.html",
+    "season-history.html",
+    "season-roster.html",
+    "single-set.html",
+    "team-setup.html",
+    "timed-junior.html",
+    "two-sets-games.html"
+  ],
+  "css": "dark contrast and native Home link",
+  "logic": "scorecard and timer inline scripts unchanged; standalone Home unsaved guard",
+  "limitations": "browser hardware Back not intercepted; iPhone visual test required"
+}

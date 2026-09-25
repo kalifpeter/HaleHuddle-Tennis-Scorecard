@@ -32,3 +32,24 @@ html[data-hh-theme="dark"] .hh-app-header img.hh-approved-teams-logo{background:
 .hh-theme-toggle{position:absolute;left:12px;top:50%;transform:translateY(-50%);z-index:2;border:1px solid #cbd5e1;background:#f0f4fa;color:#17243a;border-radius:999px;padding:7px 9px;font-size:12px;font-weight:800;cursor:pointer;min-width:57px;min-height:35px}
 html[data-hh-theme="dark"] .hh-theme-toggle{background:#243449;color:#f4f8ff;border-color:#5b708a}
 @media(max-width:380px){.hh-theme-toggle{left:6px;padding:6px;font-size:11px;min-width:49px}}
+
+/* V2.6: contrast and navigation, built into stylesheet, no DOM repair or patch scripts. */
+.hh-page-home{display:inline-flex;align-items:center;gap:6px;margin:0 0 17px;padding:10px 15px;border-radius:12px;background:#eaf2ff;color:#174ea6;font-weight:850;text-decoration:none;min-height:44px}
+.hh-page-home:focus-visible{outline:3px solid #7aafff;outline-offset:3px}
+html[data-hh-theme="dark"] body{--bg:#141c2b;--card:#202b3b;--text:#f2f6ff;--muted:#b9c8dd;--line:#52627a;--accent:#83d5a5;--accent2:#2c4052;--win:#264a40;--warn:#594829;--hh-ink:#f2f6ff;--hh-card-1:#253448;--hh-card-2:#263b52;--hh-card-3:#263b52;--hh-primary-top:#326be6;--hh-primary-bottom:#2456bb;--hh-primary-shadow:#153c86;color:#f2f6ff}
+html[data-hh-theme="dark"] .hh-page-home{background:#283e5c;color:#d3e5ff;border:1px solid #5476a2}
+html[data-hh-theme="dark"] :is(.match-card,.position,.summary-box,.empty,.warn,.saved){background:#253448!important;border-color:#51647e!important;color:#f1f5ff!important}
+html[data-hh-theme="dark"] :is(.matchtitle,.section-title,.position-title,.totalnum,.totallabel,.summary-num,.summary-label,.result,.small-label,.score-label,.match-card h2,.match-card h3,.position h3){color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.totalbox,.has){background:#29483f!important;color:#f3fff8!important}
+html[data-hh-theme="dark"] :is(.totalbox *, .has *){color:#f3fff8!important}
+html[data-hh-theme="dark"] :is(.result,.warn){background:#364a60!important;color:#f5f8ff!important}
+html[data-hh-theme="dark"] :is(.back,.hh-page-home){color:#c9dfff!important}
+html[data-hh-theme="dark"] :is(.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.note,.sub,.meta,.format,.small-label,.vs){color:#c0cee0!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(h1,h2,h3,h4,strong,label){color:#f2f6ff}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(input,select,textarea){background:#172233!important;color:#f2f6ff!important;border-color:#6b7f9a!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(input,textarea)::placeholder{color:#b3c1d5!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(.logo,.logoPick .logo){background:#f5f8ff!important;color:#536177!important}
+html[data-hh-theme="dark"] .saved{background:#234d39!important;color:#d4ffe5!important}
+html[data-hh-theme="dark"] .athlete button{background:#532c37!important;color:#ffbec8!important}
+html[data-hh-theme="dark"] .hh-sell-banner{background:#263c49!important}

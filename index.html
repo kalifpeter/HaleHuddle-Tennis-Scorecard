@@ -10,7 +10,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>HaleHuddle Tennis Scorecard</title>
-<link rel="stylesheet" href="halehuddle-tennis.css?v=2.5">
+<link rel="stylesheet" href="halehuddle-tennis.css?v=2.6">
 <link rel="apple-touch-icon" href="app-icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 <style>
@@ -39,7 +39,28 @@ background:linear-gradient(135deg,rgba(105,211,79,.25),rgba(47,174,98,.28));padd
 body.hh-home .hh-app-header-inner{padding:18px 16px 12px}
 body.hh-home .hh-app-header img.hh-approved-teams-logo{width:145px!important;height:171px!important;max-width:145px!important;max-height:171px!important}
 body.hh-home .hh-app-header .hh-tennis-chip{display:none!important}
-</style><style id="hh-dark-inline">html[data-hh-theme="dark"] .hh-app-header{background:#000!important;border-color:#293548!important}html[data-hh-theme="dark"] .hh-tennis-chip{background:#203958!important;color:#b8d4ff!important;border-color:#45618a!important}</style><script>try{document.documentElement.dataset.hhTheme=(localStorage.getItem('hh-teams-theme-v1')||'system')==='dark'?'dark':((localStorage.getItem('hh-teams-theme-v1')||'system')==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){document.documentElement.dataset.hhTheme='light'}</script><script defer src="hh-theme.js?v=2.5"></script></head>
+</style><style id="hh-dark-inline">html[data-hh-theme="dark"] .hh-app-header{background:#000!important;border-color:#293548!important}html[data-hh-theme="dark"] .hh-tennis-chip{background:#203958!important;color:#b8d4ff!important;border-color:#45618a!important}</style><script>try{document.documentElement.dataset.hhTheme=(localStorage.getItem('hh-teams-theme-v1')||'system')==='dark'?'dark':((localStorage.getItem('hh-teams-theme-v1')||'system')==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){document.documentElement.dataset.hhTheme='light'}</script><script defer src="hh-theme.js?v=2.5"></script><style id="hh-v26-contrast">
+/* V2.6: contrast and navigation, built into stylesheet, no DOM repair or patch scripts. */
+.hh-page-home{display:inline-flex;align-items:center;gap:6px;margin:0 0 17px;padding:10px 15px;border-radius:12px;background:#eaf2ff;color:#174ea6;font-weight:850;text-decoration:none;min-height:44px}
+.hh-page-home:focus-visible{outline:3px solid #7aafff;outline-offset:3px}
+html[data-hh-theme="dark"] body{--bg:#141c2b;--card:#202b3b;--text:#f2f6ff;--muted:#b9c8dd;--line:#52627a;--accent:#83d5a5;--accent2:#2c4052;--win:#264a40;--warn:#594829;--hh-ink:#f2f6ff;--hh-card-1:#253448;--hh-card-2:#263b52;--hh-card-3:#263b52;--hh-primary-top:#326be6;--hh-primary-bottom:#2456bb;--hh-primary-shadow:#153c86;color:#f2f6ff}
+html[data-hh-theme="dark"] .hh-page-home{background:#283e5c;color:#d3e5ff;border:1px solid #5476a2}
+html[data-hh-theme="dark"] :is(.match-card,.position,.summary-box,.empty,.warn,.saved){background:#253448!important;border-color:#51647e!important;color:#f1f5ff!important}
+html[data-hh-theme="dark"] :is(.matchtitle,.section-title,.position-title,.totalnum,.totallabel,.summary-num,.summary-label,.result,.small-label,.score-label,.match-card h2,.match-card h3,.position h3){color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.totalbox,.has){background:#29483f!important;color:#f3fff8!important}
+html[data-hh-theme="dark"] :is(.totalbox *, .has *){color:#f3fff8!important}
+html[data-hh-theme="dark"] :is(.result,.warn){background:#364a60!important;color:#f5f8ff!important}
+html[data-hh-theme="dark"] :is(.back,.hh-page-home){color:#c9dfff!important}
+html[data-hh-theme="dark"] :is(.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.note,.sub,.meta,.format,.small-label,.vs){color:#c0cee0!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(h1,h2,h3,h4,strong,label){color:#f2f6ff}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(input,select,textarea){background:#172233!important;color:#f2f6ff!important;border-color:#6b7f9a!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(input,textarea)::placeholder{color:#b3c1d5!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(.logo,.logoPick .logo){background:#f5f8ff!important;color:#536177!important}
+html[data-hh-theme="dark"] .saved{background:#234d39!important;color:#d4ffe5!important}
+html[data-hh-theme="dark"] .athlete button{background:#532c37!important;color:#ffbec8!important}
+html[data-hh-theme="dark"] .hh-sell-banner{background:#263c49!important}
+</style></head>
 <body class="hh-home">
 
 <header class="hh-app-header">
