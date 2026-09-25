@@ -1,0 +1,12 @@
+{
+  "version": "3.9",
+  "scope": "Junior Timed saved-lineup import",
+  "preserved": [
+    "V3.8 single-set",
+    "V3.8 two-set",
+    "V3.8 team setup",
+    "V3.8 match lineup",
+    "timer and push notification implementations"
+  ],
+  "note": "Local-only data on same browser/device; GitHub Pages does not provide cloud syncing."
+}

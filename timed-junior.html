@@ -136,6 +136,14 @@ html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8
 <h1>Junior Timed Match</h1>
 <div class="sub">For Orange Ball or Green Ball timed team matches. Choose the number of singles and doubles courts you need, then run each court's timer and enter the final score.</div>
 
+<section class="card" aria-label="Load saved match lineup">
+  <div class="section-title">Load saved match lineup</div>
+  <label><span>Saved match · date / division / team / opponent</span>
+    <select id="savedTimedLineup"><option value="">Choose a saved match</option></select>
+  </label>
+  <div class="setup-actions"><button id="loadTimedLineup" type="button" class="primary">Load match</button><a href="match-lineup.html" class="back" style="text-align:center;margin:0">Create lineup</a></div>
+  <div class="note" id="timedLineupStatus" role="status">Saved lineups from Match Lineup appear here. Loading does not change existing scores without confirmation.</div>
+</section>
 <section class="card">
   <div class="section-title">Match Setup</div>
   <div class="grid three">
@@ -734,8 +742,59 @@ html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8
     }
   }
 
+  // V3.9: read the same immutable saved-lineup registry as the other scorecards.
+  // This is a user-initiated import, never a background overwrite of a running timer.
+  const timedRegistry='hh-teams-saved-match-lineups-v38';
+  const timedSelect=$('savedTimedLineup');
+  let timedEntries=[];
+  const lineupText=v=>String(v??'');
+  function timedDate(v){if(!v)return 'Undated';const x=v.split('-');return x.length===3?`${x[1]}/${x[2]}/${x[0]}`:v}
+  function refreshTimedLineups(){
+    try{const all=JSON.parse(localStorage.getItem(timedRegistry)||'[]');timedEntries=Array.isArray(all)?all.filter(x=>x&&x.format==='timed'&&x.teamId):[]}catch(e){timedEntries=[]}
+    timedEntries.sort((a,b)=>lineupText(b.date).localeCompare(lineupText(a.date)));
+    timedSelect.replaceChildren(new Option('Choose a saved timed match',''));
+    timedEntries.forEach((x,i)=>timedSelect.add(new Option(`${timedDate(x.date)} · ${x.divisionName||'Division'} · ${x.teamName||'Team'} vs ${x.opponent||'Opponent'}`,String(i))));
+    if(!timedEntries.length)$('timedLineupStatus').textContent='No timed match lineups saved yet. Create one under Match Lineup and choose Junior Timed.';
+  }
+  function timedPlayer(x,id){
+    if(!id)return '';
+    const athlete=(x.athletes||[]).find(a=>a.id===id);
+    return athlete?athlete.name:'';
+  }
+  $('loadTimedLineup').addEventListener('click',()=>{
+    const x=timedSelect.value===''?null:timedEntries[Number(timedSelect.value)];
+    if(!x)return alert('Choose a saved timed match first.');
+    const busy=state.courts.some(c=>c.running||c.ended||c.scoreA!==''||c.scoreB!=='');
+    if(busy&&!confirm('This scorecard has scores or timers in progress. Replace its match and court assignments?'))return;
+    state.courts.forEach(c=>{if(c.pushAlertId)cancelPush(c)});
+    const slots=[['Singles 1','Singles',1],['Singles 2','Singles',2],['Doubles 1','Doubles',1],['Doubles 2','Doubles',2]];
+    // Keep the coach-selected court counts, adding courts only when the saved lineup needs them.
+    const assignments=x.assignments||{};
+    const active=slots.filter(([label])=>(assignments[label]||[]).some(Boolean));
+    const ns=Math.max(state.setup.singles,...active.filter(z=>z[1]==='Singles').map(z=>z[2]),0);
+    const nd=Math.max(state.setup.doubles,...active.filter(z=>z[1]==='Doubles').map(z=>z[2]),0);
+    state.setup.singles=ns;state.setup.doubles=nd;
+    $('singlesCount').value=String(ns);$('doublesCount').value=String(nd);
+    state.courts=buildCourts(ns,nd,state.setup.minutes);
+    for(const [label,type,index] of slots){
+      const c=state.courts.find(y=>y.id===type.toLowerCase()+'-'+index);
+      if(!c)continue;
+      c.pA1=timedPlayer(x,(assignments[label]||[])[0]);
+      c.pA2=type==='Doubles'?timedPlayer(x,(assignments[label]||[])[1]):'';
+    }
+    $('date').value=x.date||'';$('teamA').value=x.teamName||'';$('teamB').value=x.opponent||'';
+    $('seasonName').value=x.season||'';
+    const division=lineupText(x.divisionName).toLowerCase();
+    if(division.includes('orange'))$('ballType').value='Orange Ball';
+    else if(division.includes('green'))$('ballType').value='Green Ball';
+    state.setup.ballType=$('ballType').value;
+    $('timedLineupStatus').textContent=`Loaded ${x.teamName||'team'} vs ${x.opponent||'opponent'} on ${timedDate(x.date)}. Opposing players can be entered at the courts.`;
+    save();render();
+  });
+  window.addEventListener('pageshow',refreshTimedLineups);
   load();
   render();
+  refreshTimedLineups();
   tickId=setInterval(tick,1000);
 
   const hhSeasonKey='halehuddle-tennis-season-history-v1';
