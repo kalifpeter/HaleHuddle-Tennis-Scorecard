@@ -139,7 +139,6 @@ html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8
   </div>
 </header>
 
-<div class="format-nav"><a href="index.html" aria-label="Back to scorecard formats">← Tennis Scorecards</a></div>
 <main><nav aria-label="Page navigation"><a class="hh-page-home" href="index.html">‹ Home</a></nav>
 <h1>Team Tennis — Single Set</h1>
 <div class="sub">Enter all four matches on one screen. Scores, winners and team totals update automatically when opened in a browser.</div>
@@ -335,20 +334,20 @@ html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8
       const a = n(card.querySelector('.score-a'));
       const b = n(card.querySelector('.score-b'));
       const win = (a === null || b === null) ? '—' : (a > b ? teamA() : b > a ? teamB() : 'Tie');
-      lines.push(
-        card.dataset.name + ': ' +
-        personList(card,'a') + ' vs ' + personList(card,'b') +
-        ' | ' + (a === null ? '—' : a) + '-' + (b === null ? '—' : b) +
-        ' | Winner: ' + win
-      );
+      lines.push(card.dataset.name.toUpperCase());
+      lines.push(personList(card,'a') + ' vs ' + personList(card,'b'));
+      lines.push('Score: ' + (a === null ? '—' : a) + '-' + (b === null ? '—' : b));
+      lines.push('Winner: ' + win);
+      lines.push('');
     });
 
+    lines.push('TEAM TOTALS');
+    lines.push(teamA() + ': ' + ta + ' | ' + teamB() + ': ' + tb);
+    lines.push('Overall: ' + (!completed ? '—' : ta > tb ? teamA() : tb > ta ? teamB() : 'Tie'));
     lines.push('');
-    lines.push('Total: ' + teamA() + ' ' + ta + ' — ' + teamB() + ' ' + tb);
-    lines.push(
-      'Sportsmanship: ' + teamA() + ' — ' + ($('sportA').value.trim() || '—') +
-      '; ' + teamB() + ' — ' + ($('sportB').value.trim() || '—')
-    );
+    lines.push('SPORTSMANSHIP');
+    lines.push(teamA() + ': ' + ($('sportA').value.trim() || '—'));
+    lines.push(teamB() + ': ' + ($('sportB').value.trim() || '—'));
     $('recap').textContent = lines.join('\n');
     save();
   }

@@ -1,0 +1,13 @@
+{
+  "version": "2.8",
+  "source": "V2.7 uploaded approved package",
+  "changes": [
+    "Single Set Coach Recap match details spaced to match approved Two Sets formatting; totals and sportsmanship separate",
+    "Removed redundant Tennis Scorecards links from screens that already contain Home"
+  ],
+  "unchanged": [
+    "Two Sets and Junior Timed Coach Recap generation",
+    "scoring and timer algorithms",
+    "logos and dark theme"
+  ]
+}
