@@ -795,6 +795,8 @@ html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8
   load();
   render();
   refreshTimedLineups();
+  const requestedMatch=new URLSearchParams(location.search).get('match');
+  if(requestedMatch){const matchIndex=timedEntries.findIndex(x=>x.id===requestedMatch);if(matchIndex>=0){timedSelect.value=String(matchIndex);$('loadTimedLineup').click();}}
   tickId=setInterval(tick,1000);
 
   const hhSeasonKey='halehuddle-tennis-season-history-v1';

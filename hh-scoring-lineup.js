@@ -24,5 +24,5 @@ status.textContent='Loaded '+x.date+' · '+x.teamName+'. Opponent player names c
 }
 pick.addEventListener('change',()=>apply(items.find(x=>x.id===pick.value)));
 date.addEventListener('change',()=>{const matches=items.filter(x=>x.date===date.value);if(matches.length===1){pick.value=matches[0].id;apply(matches[0]);}else if(matches.length>1){status.textContent='Multiple lineups on this date. Select the correct team above.';}});
-window.addEventListener('pageshow',refresh);refresh();
+window.addEventListener('pageshow',refresh);refresh();const wanted=new URLSearchParams(location.search).get('match');if(wanted){const item=items.find(x=>x.id===wanted);if(item){pick.value=item.id;apply(item);}}
 })();
