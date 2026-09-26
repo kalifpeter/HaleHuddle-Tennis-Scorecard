@@ -1,0 +1,1 @@
+V4.0: Match Lineup has match start time, location, optional Snacks/Drinks, automatic warm-up reminder (30 minutes prior), native share sheet/copy fallback. Added Head Coach Quick Start and Match Day shortcut. Local-device demo only; secure roles, shared cloud lineups and automatic notifications NOT implemented. Preserved V3.9 scorecards and existing storage keys.
