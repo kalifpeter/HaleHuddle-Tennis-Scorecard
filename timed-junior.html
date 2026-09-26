@@ -864,5 +864,17 @@ html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8
   }
 })();
 </script>
-<script defer src="hh-unsaved-navigation.js?v=2.6"></script></body>
+<script defer src="hh-unsaved-navigation.js?v=2.6"></script><script>
+(function(){
+if(new URLSearchParams(location.search).get('view')!=='parent')return;
+function parentNavigation(){
+document.querySelectorAll('a[href="index.html"],a[href="match-lineup.html"]').forEach(a=>{
+ a.href='match-day.html?view=parent';
+ a.textContent='‹ Back to My Matches';
+});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',parentNavigation);
+else parentNavigation();
+})();
+</script></body>
 </html>

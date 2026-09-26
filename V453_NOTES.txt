@@ -1,0 +1,1 @@
+V4.5.3 parent navigation isolation: parent landing has no admin link; parent Match Day opens scorecards with view=parent and scorecard Home/lineup links return to parent Match Day. Admin scorecard navigation unchanged. Local preview only; no secure auth or cross-device sync.
