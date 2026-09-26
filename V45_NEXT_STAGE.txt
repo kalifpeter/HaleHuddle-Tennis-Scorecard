@@ -1,0 +1,1 @@
+V4.5: Separate parent-coach preview route within ONE HaleHuddle Teams app. Approved V4.4 administrator homepage, scoring logic and approved icons preserved. Not secure authentication or cloud sync. Next: implement Supabase migration, RLS, passwordless invited-email login and team-scoped queries before enabling coach invitations.\n
