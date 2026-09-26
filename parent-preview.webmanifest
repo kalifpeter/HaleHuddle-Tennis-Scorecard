@@ -1,7 +1,7 @@
 {
-  "name": "HaleHuddle Teams Parent Preview",
+  "name": "HaleHuddle Teams",
   "short_name": "HH Teams",
-  "start_url": "./parent-coach.html?v=451",
+  "start_url": "./parent-coach.html?v=452",
   "display": "standalone",
   "background_color": "#2458D5",
   "theme_color": "#2458D5",
@@ -17,5 +17,5 @@
       "type": "image/png"
     }
   ],
-  "id": "./parent-coach-preview"
+  "id": "./parent-coach-preview-v452"
 }

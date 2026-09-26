@@ -1,0 +1,1 @@
+Parent preview: no administrator setup navigation; empty state explains no cross-device sync; same approved icon files. iOS users must delete old P shortcuts and add via Safari Share > Add to Home Screen; use one final app once authentication exists. Existing admin homepage and scorecard source preserved.
