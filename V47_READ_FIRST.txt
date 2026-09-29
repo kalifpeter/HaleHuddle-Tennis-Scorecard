@@ -1,0 +1,7 @@
+HaleHuddle Teams V4.7 APPROVED UI RESTORATION (NOT FULL CLOUD INTEGRATION)
+
+index.html and all approved V4.5.3 local management, lineup, scoring and parent coach pages are restored unchanged.
+cloud.html is preserved as a SEPARATE V4.6.2 cloud sign-in pilot; its simplified setup does NOT replace the approved screens.
+Cloud data is NOT synchronized with local V4.5.3 data; do not enter real roster data in the cloud pilot until integration is implemented and tested.
+
+Deploy: extract ZIP, upload all extracted root files to GitHub main. Launch index.html for approved workflows; cloud.html only for cloud auth testing.
