@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#135BE8">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="HaleHuddle Teams">
+<meta name="apple-mobile-web-app-title" content="HaleHuddle Tennis">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>HaleHuddle Tennis Scorecard</title>
-<link rel="stylesheet" href="halehuddle-tennis.css?v=2.6">
-<link rel="apple-touch-icon" href="app-icon-180.png?v=44">
-<link rel="manifest" href="manifest.webmanifest?v=44">
+<link rel="stylesheet" href="halehuddle-tennis.css?v=brand1">
+<link rel="apple-touch-icon" href="app-icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
@@ -28,71 +28,43 @@ main{max-width:820px;margin:0 auto;padding:24px 14px 44px}
 .product-kicker{display:inline-block;margin-bottom:10px;font-size:12px;font-weight:950;letter-spacing:.7px;color:#176D38;
 background:linear-gradient(135deg,rgba(105,211,79,.25),rgba(47,174,98,.28));padding:7px 10px;border-radius:999px}
 </style>
-<style id="hh-critical-header">
-/* Source-level responsive header; self-contained even if external CSS is stale. */
-.hh-app-header{background:#fff;border-bottom:1px solid #e6ebf2;position:relative!important;z-index:1;width:100%;overflow:hidden}
-.hh-app-header-inner{box-sizing:border-box;position:relative;max-width:820px;margin:0 auto;padding:10px 16px;min-height:0!important;display:flex!important;align-items:center!important;justify-content:center!important}
-.hh-logo-wrap{display:flex!important;align-items:center!important;justify-content:center!important;max-width:100%}
-.hh-app-header img.hh-approved-teams-logo{display:block!important;box-sizing:border-box!important;width:78px!important;height:92px!important;min-width:0!important;max-width:78px!important;max-height:92px!important;object-fit:contain!important;margin:0 auto!important;flex:0 0 auto!important}
-.hh-app-header .hh-product{display:none!important}
-.hh-app-header .hh-tennis-chip{position:absolute;right:16px;top:50%;transform:translateY(-50%);padding:6px 9px;border-radius:999px;background:#edf4ff;border:1px solid #dce8ff;color:#135be8;font-size:10px;font-weight:900;letter-spacing:.6px}
-body.hh-home .hh-app-header-inner{padding:18px 16px 12px}
-body.hh-home .hh-app-header img.hh-approved-teams-logo{width:145px!important;height:171px!important;max-width:145px!important;max-height:171px!important}
-body.hh-home .hh-app-header .hh-tennis-chip{display:none!important}
-</style><style id="hh-dark-inline">html[data-hh-theme="dark"] .hh-app-header{background:#000!important;border-color:#293548!important}html[data-hh-theme="dark"] .hh-tennis-chip{background:#203958!important;color:#b8d4ff!important;border-color:#45618a!important}</style><script>try{document.documentElement.dataset.hhTheme=(localStorage.getItem('hh-teams-theme-v1')||'system')==='dark'?'dark':((localStorage.getItem('hh-teams-theme-v1')||'system')==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){document.documentElement.dataset.hhTheme='light'}</script><script defer src="hh-theme.js?v=2.5"></script><style id="hh-v26-contrast">
-/* V2.6: contrast and navigation, built into stylesheet, no DOM repair or patch scripts. */
-.hh-page-home{display:inline-flex;align-items:center;gap:6px;margin:0 0 17px;padding:10px 15px;border-radius:12px;background:#eaf2ff;color:#174ea6;font-weight:850;text-decoration:none;min-height:44px}
-.hh-page-home:focus-visible{outline:3px solid #7aafff;outline-offset:3px}
-html[data-hh-theme="dark"] body{--bg:#141c2b;--card:#202b3b;--text:#f2f6ff;--muted:#b9c8dd;--line:#52627a;--accent:#135BE8;--accent2:#2c4052;--win:#264a40;--warn:#594829;--hh-ink:#f2f6ff;--hh-card-1:#253448;--hh-card-2:#263b52;--hh-card-3:#263b52;--hh-primary-top:#326be6;--hh-primary-bottom:#2456bb;--hh-primary-shadow:#153c86;color:#f2f6ff}
-html[data-hh-theme="dark"] .hh-page-home{background:#283e5c;color:#d3e5ff;border:1px solid #5476a2}
-html[data-hh-theme="dark"] :is(.match-card,.position,.summary-box,.empty,.warn,.saved){background:#253448!important;border-color:#51647e!important;color:#f1f5ff!important}
-html[data-hh-theme="dark"] :is(.matchtitle,.section-title,.position-title,.totalnum,.totallabel,.summary-num,.summary-label,.result,.small-label,.score-label,.match-card h2,.match-card h3,.position h3){color:#f2f6ff!important}
-html[data-hh-theme="dark"] :is(.totalbox,.has){background:#29483f!important;color:#f3fff8!important}
-html[data-hh-theme="dark"] :is(.totalbox *, .has *){color:#f3fff8!important}
-html[data-hh-theme="dark"] :is(.result,.warn){background:#364a60!important;color:#f5f8ff!important}
-html[data-hh-theme="dark"] :is(.back,.hh-page-home){color:#c9dfff!important}
-html[data-hh-theme="dark"] :is(.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
-html[data-hh-theme="dark"] :is(.note,.sub,.meta,.format,.small-label,.vs){color:#c0cee0!important}
-html[data-hh-theme="dark"] :is(.card,.choice) :is(h1,h2,h3,h4,strong,label){color:#f2f6ff}
-html[data-hh-theme="dark"] :is(.card,.choice) :is(input,select,textarea){background:#172233!important;color:#f2f6ff!important;border-color:#6b7f9a!important}
-html[data-hh-theme="dark"] :is(.card,.choice) :is(input,textarea)::placeholder{color:#b3c1d5!important}
-html[data-hh-theme="dark"] :is(.card,.choice) :is(.logo,.logoPick .logo){background:#f5f8ff!important;color:#536177!important}
-html[data-hh-theme="dark"] .saved{background:#234d39!important;color:#d4ffe5!important}
-html[data-hh-theme="dark"] .athlete button{background:#532c37!important;color:#ffbec8!important}
-html[data-hh-theme="dark"] .hh-sell-banner{background:#263c49!important}
-
-/* V2.7 approved dark palette: HH blue actions, slate secondary controls, navy recap. */
-html[data-hh-theme="dark"] :is(button.primary,.btn.primary){background:#135BE8!important;color:#fff!important}
-html[data-hh-theme="dark"] :is(button.primary,.btn.primary):focus-visible{outline:3px solid #92b7ff;outline-offset:2px}
-html[data-hh-theme="dark"] :is(button.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
-html[data-hh-theme="dark"] .recap{background:#172438!important;color:#f2f6ff!important;border:1px solid #577395!important}
-html[data-hh-theme="dark"] .recap *{color:#f2f6ff!important}
-html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8!important}
-
-</style></head>
-<body class="hh-home">
+</head>
+<body>
 
 <header class="hh-app-header">
   <div class="hh-app-header-inner">
     <div class="hh-logo-wrap">
-      <img class="hh-approved-teams-logo" src="hh-teams-approved-logo.png" width="145" height="171" style="display:block!important;box-sizing:border-box!important;width:145px!important;height:171px!important;min-width:0!important;max-width:145px!important;max-height:171px!important;object-fit:contain!important;margin:0 auto!important;" alt="HaleHuddle Teams">
-      <div class="hh-product">TENNIS</div>
+      <div class="hh-logo"><span class="hale">HALE</span><span class="huddle">HUDDLE</span></div>
+      <div class="hh-product">TENNIS SCORECARD</div>
     </div>
     <div class="hh-tennis-chip">TENNIS</div>
   </div>
 </header>
 
 <main>
-  
-  <h1 class="hero-title" id="teamTitle">HaleHuddle Teams — Tennis</h1>
-  <p class="sub" id="teamSub">Fast, phone-friendly team tennis scoring for parents, captains and coaches.</p>
+  <div class="product-kicker">STANDALONE SCORECARD • HALEHUDDLE ADD-ON</div>
+  <h1 class="hero-title">HaleHuddle Tennis Scorecard</h1>
+  <p class="sub">Fast, phone-friendly team tennis scoring for parents, captains and coaches. Choose the match format you need; each scorecard saves separately on this device.</p>
 
-  <a class="choice" href="program-manager.html"><div class="choice-top"><h2>Program Setup</h2><div class="arrow">›</div></div><p>Create divisions, teams and athlete rosters. Manage parent coaches and their permissions.</p></a>
-  <p class="sub" style="margin:4px 0 18px">New head coach? <a href="coach-guide.html" style="color:inherit;text-decoration:underline">Quick-start instructions</a>.</p>
-  <a class="choice" href="match-lineup.html"><div class="choice-top"><h2>Match Lineup &amp; Scheduling</h2><div class="arrow">›</div></div><p>Plan matches, choose teams and prepare lineups.</p></a>
-  <a class="choice" href="match-day.html"><div class="choice-top"><h2>Match Day &amp; Scoring</h2><div class="arrow">›</div></div><p>Open a saved match and use its scorecard.</p></a>
-  <a class="choice" href="season-history.html"><div class="choice-top"><h2>Season Match History</h2><div class="arrow">›</div></div><p>Review saved matches and share completed results.</p></a>
-  <div class="hh-sell-banner"><strong>Track every match. Share every result. Keep the season together.</strong></div>
+  <a class="choice" href="single-set.html">
+    <div class="choice-top"><h2>Single Set Team Match</h2><div class="arrow">›</div></div>
+    <p>Two singles and two doubles with player names, scores, automatic match winners, team totals, sportsmanship and a text-ready coach recap.</p>
+    <span class="badge">Classic team format</span>
+  </a>
+
+  <a class="choice" href="two-sets-games.html?v=brand1">
+    <div class="choice-top"><h2>2 Sets + 10-Point Tiebreak</h2><div class="arrow">›</div></div>
+    <p>Boys/Girls singles and doubles with two-set scoring, a 10-point match tiebreak when needed, Sets Won, Total Games and a readable share recap.</p>
+    <span class="badge">Sets + games</span>
+  </a>
+
+  <a class="choice" href="timed-junior.html?v=brand1">
+    <div class="choice-top"><h2>Junior Timed Match</h2><div class="arrow">›</div></div>
+    <p>Orange Ball or Green Ball timed matches with selectable singles/doubles counts, independent court timers, score totals and text/share recap.</p>
+    <span class="badge">Orange / Green Ball</span>
+  </a>
+
+  <div class="hh-sell-banner"><strong>One product, two ways to offer it.</strong> Sell HaleHuddle Tennis Scorecard as a standalone tool, and also promote it inside HaleHuddle as the Tennis Scorecard add-on.</div>
 </main>
-<script>try{const t=JSON.parse(localStorage.getItem("halehuddle-teams-tennis-team-v1")||"null");if(t&&t.teamName){document.getElementById("productKicker").textContent=["HALEHUDDLE TEAMS","TENNIS",t.level].filter(Boolean).join(" — ");document.getElementById("teamTitle").textContent=t.teamName;document.getElementById("teamSub").textContent=t.season||"";document.documentElement.style.setProperty("--team-primary",t.primary||"#135BE8");}}catch(e){}</script></body>
+</body>
 </html>
