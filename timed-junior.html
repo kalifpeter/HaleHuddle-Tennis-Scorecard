@@ -4,25 +4,53 @@
 <meta name="theme-color" content="#f4f7f5">
 <title>JTT Junior Timed Match</title><style>
 :root{--bg:#f4f7f5;--card:#fff;--text:#17211b;--muted:#69766e;--line:#d7ded9;--green:#17643d;--pale:#e5f3e9;--yellow:#fff5d5;--yellowline:#e6c75d}
-*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:820px;margin:auto;padding:18px 22px 36px}.back{display:inline-block;text-decoration:none;color:var(--green);background:var(--pale);padding:10px 16px;border-radius:999px;font-weight:850;font-size:16px;margin-bottom:22px}
-h1{font-size:34px;line-height:1.08;margin:0 0 8px}.sub{color:var(--muted);font-weight:650;font-size:17px;line-height:1.4;margin:0 0 22px}
-.card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:22px 24px;margin:0 0 18px}
-label,.label{display:block;color:var(--muted);font-weight:800;font-size:15px;margin:0 0 7px}
-input,select{width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:15px;background:#fff;color:var(--text);font-size:18px;padding:10px 14px}
-.topgrid{display:grid;gap:14px}.match-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:18px}.match-title h2{font-size:25px;margin:0}
-.winner{background:#eef2ef;border-radius:999px;padding:8px 13px;font-weight:850;text-align:center}
-.players,.score-row{display:grid;grid-template-columns:1fr 58px 1fr;gap:12px;align-items:end}.vs{text-align:center;font-weight:900;color:var(--muted);font-size:20px;padding-bottom:15px}
-.players.double .side{display:grid;gap:8px}.divider{height:1px;background:var(--line);margin:18px 0}.score-row input{text-align:center;font-weight:850}
-.default-wrap{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}.default-open{background:var(--yellow);border:1.5px solid var(--yellowline);color:#684e08;border-radius:14px;padding:13px 16px;font-size:17px;font-weight:900}
-.default-panel{margin-top:12px;background:#fff9e9;border:1.5px solid var(--yellowline);border-radius:16px;padding:16px}.default-panel[hidden]{display:none}.default-panel h3{margin:0 0 12px;font-size:18px}
-.choose,.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choose button,.actions button{min-height:48px;border:0;border-radius:14px;font-size:16px;font-weight:850}.choose button{background:#eef2ef;color:var(--text)}.choose button.selected{background:var(--green);color:white}
-.awards{display:grid;gap:10px;margin-top:12px}.apply{background:#9eb6a3;color:white}.apply.ready{background:var(--green)}.cancel{background:#eef2ef;color:var(--text)}
-.totals{display:grid;grid-template-columns:1fr 1fr;gap:12px}.totalbox{background:var(--pale);border-radius:18px;padding:16px;text-align:center;font-weight:850}.totalbox strong{display:block;font-size:32px;margin-top:5px}
-.recap{white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);border-radius:14px;padding:15px;font-size:15px;line-height:1.6;font-weight:600}
-.primary{border:0;border-radius:14px;background:var(--green);color:#fff;font-size:16px;font-weight:850;padding:13px 16px}.secondary{border:0;border-radius:14px;background:#eef2ef;color:var(--text);font-size:16px;font-weight:850;padding:13px 16px}.buttonrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-@media(max-width:520px){main{padding:16px 18px 30px}h1{font-size:30px}.card{padding:20px 18px}.players,.score-row{grid-template-columns:1fr 52px 1fr}.match-title h2{font-size:22px}}
+main{max-width:760px;margin:auto;padding:18px 14px 28px}
+.back{display:inline-block;text-decoration:none;color:var(--green);background:var(--pale);padding:8px 13px;border-radius:999px;font-weight:850;font-size:14px;margin-bottom:17px}
+h1{font-size:29px;line-height:1.08;margin:0 0 7px;font-weight:900}
+h2{font-size:22px}
+.sub{color:var(--muted);font-weight:650;font-size:15px;line-height:1.4;margin:0 0 18px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:17px 18px;margin:0 0 14px}
+label,.label{display:block;color:var(--muted);font-weight:800;font-size:13px;margin:0 0 6px}
+input,select{width:100%;min-height:46px;border:1.5px solid var(--line);border-radius:13px;background:#fff;color:var(--text);font-size:16px;padding:8px 12px}
+.topgrid{display:grid;gap:11px}
+.match-title{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:14px}
+.match-title h2{font-size:21px;margin:0}
+.winner{background:#eef2ef;border-radius:999px;padding:7px 10px;font-weight:850;text-align:center;font-size:13px}
+.players,.score-row{display:grid;grid-template-columns:1fr 44px 1fr;gap:9px;align-items:end}
+.vs{text-align:center;font-weight:900;color:var(--muted);font-size:17px;padding-bottom:13px}
+.players.double .side{display:grid;gap:7px}
+.divider{height:1px;background:var(--line);margin:14px 0}
+.score-row input{text-align:center;font-weight:850}
+.default-wrap{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}
+.default-open{background:var(--yellow);border:1.5px solid var(--yellowline);color:#684e08;border-radius:13px;padding:11px 13px;font-size:15px;font-weight:900}
+.default-panel{margin-top:10px;background:#fff9e9;border:1.5px solid var(--yellowline);border-radius:14px;padding:13px}
+.default-panel[hidden]{display:none}
+.default-panel h3{margin:0 0 10px;font-size:16px}
+.choose,.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.choose button,.actions button{min-height:43px;border:0;border-radius:12px;font-size:14px;font-weight:850}
+.choose button{background:#eef2ef;color:var(--text)}
+.choose button.selected{background:var(--green);color:white}
+.awards{display:grid;gap:8px;margin-top:10px}
+.apply{background:#9eb6a3;color:white}.apply.ready{background:var(--green)}
+.cancel{background:#eef2ef;color:var(--text)}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.totalbox{background:var(--pale);border-radius:15px;padding:12px;text-align:center;font-weight:850;font-size:13px}
+.totalbox strong{display:block;font-size:27px;margin-top:4px}
+.recap{white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);border-radius:13px;padding:13px;font-size:14px;line-height:1.5;font-weight:600}
+.primary,.secondary{border:0;border-radius:12px;font-size:14px;font-weight:850;padding:11px 14px}
+.primary{background:var(--green);color:#fff}.secondary{background:#eef2ef;color:var(--text)}
+.buttonrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+@media(max-width:520px){
+ main{padding:16px 14px 26px}
+ h1{font-size:28px}
+ .sub{font-size:15px}
+ .card{padding:16px 16px;border-radius:19px;margin-bottom:13px}
+ .players,.score-row{grid-template-columns:1fr 42px 1fr}
+ .match-title h2{font-size:20px}
+}
 </style>
 </head><body><main><a class="back" href="index.html">← Tennis Scorecards</a><h1>Junior Timed Match</h1><p class="sub">Orange / Green Ball timed scoring.</p>
 <section class="card topgrid"><label>Date<input id="date" type="date"></label><label>Team 1<input id="teamA" placeholder="Team name"></label><label>Team 2<input id="teamB" placeholder="Team name"></label><label>Match length (minutes)<input id="mins" type="number" min="1" value="20"></label></section>
