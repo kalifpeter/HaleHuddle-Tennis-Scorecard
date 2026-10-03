@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n<!-- CLEAN-JTT-2026-10-02 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<!-- CLEAN-JTT-2026-10-02 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#135BE8">
@@ -71,6 +72,16 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
 }
 
 .default-actions{margin-top:12px;padding-top:12px;border-top:1px solid var(--line,#d7dfda);display:flex;gap:8px;align-items:center;flex-wrap:wrap}.default-btn{border:0;border-radius:10px;padding:10px 12px;font-weight:900;background:#fff3cd;color:#6b4f00;box-shadow:inset 0 0 0 1px #e7cf7a}.default-note{font-size:12px;font-weight:800;color:var(--muted,#66756c)}
+
+.default-panel{width:100%;margin-top:10px;padding:12px;background:#fff9e8;border:1px solid #e7cf7a;border-radius:12px}
+.default-panel-title{font-size:13px;font-weight:900;margin-bottom:8px}
+.default-winner-row,.default-panel-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.default-winner{background:#eef2ef;color:var(--text);min-height:44px}
+.default-winner.selected{background:var(--accent);color:#fff}
+.awarded-label{display:block;margin-top:10px;font-size:12px;font-weight:900;color:var(--muted)}
+.awarded-label input{width:100%;margin-top:6px}
+.default-panel-actions{margin-top:10px}
+.apply-default:disabled{opacity:.45}
 </style>
 
 <link rel="stylesheet" href="-tennis.css?v=brand1">
@@ -309,7 +320,15 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
           <label><span class="team-a-label"></span><input class="score sa" type="number" inputmode="numeric" min="0" placeholder="Score" value="${escapeHtml(c.scoreA)}"></label>
           <label><span class="team-b-label"></span><input class="score sb" type="number" inputmode="numeric" min="0" placeholder="Score" value="${escapeHtml(c.scoreB)}"></label>
         </div>
-        <div class="default-actions"><button class="default-btn" type="button">Default / Forfeit</button><span class="default-note">Parent enters games awarded</span></div>
+        <div class="default-actions">
+  <button class="default-btn" type="button">Default / Forfeit</button><span class="default-note">Parent enters games awarded</span>
+  <div class="default-panel" hidden>
+    <div class="default-panel-title">Who receives the win?</div>
+    <div class="default-winner-row"><button class="default-winner default-a" type="button">${escapeHtml(teamA())}</button><button class="default-winner default-b" type="button">${escapeHtml(teamB())}</button></div>
+    <label class="awarded-label">Games awarded<input class="awarded-games" type="number" inputmode="numeric" min="0" placeholder="0"></label>
+    <div class="default-panel-actions"><button class="apply-default" type="button" disabled>Apply Default / Forfeit</button><button class="cancel-default" type="button">Cancel</button></div>
+  </div>
+</div>
         <div class="timerbox">
           <div class="timer ${c.running?'running':''}" data-role="timer">${fmtTime(c.remaining)}</div>
           <div class="timer-actions">
@@ -329,11 +348,22 @@ button{min-height:46px;border:0;border-radius:12px;font-weight:900;padding:9px 1
       if(doubles)q('.b2').addEventListener('input',e=>{c.pB2=e.target.value;update();});
       q('.sa').addEventListener('input',e=>{c.scoreA=e.target.value;update();});
       q('.sb').addEventListener('input',e=>{c.scoreB=e.target.value;update();});
-      q('.default-btn').addEventListener('click',()=>{
-        const choice=prompt('Which team DEFAULTED? Enter 1 for '+teamA()+' or 2 for '+teamB()+'.'); if(choice!=='1'&&choice!=='2')return;
-        const awarded=prompt('Games awarded to '+(choice==='1'?teamB():teamA())+':',''); if(awarded===null||awarded.trim()===''||isNaN(Number(awarded)))return;
-        c.defaulted=choice==='1'?'a':'b'; c.awarded=String(Math.max(0,Math.floor(Number(awarded))));
-        if(choice==='1'){c.scoreA='0';c.scoreB=c.awarded}else{c.scoreA=c.awarded;c.scoreB='0'} save();render();
+      const dp=q('.default-panel');
+      const refreshDefault=()=>{
+        const w=dp.dataset.winner||'';
+        q('.default-a').classList.toggle('selected',w==='a'); q('.default-b').classList.toggle('selected',w==='b');
+        q('.apply-default').disabled=!w || q('.awarded-games').value==='';
+      };
+      q('.default-btn').addEventListener('click',()=>{dp.hidden=!dp.hidden;if(!dp.hidden){dp.dataset.winner=c.defaultWinner||'';q('.awarded-games').value=c.awarded||'';refreshDefault();}});
+      q('.default-a').addEventListener('click',()=>{dp.dataset.winner='a';refreshDefault();});
+      q('.default-b').addEventListener('click',()=>{dp.dataset.winner='b';refreshDefault();});
+      q('.awarded-games').addEventListener('input',refreshDefault);
+      q('.cancel-default').addEventListener('click',()=>{dp.hidden=true;});
+      q('.apply-default').addEventListener('click',()=>{
+        const w=dp.dataset.winner||'', raw=q('.awarded-games').value;if(!w||raw==='')return;
+        c.defaulted='1';c.defaultWinner=w;c.awarded=String(Math.max(0,Math.floor(Number(raw))));
+        if(w==='a'){c.scoreA=c.awarded;c.scoreB='0'}else{c.scoreA='0';c.scoreB=c.awarded}
+        save();render();
       });
 
       q('.start').addEventListener('click',()=>{

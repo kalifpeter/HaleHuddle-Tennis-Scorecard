@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">\n<!-- CLEAN-JTT-2026-10-02 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<!-- CLEAN-JTT-2026-10-02 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#135BE8">
@@ -105,6 +106,16 @@ button{
 
 
 .default-actions{margin-top:12px;padding-top:12px;border-top:1px solid var(--line,#d7dfda);display:flex;gap:8px;align-items:center;flex-wrap:wrap}.default-btn{border:0;border-radius:10px;padding:10px 12px;font-weight:900;background:#fff3cd;color:#6b4f00;box-shadow:inset 0 0 0 1px #e7cf7a}.default-note{font-size:12px;font-weight:800;color:var(--muted,#66756c)}
+
+.default-panel{width:100%;margin-top:10px;padding:12px;background:#fff9e8;border:1px solid #e7cf7a;border-radius:12px}
+.default-panel-title{font-size:13px;font-weight:900;margin-bottom:8px}
+.default-winner-row,.default-panel-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.default-winner{background:#eef2ef;color:var(--text);min-height:44px}
+.default-winner.selected{background:var(--accent);color:#fff}
+.awarded-label{display:block;margin-top:10px;font-size:12px;font-weight:900;color:var(--muted)}
+.awarded-label input{width:100%;margin-top:6px}
+.default-panel-actions{margin-top:10px}
+.apply-default:disabled{opacity:.45}
 </style>
 
 <link rel="stylesheet" href="-tennis.css?v=brand1">
@@ -150,7 +161,23 @@ button{
     <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0" aria-label="Boys Singles Set 2 Team 1"><input class="score set2-b" type="number" inputmode="numeric" min="0" aria-label="Boys Singles Set 2 Team 2"></div>
     <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0" aria-label="Boys Singles 10 point tiebreak Team 1"><input class="score tb-b" type="number" inputmode="numeric" min="0" aria-label="Boys Singles 10 point tiebreak Team 2"></div>
   </div>
-  <div class="default-actions"><button class="default-btn" type="button">Default / Forfeit</button><span class="default-note">Enter awarded games by set</span></div>
+  <div class="default-actions">
+  <button class="default-btn" type="button">Default / Forfeit</button>
+  <span class="default-note">Enter awarded games by set</span>
+  <div class="default-panel" hidden>
+    <div class="default-panel-title">Who receives the win?</div>
+    <div class="default-winner-row">
+      <button class="default-winner default-a" type="button">Team 1</button>
+      <button class="default-winner default-b" type="button">Team 2</button>
+    </div>
+    <label class="awarded-label">Set 1 games awarded<input class="awarded-set1" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <label class="awarded-label">Set 2 games awarded<input class="awarded-set2" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <div class="default-panel-actions">
+      <button class="apply-default" type="button" disabled>Apply Default / Forfeit</button>
+      <button class="cancel-default" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="card match" data-name="Girls Singles">
@@ -175,7 +202,23 @@ button{
     <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0"><input class="score set2-b" type="number" inputmode="numeric" min="0"></div>
     <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0"><input class="score tb-b" type="number" inputmode="numeric" min="0"></div>
   </div>
-  <div class="default-actions"><button class="default-btn" type="button">Default / Forfeit</button><span class="default-note">Enter awarded games by set</span></div>
+  <div class="default-actions">
+  <button class="default-btn" type="button">Default / Forfeit</button>
+  <span class="default-note">Enter awarded games by set</span>
+  <div class="default-panel" hidden>
+    <div class="default-panel-title">Who receives the win?</div>
+    <div class="default-winner-row">
+      <button class="default-winner default-a" type="button">Team 1</button>
+      <button class="default-winner default-b" type="button">Team 2</button>
+    </div>
+    <label class="awarded-label">Set 1 games awarded<input class="awarded-set1" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <label class="awarded-label">Set 2 games awarded<input class="awarded-set2" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <div class="default-panel-actions">
+      <button class="apply-default" type="button" disabled>Apply Default / Forfeit</button>
+      <button class="cancel-default" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="card match" data-name="Boys Doubles">
@@ -202,7 +245,23 @@ button{
     <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0"><input class="score set2-b" type="number" inputmode="numeric" min="0"></div>
     <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0"><input class="score tb-b" type="number" inputmode="numeric" min="0"></div>
   </div>
-  <div class="default-actions"><button class="default-btn" type="button">Default / Forfeit</button><span class="default-note">Enter awarded games by set</span></div>
+  <div class="default-actions">
+  <button class="default-btn" type="button">Default / Forfeit</button>
+  <span class="default-note">Enter awarded games by set</span>
+  <div class="default-panel" hidden>
+    <div class="default-panel-title">Who receives the win?</div>
+    <div class="default-winner-row">
+      <button class="default-winner default-a" type="button">Team 1</button>
+      <button class="default-winner default-b" type="button">Team 2</button>
+    </div>
+    <label class="awarded-label">Set 1 games awarded<input class="awarded-set1" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <label class="awarded-label">Set 2 games awarded<input class="awarded-set2" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <div class="default-panel-actions">
+      <button class="apply-default" type="button" disabled>Apply Default / Forfeit</button>
+      <button class="cancel-default" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="card match" data-name="Girls Doubles">
@@ -229,7 +288,23 @@ button{
     <div class="score-row"><div class="score-label">Set 2</div><input class="score set2-a" type="number" inputmode="numeric" min="0"><input class="score set2-b" type="number" inputmode="numeric" min="0"></div>
     <div class="score-row"><div><div class="score-label">10-pt TB</div><div class="tb-note">If needed</div></div><input class="score tb-a" type="number" inputmode="numeric" min="0"><input class="score tb-b" type="number" inputmode="numeric" min="0"></div>
   </div>
-  <div class="default-actions"><button class="default-btn" type="button">Default / Forfeit</button><span class="default-note">Enter awarded games by set</span></div>
+  <div class="default-actions">
+  <button class="default-btn" type="button">Default / Forfeit</button>
+  <span class="default-note">Enter awarded games by set</span>
+  <div class="default-panel" hidden>
+    <div class="default-panel-title">Who receives the win?</div>
+    <div class="default-winner-row">
+      <button class="default-winner default-a" type="button">Team 1</button>
+      <button class="default-winner default-b" type="button">Team 2</button>
+    </div>
+    <label class="awarded-label">Set 1 games awarded<input class="awarded-set1" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <label class="awarded-label">Set 2 games awarded<input class="awarded-set2" type="number" inputmode="numeric" min="0" placeholder="6"></label>
+    <div class="default-panel-actions">
+      <button class="apply-default" type="button" disabled>Apply Default / Forfeit</button>
+      <button class="cancel-default" type="button">Cancel</button>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="card">
@@ -301,16 +376,31 @@ button{
     return vals.join(' / ') || '—';
   }
 
-  function setDefault(card){
-    const choice=prompt('Which team DEFAULTED? Enter 1 for '+teamA()+' or 2 for '+teamB()+'.');
-    if(choice!=='1'&&choice!=='2')return;
-    const g1=prompt('Set 1 games awarded to '+(choice==='1'?teamB():teamA())+':','6'); if(g1===null||g1.trim()===''||isNaN(Number(g1)))return;
-    const g2=prompt('Set 2 games awarded to '+(choice==='1'?teamB():teamA())+':','6'); if(g2===null||g2.trim()===''||isNaN(Number(g2)))return;
-    card.dataset.defaulted=choice==='1'?'a':'b'; card.dataset.awarded1=String(Math.max(0,Math.floor(Number(g1)))); card.dataset.awarded2=String(Math.max(0,Math.floor(Number(g2))));
-    const win=choice==='1'?'b':'a', lose=choice==='1'?'a':'b';
-    card.querySelector('.set1-'+win).value=card.dataset.awarded1; card.querySelector('.set1-'+lose).value='0';
-    card.querySelector('.set2-'+win).value=card.dataset.awarded2; card.querySelector('.set2-'+lose).value='0';
-    card.querySelector('.tb-a').value=''; card.querySelector('.tb-b').value=''; update();
+  function refreshDefaultPanel(card){
+    const panel=card.querySelector('.default-panel'); if(!panel)return;
+    panel.querySelector('.default-a').textContent=teamA();
+    panel.querySelector('.default-b').textContent=teamB();
+    const w=panel.dataset.winner||'';
+    panel.querySelector('.default-a').classList.toggle('selected',w==='a');
+    panel.querySelector('.default-b').classList.toggle('selected',w==='b');
+    panel.querySelector('.apply-default').disabled=!w || panel.querySelector('.awarded-set1').value==='' || panel.querySelector('.awarded-set2').value==='';
+  }
+  function openDefault(card){
+    const panel=card.querySelector('.default-panel'); panel.hidden=!panel.hidden;
+    if(!panel.hidden){panel.dataset.winner=card.dataset.defaultWinner||'';panel.querySelector('.awarded-set1').value=card.dataset.awarded1||'';panel.querySelector('.awarded-set2').value=card.dataset.awarded2||'';refreshDefaultPanel(card);}
+  }
+  function applyDefault(card){
+    const panel=card.querySelector('.default-panel'), w=panel.dataset.winner||'';
+    const g1=panel.querySelector('.awarded-set1').value, g2=panel.querySelector('.awarded-set2').value;
+    if(!w||g1===''||g2==='')return;
+    card.dataset.defaulted='1'; card.dataset.defaultWinner=w;
+    card.dataset.awarded1=String(Math.max(0,Math.floor(Number(g1))));
+    card.dataset.awarded2=String(Math.max(0,Math.floor(Number(g2))));
+    const lose=w==='a'?'b':'a';
+    card.querySelector('.set1-'+w).value=card.dataset.awarded1; card.querySelector('.set1-'+lose).value='0';
+    card.querySelector('.set2-'+w).value=card.dataset.awarded2; card.querySelector('.set2-'+lose).value='0';
+    card.querySelector('.tb-a').value=''; card.querySelector('.tb-b').value='';
+    panel.hidden=true; update();
   }
 
   function matchResult(card){
@@ -351,6 +441,7 @@ button{
   function update(){
     let setsA=0, setsB=0, gamesA=0, gamesB=0, complete=0;
 
+    matches.forEach(refreshDefaultPanel);
     document.querySelectorAll('.team-a-label').forEach(el => el.textContent = teamA());
     document.querySelectorAll('.team-b-label').forEach(el => el.textContent = teamB());
     document.querySelectorAll('.score-team-a').forEach(el => el.textContent = teamA());
@@ -515,7 +606,15 @@ button{
 
   document.querySelectorAll('input').forEach(el=>el.addEventListener('input',update));
 
-  matches.forEach(card=>card.querySelector('.default-btn').addEventListener('click',()=>setDefault(card)));
+  matches.forEach(card=>{
+    const panel=card.querySelector('.default-panel');
+    card.querySelector('.default-btn').addEventListener('click',()=>openDefault(card));
+    panel.querySelector('.default-a').addEventListener('click',()=>{panel.dataset.winner='a';refreshDefaultPanel(card);});
+    panel.querySelector('.default-b').addEventListener('click',()=>{panel.dataset.winner='b';refreshDefaultPanel(card);});
+    panel.querySelectorAll('.awarded-set1,.awarded-set2').forEach(x=>x.addEventListener('input',()=>refreshDefaultPanel(card)));
+    panel.querySelector('.apply-default').addEventListener('click',()=>applyDefault(card));
+    panel.querySelector('.cancel-default').addEventListener('click',()=>{panel.hidden=true;});
+  });
 
   $('shareBtn').addEventListener('click',async()=>{
     const text=$('recap').textContent;
