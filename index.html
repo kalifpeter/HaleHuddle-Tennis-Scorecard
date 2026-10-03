@@ -1,30 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
+<!doctype html><html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta name="theme-color" content="#f4f7f5">
-<title>JTT Scorecard</title>
-<style>
-:root{--bg:#f4f7f5;--card:#fff;--text:#17211b;--muted:#68766d;--line:#d7ded9;--green:#0f5132;--pale:#e6f2eb}
+<title>JTT Scorecard</title><style>
+:root{--bg:#f4f7f5;--card:#fff;--text:#17211b;--muted:#69766e;--line:#d7ded9;--green:#17643d;--pale:#e5f3e9;--yellow:#fff5d5;--yellowline:#e6c75d}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:820px;margin:auto;padding:24px 20px 32px}
-.hero{display:flex;align-items:center;gap:14px;margin:8px 0}.icon{width:62px;height:62px;border-radius:17px;background:#0c5b3b;color:#fff;display:grid;place-items:center;font-size:36px;font-weight:900}
-h1{font-size:34px;line-height:1.05;margin:0;font-weight:900}.sub{font-size:18px;line-height:1.4;color:var(--muted);font-weight:650;margin:13px 0 25px}
-.card{display:block;text-decoration:none;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:23px;padding:23px 21px;margin:0 0 18px}
-.row{display:flex;justify-content:space-between;gap:14px;align-items:center}.title{font-size:26px;line-height:1.15;font-weight:900}.arrow{font-size:36px;color:var(--green);font-weight:900}
-.desc{font-size:17px;line-height:1.45;color:var(--muted);font-weight:600;margin:15px 0}.tag{display:inline-block;background:var(--pale);color:var(--green);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:850}
-.note{background:var(--pale);border-radius:20px;padding:18px;font-size:15px;line-height:1.4;color:#355746;font-weight:600}
+main{max-width:820px;margin:auto;padding:18px 22px 36px}.back{display:inline-block;text-decoration:none;color:var(--green);background:var(--pale);padding:10px 16px;border-radius:999px;font-weight:850;font-size:16px;margin-bottom:22px}
+h1{font-size:34px;line-height:1.08;margin:0 0 8px}.sub{color:var(--muted);font-weight:650;font-size:17px;line-height:1.4;margin:0 0 22px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:22px;padding:22px 24px;margin:0 0 18px}
+label,.label{display:block;color:var(--muted);font-weight:800;font-size:15px;margin:0 0 7px}
+input,select{width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:15px;background:#fff;color:var(--text);font-size:18px;padding:10px 14px}
+.topgrid{display:grid;gap:14px}.match-title{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:18px}.match-title h2{font-size:25px;margin:0}
+.winner{background:#eef2ef;border-radius:999px;padding:8px 13px;font-weight:850;text-align:center}
+.players,.score-row{display:grid;grid-template-columns:1fr 58px 1fr;gap:12px;align-items:end}.vs{text-align:center;font-weight:900;color:var(--muted);font-size:20px;padding-bottom:15px}
+.players.double .side{display:grid;gap:8px}.divider{height:1px;background:var(--line);margin:18px 0}.score-row input{text-align:center;font-weight:850}
+.default-wrap{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}.default-open{background:var(--yellow);border:1.5px solid var(--yellowline);color:#684e08;border-radius:14px;padding:13px 16px;font-size:17px;font-weight:900}
+.default-panel{margin-top:12px;background:#fff9e9;border:1.5px solid var(--yellowline);border-radius:16px;padding:16px}.default-panel[hidden]{display:none}.default-panel h3{margin:0 0 12px;font-size:18px}
+.choose,.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choose button,.actions button{min-height:48px;border:0;border-radius:14px;font-size:16px;font-weight:850}.choose button{background:#eef2ef;color:var(--text)}.choose button.selected{background:var(--green);color:white}
+.awards{display:grid;gap:10px;margin-top:12px}.apply{background:#9eb6a3;color:white}.apply.ready{background:var(--green)}.cancel{background:#eef2ef;color:var(--text)}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:12px}.totalbox{background:var(--pale);border-radius:18px;padding:16px;text-align:center;font-weight:850}.totalbox strong{display:block;font-size:32px;margin-top:5px}
+.recap{white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);border-radius:14px;padding:15px;font-size:15px;line-height:1.6;font-weight:600}
+.primary{border:0;border-radius:14px;background:var(--green);color:#fff;font-size:16px;font-weight:850;padding:13px 16px}.secondary{border:0;border-radius:14px;background:#eef2ef;color:var(--text);font-size:16px;font-weight:850;padding:13px 16px}.buttonrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+@media(max-width:520px){main{padding:16px 18px 30px}h1{font-size:30px}.card{padding:20px 18px}.players,.score-row{grid-template-columns:1fr 52px 1fr}.match-title h2{font-size:22px}}
 </style>
-<!-- JTT-CLEAN-REBUILD-V5 -->
-</head>
-<body><main>
-<div class="hero"><div class="icon">J</div><h1>JTT Scorecard</h1></div>
-<div class="sub">Choose the scoring format for today's team match. Each scorecard saves separately on this device.</div>
-<a class="card" href="single-set-v5.html"><div class="row"><div class="title">Single Set Scorecard</div><div class="arrow">›</div></div><div class="desc">Two singles, two doubles, one score per court, automatic winners, team totals, sportsmanship, and inline Default / Forfeit controls.</div><span class="tag">Original format</span></a>
-<a class="card" href="two-sets-games-v5.html"><div class="row"><div class="title">2 Sets + 10-Point Tiebreak</div><div class="arrow">›</div></div><div class="desc">Boys/Girls singles and doubles, two sets, 10-point tiebreak when needed, Sets Won, Total Games, and inline Default / Forfeit controls.</div><span class="tag">Sets + games</span></a>
-<a class="card" href="timed-junior-v5.html"><div class="row"><div class="title">Junior Timed Match</div><div class="arrow">›</div></div><div class="desc">Orange/Green Ball timed matches with selectable courts, timers, scoring, recap sharing, and inline Default / Forfeit controls.</div><span class="tag">Orange / Green Ball</span></a>
-<div class="note"><strong>Same app, three scorecards.</strong> Each format stores its own match data.</div>
+</head><body><main><h1>JTT Scorecard</h1><p class="sub">Choose the scoring format for today's team match. Each scorecard saves separately on this device.</p>
+<a class="card" style="display:block;text-decoration:none;color:inherit" href="single-set.html"><h2>Single Set Scorecard ›</h2><p class="sub">Two singles, two doubles, one score per court, automatic winners, team totals, sportsmanship and Default / Forfeit.</p></a>
+<a class="card" style="display:block;text-decoration:none;color:inherit" href="two-sets-games.html"><h2>2 Sets + 10-Point Tiebreak ›</h2><p class="sub">Boys/Girls singles and doubles, two sets, 10-point tiebreak, Sets Won and Total Games.</p></a>
+<a class="card" style="display:block;text-decoration:none;color:inherit" href="timed-junior.html"><h2>Junior Timed Match ›</h2><p class="sub">Orange / Green Ball timed match scoring.</p></a>
 </main></body></html>
