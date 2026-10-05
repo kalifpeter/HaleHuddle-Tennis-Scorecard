@@ -1,60 +1,543 @@
-<!doctype html><html lang="en"><head>
+<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#f4f7f5">
-<title>JTT Single Set</title><style>
-:root{--bg:#f4f7f5;--card:#fff;--text:#17211b;--muted:#69766e;--line:#d7ded9;--green:#075d36;--pale:#e5f3e9;--yellow:#fff5d5;--yellowline:#e6c75d}*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;text-size-adjust:100%}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:720px;margin:auto;padding:16px 18px 32px}.back{display:inline-block;text-decoration:none;color:var(--green);background:var(--pale);padding:8px 13px;border-radius:999px;font-weight:850;font-size:14px;margin-bottom:16px}h1{font-size:29px;line-height:1.08;margin:0 0 7px}.sub{color:var(--muted);font-weight:650;font-size:15px;line-height:1.4;margin:0 0 18px}.card{background:#fff;border:1.4px solid var(--line);border-radius:19px;padding:17px 18px;margin:0 0 14px}.card h2{margin-top:0}label,.label{display:block;color:var(--muted);font-weight:800;font-size:13px;margin:0 0 5px}input,select{width:100%;min-height:46px;border:1.4px solid var(--line);border-radius:13px;background:#fff;color:var(--text);font-size:16px;padding:9px 12px}.topgrid{display:grid;gap:11px}.match-title{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:13px}.match-title h2{font-size:21px;margin:0}.winner{background:#eef2ef;border-radius:999px;padding:6px 10px;font-weight:850;text-align:center;font-size:13px}.players,.score-row{display:grid;grid-template-columns:1fr 42px 1fr;gap:9px;align-items:end}.vs{text-align:center;font-weight:900;color:var(--muted);font-size:16px;padding-bottom:13px}.players.double .side{display:grid;gap:7px}.divider{height:1px;background:var(--line);margin:14px 0}.score-label{font-size:13px;color:var(--muted);font-weight:850;margin:12px 0 5px}.score-row input{text-align:center;font-weight:850}.default-wrap{margin-top:14px;border-top:1px solid var(--line);padding-top:14px}.default-open{background:var(--yellow);border:1.4px solid var(--yellowline);color:#684e08;border-radius:13px;padding:11px 14px;font-size:15px;font-weight:900}.default-panel{margin-top:10px;background:#fff9e9;border:1.4px solid var(--yellowline);border-radius:14px;padding:13px}.default-panel[hidden]{display:none}.default-panel h3{margin:0 0 10px;font-size:16px}.choose,.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.choose button,.actions button{min-height:43px;border:0;border-radius:11px;font-size:14px;font-weight:850}.choose button{background:#eef2ef;color:var(--text)}.choose button.selected{background:var(--green);color:#fff}.awards{display:grid;gap:8px;margin-top:9px}.apply{background:#9eb6a3;color:#fff}.apply.ready{background:var(--green)}.cancel{background:#eef2ef;color:var(--text)}.totals{display:grid;grid-template-columns:1fr 1fr;gap:9px}.totalbox{background:var(--pale);border-radius:14px;padding:12px;text-align:center;font-weight:850;font-size:13px}.totalbox strong{display:block;font-size:27px;margin-top:3px}.recap{white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);border-radius:12px;padding:13px;font-size:14px;line-height:1.55;font-weight:600}.primary,.secondary{border:0;border-radius:11px;font-size:14px;font-weight:850;padding:11px 13px}.primary{background:var(--green);color:#fff}.secondary{background:#eef2ef;color:var(--text)}.buttonrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-.sports-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.sports-grid label{margin:0}.sports-grid span{display:block;color:var(--muted);font-weight:800;font-size:13px;margin:0 0 5px}@media(max-width:390px){.sports-grid{gap:8px}}</style>
-</head><body><main><a class="back" href="index.html">← Tennis Scorecards</a>
-<h1>Team Tennis — Single Set</h1><p class="sub">Enter all four matches on one screen. Scores, winners and team totals update automatically.</p>
-<section class="card topgrid"><label>Date<input id="date" type="date"></label><label>Team 1<input id="teamA" placeholder="Team name"></label><label>Team 2<input id="teamB" placeholder="Team name"></label></section><section class="card match" data-name="1st Singles"><div class="match-title"><h2>1st Singles</h2><div class="winner">Winner: —</div></div><div class="players"><input class="pa1" placeholder="Player name"><div class="vs">vs</div><input class="pb1" placeholder="Opponent name"></div><div class="score-label">Score</div><div class="score-row"><input class="sa" type="number" min="0" inputmode="numeric"><div class="vs">vs</div><input class="sb" type="number" min="0" inputmode="numeric"></div><div class="default-wrap"><button type="button" class="default-open">Default / Forfeit</button>
-<div class="default-panel" hidden><h3>Who receives the win?</h3>
-<div class="choose"><button type="button" class="choose-a">Team 1</button><button type="button" class="choose-b">Team 2</button></div>
-<div class="awards"><label>Games awarded<input class="award1" type="number" min="0" inputmode="numeric" placeholder="0"></label></div><div class="actions"><button type="button" class="apply">Apply Default / Forfeit</button><button type="button" class="cancel">Cancel</button></div>
-</div></div></section><section class="card match" data-name="2nd Singles"><div class="match-title"><h2>2nd Singles</h2><div class="winner">Winner: —</div></div><div class="players"><input class="pa1" placeholder="Player name"><div class="vs">vs</div><input class="pb1" placeholder="Opponent name"></div><div class="score-label">Score</div><div class="score-row"><input class="sa" type="number" min="0" inputmode="numeric"><div class="vs">vs</div><input class="sb" type="number" min="0" inputmode="numeric"></div><div class="default-wrap"><button type="button" class="default-open">Default / Forfeit</button>
-<div class="default-panel" hidden><h3>Who receives the win?</h3>
-<div class="choose"><button type="button" class="choose-a">Team 1</button><button type="button" class="choose-b">Team 2</button></div>
-<div class="awards"><label>Games awarded<input class="award1" type="number" min="0" inputmode="numeric" placeholder="0"></label></div><div class="actions"><button type="button" class="apply">Apply Default / Forfeit</button><button type="button" class="cancel">Cancel</button></div>
-</div></div></section><section class="card match" data-name="1st Doubles"><div class="match-title"><h2>1st Doubles</h2><div class="winner">Winner: —</div></div><div class="players double"><div class="side"><input class="pa1" placeholder="Player 1"><input class="pa2" placeholder="Player 2"></div><div class="vs">vs</div><div class="side"><input class="pb1" placeholder="Player 1"><input class="pb2" placeholder="Player 2"></div></div><div class="score-label">Score</div><div class="score-row"><input class="sa" type="number" min="0" inputmode="numeric"><div class="vs">vs</div><input class="sb" type="number" min="0" inputmode="numeric"></div><div class="default-wrap"><button type="button" class="default-open">Default / Forfeit</button>
-<div class="default-panel" hidden><h3>Who receives the win?</h3>
-<div class="choose"><button type="button" class="choose-a">Team 1</button><button type="button" class="choose-b">Team 2</button></div>
-<div class="awards"><label>Games awarded<input class="award1" type="number" min="0" inputmode="numeric" placeholder="0"></label></div><div class="actions"><button type="button" class="apply">Apply Default / Forfeit</button><button type="button" class="cancel">Cancel</button></div>
-</div></div></section><section class="card match" data-name="2nd Doubles"><div class="match-title"><h2>2nd Doubles</h2><div class="winner">Winner: —</div></div><div class="players double"><div class="side"><input class="pa1" placeholder="Player 1"><input class="pa2" placeholder="Player 2"></div><div class="vs">vs</div><div class="side"><input class="pb1" placeholder="Player 1"><input class="pb2" placeholder="Player 2"></div></div><div class="score-label">Score</div><div class="score-row"><input class="sa" type="number" min="0" inputmode="numeric"><div class="vs">vs</div><input class="sb" type="number" min="0" inputmode="numeric"></div><div class="default-wrap"><button type="button" class="default-open">Default / Forfeit</button>
-<div class="default-panel" hidden><h3>Who receives the win?</h3>
-<div class="choose"><button type="button" class="choose-a">Team 1</button><button type="button" class="choose-b">Team 2</button></div>
-<div class="awards"><label>Games awarded<input class="award1" type="number" min="0" inputmode="numeric" placeholder="0"></label></div><div class="actions"><button type="button" class="apply">Apply Default / Forfeit</button><button type="button" class="cancel">Cancel</button></div>
-</div></div></section><section class="card"><h2>Team Totals</h2><div class="totals"><div class="totalbox"><span id="taLabel">Team 1 Total</span><strong id="taTotal">0</strong></div><div class="totalbox"><span id="tbLabel">Team 2 Total</span><strong id="tbTotal">0</strong></div></div><p style="text-align:center;font-weight:900" id="overall">Overall: —</p></section>
-<section class="card sports-card"><h2>Sportsmanship Winners</h2><div class="sports-grid"><label><span id="sportsALabel">Team 1</span><input id="sportsA" placeholder="Player name"></label><label><span id="sportsBLabel">Team 2</span><input id="sportsB" placeholder="Player name"></label></div></section>
-<section class="card"><h2>Coach Recap</h2><div id="recap" class="recap"></div><div class="buttonrow"><button class="primary" id="share">Text / Share</button><button class="secondary" id="clear">New Match</button></div></section>
-</main><script>
-const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
-const teamA=()=>$('#teamA').value.trim()||'Team 1', teamB=()=>$('#teamB').value.trim()||'Team 2';
-function n(v){return v===''||v==null?null:Number(v)}
-function names(card,side){return [$(side==='a'?'.pa1':'.pb1',card)?.value,$(side==='a'?'.pa2':'.pb2',card)?.value].filter(Boolean).join(' / ')||'—'}
-function setupDefault(card,twoSets=false){
- const panel=$('.default-panel',card), a=$('.choose-a',card), b=$('.choose-b',card), apply=$('.apply',card);
- function refresh(){a.textContent=teamA();b.textContent=teamB();a.classList.toggle('selected',panel.dataset.win==='a');b.classList.toggle('selected',panel.dataset.win==='b');let ok=!!panel.dataset.win && $('.award1',card).value!=='';if(twoSets)ok=ok&&$('.award2',card).value!=='';apply.classList.toggle('ready',ok);apply.disabled=!ok}
- $('.default-open',card).onclick=()=>{panel.hidden=!panel.hidden;refresh()};
- a.onclick=()=>{panel.dataset.win='a';refresh()}; b.onclick=()=>{panel.dataset.win='b';refresh()};
- $$('.award1,.award2',card).forEach(x=>x.addEventListener('input',refresh));
- $('.cancel',card).onclick=()=>{panel.hidden=true};
- apply.onclick=()=>{const w=panel.dataset.win;if(!w)return;const g1=Math.max(0,Math.floor(Number($('.award1',card).value)));card.dataset.defaultWinner=w;card.dataset.defaulted='1';
-   if(twoSets){const g2=Math.max(0,Math.floor(Number($('.award2',card).value)));$('.s1'+w,card).value=g1;$('.s1'+(w==='a'?'b':'a'),card).value=0;$('.s2'+w,card).value=g2;$('.s2'+(w==='a'?'b':'a'),card).value=0;$('.tb'+w,card).value='';$('.tb'+(w==='a'?'b':'a'),card).value='';}
-   else{$('.s'+w,card).value=g1;$('.s'+(w==='a'?'b':'a'),card).value=0}
-   panel.hidden=true; update();
- };
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#135BE8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HaleHuddle Tennis">
+<title>HaleHuddle Tennis Scorecard — Single Set</title>
+<style>
+:root{
+  --bg:#f4f7f5; --card:#fff; --text:#17211b; --muted:#657269;
+  --line:#d7ded9; --accent:#0f5132; --accent2:#e6f1eb; --win:#dff3e7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:var(--bg); color:var(--text);
+}
+main{max-width:820px;margin:0 auto;padding:14px 12px 40px}
+h1{font-size:25px;margin:8px 0 4px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:17px;
+  padding:12px; margin-bottom:10px;
+}
+label span,.small-label{
+  display:block;font-size:12px;font-weight:800;margin-bottom:5px;color:var(--muted)
+}
+input,button{font:inherit}
+input[type=text],input[type=date],input[type=number]{
+  width:100%; min-height:46px; border:1px solid var(--line); border-radius:11px;
+  padding:10px 11px; background:#fff; color:var(--text); font-size:16px;
+}
+input:focus{outline:3px solid rgba(15,81,50,.14);border-color:var(--accent)}
+.topgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.matchhead{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.matchtitle{font-size:17px;font-weight:900}
+.winner{
+  font-size:12px;font-weight:900;background:#eef2ef;border-radius:999px;
+  padding:6px 9px;line-height:1.2;text-align:center;max-width:52%
+}
+.winner.has{background:var(--win)}
+.versus{
+  display:grid;grid-template-columns:minmax(0,1fr) 30px minmax(0,1fr);
+  gap:8px;align-items:end
+}
+.side{min-width:0}
+.team-label{
+  font-size:12px;font-weight:900;color:var(--muted);margin-bottom:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+.player{margin-bottom:6px}
+.score{font-size:22px!important;font-weight:900;text-align:center}
+.vs{text-align:center;font-size:13px;font-weight:900;color:var(--muted);padding-bottom:15px}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.totalbox{padding:10px;background:var(--accent2);border-radius:13px}
+.totallabel{font-size:12px;font-weight:900}
+.totalnum{font-size:32px;font-weight:900;margin-top:2px}
+.overall{text-align:center;font-size:17px;font-weight:900;margin-top:10px}
+.sports{display:grid;grid-template-columns:1fr;gap:10px}
+.section-title{font-size:18px;font-weight:900;margin-bottom:10px}
+.recap{
+  white-space:pre-wrap;background:#f8faf9;border:1px solid var(--line);
+  border-radius:12px;padding:10px;font-size:13px;line-height:1.45;min-height:86px
+}
+.actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+button{
+  min-height:49px;border:0;border-radius:12px;font-weight:900;padding:10px;
+}
+.primary{background:var(--accent);color:#fff}
+.secondary{background:#e9eeeb;color:var(--text)}
+.note{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+@media(min-width:680px){
+  .topgrid{grid-template-columns:1fr 1fr 1fr}
+  .sports{grid-template-columns:1fr 1fr}
 }
 
-const KEY='jtt-sports-single-v2', cards=$$('.match');
-function update(){
- let A=0,B=0,lines=[]; cards.forEach(c=>{let a=n($('.sa',c).value),b=n($('.sb',c).value),w='—';if(a!==null&&b!==null&&a!==b){w=a>b?teamA():teamB();A+=a;B+=b}$('.winner',c).textContent=(c.dataset.defaulted?'DEFAULT — ':'')+'Winner: '+w;lines.push(c.dataset.name+' — '+names(c,'a')+' vs '+names(c,'b')+' — '+(a??'—')+'–'+(b??'—')+(c.dataset.defaulted?' (Default/Forfeit)':''));});
- $('#taLabel').textContent=teamA()+' Total';$('#tbLabel').textContent=teamB()+' Total';$('#taTotal').textContent=A;$('#tbTotal').textContent=B;$('#overall').textContent='Overall: '+(A===B?'—':A>B?teamA():teamB());
- $('#sportsALabel').textContent=teamA();$('#sportsBLabel').textContent=teamB();const result=A===B?'Tie':A>B?teamA():teamB();$('#recap').textContent=($('#date').value||'No date')+'\n'+teamA()+' vs '+teamB()+'\n\n'+teamA()+': '+A+'\n'+teamB()+': '+B+'\nWinner: '+result+'\n\n'+lines.join('\n\n')+'\n\nSportsmanship\n'+teamA()+': '+($('#sportsA').value||'—')+'\n'+teamB()+': '+($('#sportsB').value||'—'); save();
+.format-nav{max-width:820px;margin:0 auto;padding:10px 12px 0}
+.format-nav a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:#0f5132;font-weight:800;font-size:14px;background:#e6f1eb;border-radius:999px;padding:9px 12px}
+
+</style>
+
+<link rel="stylesheet" href="halehuddle-tennis.css?v=2.6">
+<link rel="apple-touch-icon" href="app-icon-180.png?v=43">
+<link rel="manifest" href="manifest.webmanifest?v=43">
+<style id="hh-critical-header">
+/* Source-level responsive header; self-contained even if external CSS is stale. */
+.hh-app-header{background:#fff;border-bottom:1px solid #e6ebf2;position:relative!important;z-index:1;width:100%;overflow:hidden}
+.hh-app-header-inner{box-sizing:border-box;position:relative;max-width:820px;margin:0 auto;padding:10px 16px;min-height:0!important;display:flex!important;align-items:center!important;justify-content:center!important}
+.hh-logo-wrap{display:flex!important;align-items:center!important;justify-content:center!important;max-width:100%}
+.hh-app-header img.hh-approved-teams-logo{display:block!important;box-sizing:border-box!important;width:78px!important;height:92px!important;min-width:0!important;max-width:78px!important;max-height:92px!important;object-fit:contain!important;margin:0 auto!important;flex:0 0 auto!important}
+.hh-app-header .hh-product{display:none!important}
+.hh-app-header .hh-tennis-chip{position:absolute;right:16px;top:50%;transform:translateY(-50%);padding:6px 9px;border-radius:999px;background:#edf4ff;border:1px solid #dce8ff;color:#135be8;font-size:10px;font-weight:900;letter-spacing:.6px}
+body.hh-home .hh-app-header-inner{padding:18px 16px 12px}
+body.hh-home .hh-app-header img.hh-approved-teams-logo{width:145px!important;height:171px!important;max-width:145px!important;max-height:171px!important}
+body.hh-home .hh-app-header .hh-tennis-chip{display:none!important}
+</style><style id="hh-dark-inline">html[data-hh-theme="dark"] .hh-app-header{background:#000!important;border-color:#293548!important}html[data-hh-theme="dark"] .hh-tennis-chip{background:#203958!important;color:#b8d4ff!important;border-color:#45618a!important}</style><script>try{document.documentElement.dataset.hhTheme=(localStorage.getItem('hh-teams-theme-v1')||'system')==='dark'?'dark':((localStorage.getItem('hh-teams-theme-v1')||'system')==='system'&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){document.documentElement.dataset.hhTheme='light'}</script><script defer src="hh-theme.js?v=2.5"></script><style id="hh-v26-contrast">
+/* V2.6: contrast and navigation, built into stylesheet, no DOM repair or patch scripts. */
+.hh-page-home{display:inline-flex;align-items:center;gap:6px;margin:0 0 17px;padding:10px 15px;border-radius:12px;background:#eaf2ff;color:#174ea6;font-weight:850;text-decoration:none;min-height:44px}
+.hh-page-home:focus-visible{outline:3px solid #7aafff;outline-offset:3px}
+html[data-hh-theme="dark"] body{--bg:#141c2b;--card:#202b3b;--text:#f2f6ff;--muted:#b9c8dd;--line:#52627a;--accent:#135BE8;--accent2:#2c4052;--win:#264a40;--warn:#594829;--hh-ink:#f2f6ff;--hh-card-1:#253448;--hh-card-2:#263b52;--hh-card-3:#263b52;--hh-primary-top:#326be6;--hh-primary-bottom:#2456bb;--hh-primary-shadow:#153c86;color:#f2f6ff}
+html[data-hh-theme="dark"] .hh-page-home{background:#283e5c;color:#d3e5ff;border:1px solid #5476a2}
+html[data-hh-theme="dark"] :is(.match-card,.position,.summary-box,.empty,.warn,.saved){background:#253448!important;border-color:#51647e!important;color:#f1f5ff!important}
+html[data-hh-theme="dark"] :is(.matchtitle,.section-title,.position-title,.totalnum,.totallabel,.summary-num,.summary-label,.result,.small-label,.score-label,.match-card h2,.match-card h3,.position h3){color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.totalbox,.has){background:#29483f!important;color:#f3fff8!important}
+html[data-hh-theme="dark"] :is(.totalbox *, .has *){color:#f3fff8!important}
+html[data-hh-theme="dark"] :is(.result,.warn){background:#364a60!important;color:#f5f8ff!important}
+html[data-hh-theme="dark"] :is(.back,.hh-page-home){color:#c9dfff!important}
+html[data-hh-theme="dark"] :is(.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.note,.sub,.meta,.format,.small-label,.vs){color:#c0cee0!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(h1,h2,h3,h4,strong,label){color:#f2f6ff}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(input,select,textarea){background:#172233!important;color:#f2f6ff!important;border-color:#6b7f9a!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(input,textarea)::placeholder{color:#b3c1d5!important}
+html[data-hh-theme="dark"] :is(.card,.choice) :is(.logo,.logoPick .logo){background:#f5f8ff!important;color:#536177!important}
+html[data-hh-theme="dark"] .saved{background:#234d39!important;color:#d4ffe5!important}
+html[data-hh-theme="dark"] .athlete button{background:#532c37!important;color:#ffbec8!important}
+html[data-hh-theme="dark"] .hh-sell-banner{background:#263c49!important}
+
+/* V2.7 approved dark palette: HH blue actions, slate secondary controls, navy recap. */
+html[data-hh-theme="dark"] :is(button.primary,.btn.primary){background:#135BE8!important;color:#fff!important}
+html[data-hh-theme="dark"] :is(button.primary,.btn.primary):focus-visible{outline:3px solid #92b7ff;outline-offset:2px}
+html[data-hh-theme="dark"] :is(button.secondary,.btn.secondary){background:#354960!important;color:#f2f6ff!important}
+html[data-hh-theme="dark"] .recap{background:#172438!important;color:#f2f6ff!important;border:1px solid #577395!important}
+html[data-hh-theme="dark"] .recap *{color:#f2f6ff!important}
+html[data-hh-theme="dark"] :is(.totalbox,.totalbox *, .has,.has *){color:#f3fff8!important}
+
+</style></head>
+
+<style id="hh-v48-default-forfeit">
+.default-toggle{margin-top:10px;width:100%;background:#34475e;color:#fff;border:0;border-radius:12px;padding:12px;font-weight:850}.default-panel{display:none;margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}.default-panel.open{display:block}.default-panel h4{margin:0 0 8px}.default-side-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.default-side{background:#34475e;color:#fff}.default-side.selected{outline:3px solid #135BE8}.default-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.default-status{font-weight:900;margin-top:8px}.match.is-default{outline:2px solid #135BE8}.default-games{width:100%;box-sizing:border-box}.default-panel label{display:block;margin-top:10px;font-weight:800}html[data-hh-theme="dark"] .default-panel{background:#172438!important;border-color:#577395!important;color:#f2f6ff!important}
+</style>
+<body data-hh-score-format="single">
+
+<header class="hh-app-header">
+  <div class="hh-app-header-inner">
+    <div class="hh-logo-wrap">
+      <img class="hh-approved-teams-logo" src="hh-teams-approved-logo.png" width="78" height="92" style="display:block!important;box-sizing:border-box!important;width:78px!important;height:92px!important;min-width:0!important;max-width:78px!important;max-height:92px!important;object-fit:contain!important;margin:0 auto!important;" alt="HaleHuddle Teams">
+      <div class="hh-product">TENNIS</div>
+    </div>
+    <div class="hh-tennis-chip">TENNIS</div>
+  </div>
+</header>
+
+<main><nav aria-label="Page navigation"><a class="hh-page-home" href="index.html">‹ Home</a></nav>
+<h1>Team Tennis — Single Set</h1>
+<div class="sub">Enter all four matches on one screen. Scores, winners and team totals update automatically when opened in a browser.</div>
+
+<section class="card">
+  <div class="topgrid">
+    <label><span>Date</span><input id="date" type="date"></label>
+    <label><span>Season</span><input id="seasonName" type="text" placeholder="e.g. Fall 2026"></label>
+    <label><span>Team 1</span><input id="teamA" type="text" placeholder="Team name"></label>
+    <label><span>Team 2</span><input id="teamB" type="text" placeholder="Team name"></label>
+  </div>
+</section>
+
+<section class="card match" data-name="1st Singles">
+  <div class="matchhead">
+    <div class="matchtitle">1st Singles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player name">
+      <input class="score score-a" type="number" inputmode="numeric" min="0" placeholder="Score">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Opponent name">
+      <input class="score score-b" type="number" inputmode="numeric" min="0" placeholder="Score">
+      <button class="default-toggle" type="button">Default / Forfeit</button>
+      <div class="default-panel"><h4>Who receives the win?</h4><div class="default-side-row"><button class="default-side side-a" type="button">Team 1</button><button class="default-side side-b" type="button">Team 2</button></div><label>Games awarded<input class="default-games" type="number" inputmode="numeric" min="0" value="0"></label><div class="default-actions"><button class="apply-default primary" type="button">Apply Default / Forfeit</button><button class="cancel-default secondary" type="button">Cancel</button></div><div class="default-status"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="card match" data-name="2nd Singles">
+  <div class="matchhead">
+    <div class="matchtitle">2nd Singles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player name">
+      <input class="score score-a" type="number" inputmode="numeric" min="0" placeholder="Score">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Opponent name">
+      <input class="score score-b" type="number" inputmode="numeric" min="0" placeholder="Score">
+      <button class="default-toggle" type="button">Default / Forfeit</button>
+      <div class="default-panel"><h4>Who receives the win?</h4><div class="default-side-row"><button class="default-side side-a" type="button">Team 1</button><button class="default-side side-b" type="button">Team 2</button></div><label>Games awarded<input class="default-games" type="number" inputmode="numeric" min="0" value="0"></label><div class="default-actions"><button class="apply-default primary" type="button">Apply Default / Forfeit</button><button class="cancel-default secondary" type="button">Cancel</button></div><div class="default-status"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="card match" data-name="1st Doubles">
+  <div class="matchhead">
+    <div class="matchtitle">1st Doubles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player 1">
+      <input class="player player-a2" type="text" placeholder="Player 2">
+      <input class="score score-a" type="number" inputmode="numeric" min="0" placeholder="Score">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Player 1">
+      <input class="player player-b2" type="text" placeholder="Player 2">
+      <input class="score score-b" type="number" inputmode="numeric" min="0" placeholder="Score">
+      <button class="default-toggle" type="button">Default / Forfeit</button>
+      <div class="default-panel"><h4>Who receives the win?</h4><div class="default-side-row"><button class="default-side side-a" type="button">Team 1</button><button class="default-side side-b" type="button">Team 2</button></div><label>Games awarded<input class="default-games" type="number" inputmode="numeric" min="0" value="0"></label><div class="default-actions"><button class="apply-default primary" type="button">Apply Default / Forfeit</button><button class="cancel-default secondary" type="button">Cancel</button></div><div class="default-status"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="card match" data-name="2nd Doubles">
+  <div class="matchhead">
+    <div class="matchtitle">2nd Doubles</div>
+    <div class="winner">Winner: —</div>
+  </div>
+  <div class="versus">
+    <div class="side">
+      <div class="team-label team-a-label">Team 1</div>
+      <input class="player player-a1" type="text" placeholder="Player 1">
+      <input class="player player-a2" type="text" placeholder="Player 2">
+      <input class="score score-a" type="number" inputmode="numeric" min="0" placeholder="Score">
+    </div>
+    <div class="vs">VS</div>
+    <div class="side">
+      <div class="team-label team-b-label">Team 2</div>
+      <input class="player player-b1" type="text" placeholder="Player 1">
+      <input class="player player-b2" type="text" placeholder="Player 2">
+      <input class="score score-b" type="number" inputmode="numeric" min="0" placeholder="Score">
+      <button class="default-toggle" type="button">Default / Forfeit</button>
+      <div class="default-panel"><h4>Who receives the win?</h4><div class="default-side-row"><button class="default-side side-a" type="button">Team 1</button><button class="default-side side-b" type="button">Team 2</button></div><label>Games awarded<input class="default-games" type="number" inputmode="numeric" min="0" value="0"></label><div class="default-actions"><button class="apply-default primary" type="button">Apply Default / Forfeit</button><button class="cancel-default secondary" type="button">Cancel</button></div><div class="default-status"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="totals">
+    <div class="totalbox">
+      <div id="totalLabelA" class="totallabel">Team 1 Total</div>
+      <div id="totalA" class="totalnum">0</div>
+    </div>
+    <div class="totalbox">
+      <div id="totalLabelB" class="totallabel">Team 2 Total</div>
+      <div id="totalB" class="totalnum">0</div>
+    </div>
+  </div>
+  <div id="overall" class="overall">Overall: —</div>
+</section>
+
+<section class="card">
+  <div class="section-title">Sportsmanship Winners</div>
+  <div class="sports">
+    <label><span id="sportLabelA">Team 1</span><input id="sportA" type="text" placeholder="Player name"></label>
+    <label><span id="sportLabelB">Team 2</span><input id="sportB" type="text" placeholder="Player name"></label>
+  </div>
+</section>
+
+<section class="card">
+  <div class="section-title">Coach Recap</div>
+  <div id="recap" class="recap">Enter the match information above.</div>
+  <div class="actions">
+    <button id="shareBtn" class="primary" type="button">Text / Share</button>
+<button id="saveSeasonBtn" class="primary" type="button">Save Match to Season</button>
+    <button id="newBtn" class="secondary" type="button">New Match</button>
+  </div>
+  <div class="note">For full auto-save and Text/Share behavior, open this page in Safari/Chrome or from the installed web app.</div>
+</section>
+</main>
+
+<script>
+(function(){
+  const root = document;
+  const storeKey = 'jtt-scorecard-static-v2';
+  const $ = id => document.getElementById(id);
+  const matches = Array.from(document.querySelectorAll('.match'));
+  const defaultState = matches.map(()=>({isDefault:false,winner:null,awardedGames:0}));
+
+  function teamA(){ return $('teamA').value.trim() || 'Team 1'; }
+  function teamB(){ return $('teamB').value.trim() || 'Team 2'; }
+  function n(input){
+    if(input.value === '') return null;
+    const v = Math.max(0, Math.floor(Number(input.value) || 0));
+    if(String(v) !== input.value) input.value = v;
+    return v;
+  }
+  function personList(card, side){
+    const vals = [];
+    const one = card.querySelector('.player-'+side+'1');
+    const two = card.querySelector('.player-'+side+'2');
+    if(one && one.value.trim()) vals.push(one.value.trim());
+    if(two && two.value.trim()) vals.push(two.value.trim());
+    return vals.join(' / ') || '—';
+  }
+
+  function setupDefaultControls(){
+    matches.forEach((card,i)=>{
+      const panel=card.querySelector('.default-panel'), toggle=card.querySelector('.default-toggle');
+      toggle.addEventListener('click',()=>panel.classList.toggle('open'));
+      card.querySelector('.side-a').addEventListener('click',()=>selectDefaultSide(card,i,'a'));
+      card.querySelector('.side-b').addEventListener('click',()=>selectDefaultSide(card,i,'b'));
+      card.querySelector('.cancel-default').addEventListener('click',()=>panel.classList.remove('open'));
+      card.querySelector('.apply-default').addEventListener('click',()=>{
+        const d=defaultState[i]; if(!d.winner)return alert('Choose which team receives the win.');
+        const g=Math.max(0,Math.floor(Number(card.querySelector('.default-games').value)||0)); d.isDefault=true;d.awardedGames=g;
+        card.querySelector('.score-a').value=d.winner==='a'?g:0; card.querySelector('.score-b').value=d.winner==='b'?g:0;
+        panel.classList.remove('open'); update();
+      });
+    });
+  }
+  function selectDefaultSide(card,i,side){defaultState[i].winner=side;card.querySelector('.side-a').classList.toggle('selected',side==='a');card.querySelector('.side-b').classList.toggle('selected',side==='b');}
+  function renderDefault(card,i){const d=defaultState[i];card.classList.toggle('is-default',d.isDefault);const st=card.querySelector('.default-status');if(st)st.textContent=d.isDefault?'Default / Forfeit — '+(d.winner==='a'?teamA():teamB())+' awarded '+d.awardedGames+'–0':'';}
+  function update(){
+    let ta = 0, tb = 0, completed = 0;
+
+    document.querySelectorAll('.team-a-label').forEach(el => el.textContent = teamA());
+    document.querySelectorAll('.team-b-label').forEach(el => el.textContent = teamB());
+    $('totalLabelA').textContent = teamA() + ' Total';
+    $('totalLabelB').textContent = teamB() + ' Total';
+    $('sportLabelA').textContent = teamA();
+    $('sportLabelB').textContent = teamB();
+
+    matches.forEach((card,i) => {
+      renderDefault(card,i);
+      const a = n(card.querySelector('.score-a'));
+      const b = n(card.querySelector('.score-b'));
+      const w = card.querySelector('.winner');
+      if(a !== null) ta += a;
+      if(b !== null) tb += b;
+
+      if(a === null || b === null){
+        w.textContent = 'Winner: —';
+        w.classList.remove('has');
+      } else {
+        completed++;
+        w.textContent = 'Winner: ' + (a > b ? teamA() : b > a ? teamB() : 'Tie');
+        w.classList.add('has');
+      }
+    });
+
+    $('totalA').textContent = ta;
+    $('totalB').textContent = tb;
+    $('overall').textContent = 'Overall: ' + (!completed ? '—' : ta > tb ? teamA() : tb > ta ? teamB() : 'Tie');
+
+    const lines = [];
+    lines.push('TEAM TENNIS MATCH' + ($('date').value ? ' — ' + $('date').value : ''));
+    lines.push(teamA() + ' vs ' + teamB());
+    lines.push('');
+
+    matches.forEach((card,i) => {
+      const a = n(card.querySelector('.score-a'));
+      const b = n(card.querySelector('.score-b'));
+      const win = (a === null || b === null) ? '—' : (a > b ? teamA() : b > a ? teamB() : 'Tie');
+      lines.push(card.dataset.name.toUpperCase());
+      lines.push(personList(card,'a') + ' vs ' + personList(card,'b'));
+      lines.push('Score: ' + (a === null ? '—' : a) + '-' + (b === null ? '—' : b));
+      lines.push('Winner: ' + win);
+      if(defaultState[i].isDefault) lines.push('Result: Default / Forfeit — '+(defaultState[i].winner==='a'?teamA():teamB())+' receives win ('+defaultState[i].awardedGames+'-0)');
+      lines.push('');
+    });
+
+    lines.push('TEAM TOTALS');
+    lines.push(teamA() + ': ' + ta + ' | ' + teamB() + ': ' + tb);
+    lines.push('Overall: ' + (!completed ? '—' : ta > tb ? teamA() : tb > ta ? teamB() : 'Tie'));
+    lines.push('');
+    lines.push('SPORTSMANSHIP');
+    lines.push(teamA() + ': ' + ($('sportA').value.trim() || '—'));
+    lines.push(teamB() + ': ' + ($('sportB').value.trim() || '—'));
+    $('recap').textContent = lines.join('\n');
+    save();
+  }
+
+  function snapshot(){
+    return {
+      date:$('date').value,
+      teamA:$('teamA').value,
+      teamB:$('teamB').value,
+      sportA:$('sportA').value,
+      sportB:$('sportB').value,
+      matches:matches.map((card,i) => ({
+        name:card.dataset.name,
+        a1:(card.querySelector('.player-a1')||{}).value || '',
+        a2:(card.querySelector('.player-a2')||{}).value || '',
+        b1:(card.querySelector('.player-b1')||{}).value || '',
+        b2:(card.querySelector('.player-b2')||{}).value || '',
+        scoreA:card.querySelector('.score-a').value,
+        scoreB:card.querySelector('.score-b').value,
+        defaultResult:{...defaultState[i]}
+      }))
+    };
+  }
+
+  function save(){
+    try { localStorage.setItem(storeKey, JSON.stringify(snapshot())); } catch(e) {}
+  }
+
+  function load(){
+    try{
+      const s = JSON.parse(localStorage.getItem(storeKey) || 'null');
+      if(!s) return;
+      $('date').value = s.date || '';
+      $('teamA').value = s.teamA || '';
+      $('teamB').value = s.teamB || '';
+      $('sportA').value = s.sportA || '';
+      $('sportB').value = s.sportB || '';
+      (s.matches || []).forEach((m,i) => {
+        const card = matches[i];
+        if(!card) return;
+        if(card.querySelector('.player-a1')) card.querySelector('.player-a1').value = m.a1 || '';
+        if(card.querySelector('.player-a2')) card.querySelector('.player-a2').value = m.a2 || '';
+        if(card.querySelector('.player-b1')) card.querySelector('.player-b1').value = m.b1 || '';
+        if(card.querySelector('.player-b2')) card.querySelector('.player-b2').value = m.b2 || '';
+        card.querySelector('.score-a').value = m.scoreA || '';
+        card.querySelector('.score-b').value = m.scoreB || '';
+        if(m.defaultResult) Object.assign(defaultState[i],m.defaultResult);
+        if(defaultState[i].winner) selectDefaultSide(card,i,defaultState[i].winner);
+        card.querySelector('.default-games').value=defaultState[i].awardedGames||0;
+      });
+    }catch(e){}
+  }
+
+  document.querySelectorAll('input').forEach(el => el.addEventListener('input', update));
+
+  $('shareBtn').addEventListener('click', async () => {
+    const text = $('recap').textContent;
+    if(navigator.share){
+      try{
+        await navigator.share({title:'TEAM TENNIS MATCH Recap', text});
+        return;
+      }catch(e){
+        if(e && e.name === 'AbortError') return;
+      }
+    }
+    const isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    location.href = (isiOS ? 'sms:&body=' : 'sms:?body=') + encodeURIComponent(text);
+  });
+
+  $('newBtn').addEventListener('click', () => {
+    if(!confirm('Start a new match and clear this scorecard?')) return;
+    try{ localStorage.removeItem(storeKey);
+    defaultState.forEach(d=>Object.assign(d,{isDefault:false,winner:null,awardedGames:0})); }catch(e){}
+    document.querySelectorAll('input').forEach(el => el.value = '');
+    matches.forEach(card=>{card.querySelector('.default-games').value=0;card.querySelectorAll('.default-side').forEach(b=>b.classList.remove('selected'));card.querySelector('.default-panel').classList.remove('open')});
+    update();
+  });
+
+  setupDefaultControls();
+  load();
+  update();
+
+  const hhSeasonKey='halehuddle-tennis-season-history-v1';
+
+  function hhLoadSeasonHistory(){
+    try{return JSON.parse(localStorage.getItem(hhSeasonKey)||'[]')}catch(e){return[]}
+  }
+
+  function hhSaveSeasonHistory(items){
+    try{localStorage.setItem(hhSeasonKey,JSON.stringify(items))}catch(e){}
+  }
+
+  function hhSaveCurrentMatch(formatName){
+    const recapEl=document.getElementById('recap');
+    const dateEl=document.getElementById('date');
+    const teamAEl=document.getElementById('teamA');
+    const teamBEl=document.getElementById('teamB');
+    const seasonEl=document.getElementById('seasonName');
+
+    const recap=recapEl ? recapEl.textContent.trim() : '';
+    const date=dateEl ? dateEl.value : '';
+    const teamA=teamAEl ? teamAEl.value.trim() : '';
+    const teamB=teamBEl ? teamBEl.value.trim() : '';
+    const season=(seasonEl && seasonEl.value.trim()) ? seasonEl.value.trim() : 'Current Season';
+
+    if(!date && !teamA && !teamB){
+      alert('Enter the match date or team names before saving this match.');
+      return;
+    }
+
+    const history=hhLoadSeasonHistory();
+    const item={
+      id:'m-'+Date.now()+'-'+Math.random().toString(36).slice(2,8),
+      savedAt:new Date().toISOString(),
+      season,
+      format:formatName,
+      date,
+      teamA:teamA||'Team 1',
+      teamB:teamB||'Team 2',
+      recap
+    };
+    history.unshift(item);
+    hhSaveSeasonHistory(history);
+
+    const btn=document.getElementById('saveSeasonBtn');
+    if(btn){
+      const old=btn.textContent;
+      btn.textContent='Saved ✓';
+      setTimeout(()=>{btn.textContent=old},1400);
+    }
+  }
+
+  const hhSaveBtn=document.getElementById('saveSeasonBtn');
+  if(hhSaveBtn)hhSaveBtn.addEventListener('click',()=>hhSaveCurrentMatch("Single Set Team Match"));
+
+  const hhSeasonInput=document.getElementById('seasonName');
+  if(hhSeasonInput){
+    try{
+      const last=localStorage.getItem('halehuddle-tennis-last-season');
+      if(last && !hhSeasonInput.value)hhSeasonInput.value=last;
+    }catch(e){}
+    hhSeasonInput.addEventListener('input',()=>{
+      try{localStorage.setItem('halehuddle-tennis-last-season',hhSeasonInput.value)}catch(e){}
+    });
+  }
+})();
+</script>
+<script defer src="hh-scoring-lineup.js?v=38"></script><script defer src="hh-unsaved-navigation.js?v=2.6"></script><script>
+(function(){
+if(new URLSearchParams(location.search).get('view')!=='parent')return;
+function parentNavigation(){
+document.querySelectorAll('a[href="index.html"],a[href="match-lineup.html"]').forEach(a=>{
+ a.href='match-day.html?view=parent';
+ a.textContent='‹ Back to My Matches';
+});
 }
-function save(){let o={};$$('input').forEach((x,i)=>o[i]=x.value);o.def=cards.map(c=>({d:c.dataset.defaulted||'',w:c.dataset.defaultWinner||''}));localStorage.setItem(KEY,JSON.stringify(o))}
-function load(){try{let o=JSON.parse(localStorage.getItem(KEY)||'{}');$$('input').forEach((x,i)=>{if(o[i]!=null)x.value=o[i]});(o.def||[]).forEach((d,i)=>{if(cards[i]){cards[i].dataset.defaulted=d.d;cards[i].dataset.defaultWinner=d.w}})}catch(e){}}
-cards.forEach(c=>setupDefault(c,false)); $$('input').forEach(x=>x.addEventListener('input',update)); $('#teamA').addEventListener('input',()=>cards.forEach(c=>setupLabels(c)));$('#teamB').addEventListener('input',()=>cards.forEach(c=>setupLabels(c)));
-function setupLabels(c){const p=$('.default-panel',c);if(p&&!p.hidden){$('.choose-a',c).textContent=teamA();$('.choose-b',c).textContent=teamB()}}
-$('#share').onclick=async()=>{const text=$('#recap').textContent;if(navigator.share){try{await navigator.share({text})}catch(e){}}else location.href='sms:&body='+encodeURIComponent(text)};
-$('#clear').onclick=()=>{localStorage.removeItem(KEY);location.reload()}; load();update();
-</script></body></html>
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',parentNavigation);
+else parentNavigation();
+})();
+</script></body>
+</html>

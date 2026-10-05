@@ -1,0 +1,4 @@
+HaleHuddle Teams — Tennis V4.8 working build
+Built from protected V4.7 Approved Restore.
+Generic approved JTT Scorecards used only as scoring behavior reference.
+V4.7 remains protected master until explicit approval.
