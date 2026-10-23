@@ -5,7 +5,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{min-height:100svh}
-main{width:100%;max-width:480px;min-height:100svh;margin:0 auto;padding:clamp(12px,2svh,20px) 16px max(16px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:clamp(9px,1.3svh,14px)}
+main{width:100%;max-width:480px;height:100svh;min-height:0;margin:0 auto;padding:clamp(12px,2svh,20px) 16px max(16px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:clamp(9px,1.3svh,14px)}
 .hero{display:flex;align-items:center;gap:12px;flex:0 0 auto}
 .j{width:48px;height:48px;border-radius:13px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:30px;font-weight:900;flex:none}
 h1{font-size:clamp(25px,6.5vw,31px);line-height:1;margin:0;font-weight:900;letter-spacing:-.5px}
@@ -17,7 +17,8 @@ h1{font-size:clamp(25px,6.5vw,31px);line-height:1;margin:0;font-weight:900;lette
 .note{background:var(--pale);border-radius:14px;padding:10px 12px;color:#315943;font-size:clamp(11px,3vw,13px);line-height:1.22;font-weight:700;flex:0 0 auto}
 .note strong{font-weight:900}
 @media(max-height:650px){main{gap:7px;padding-top:9px;padding-bottom:9px}.j{width:40px;height:40px;font-size:25px}h1{font-size:24px}.intro{font-size:12px}.choice{min-height:92px;padding:9px 12px}.title{font-size:18px}.desc{font-size:11.5px;margin-top:5px}.note{font-size:10.5px;padding:7px 9px}}
-@media(min-height:950px){main{max-height:980px}}
+@supports (height:100dvh){main{height:100dvh}}
+@media(max-height:580px){main{height:auto;min-height:100svh}.choice{flex:0 0 auto}}
 </style></head><body><main>
 <div class="hero"><div class="j">J</div><h1>JTT Scorecard</h1></div>
 <p class="intro">Choose the scoring format for today's team match. Each scorecard saves separately on this device.</p>
