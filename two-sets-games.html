@@ -61,8 +61,46 @@ function setupDefault(card,twoSets=false){
 
 const KEY='jtt-sports-two-v2',cards=$$('.match');
 function setwin(a,b){if(a===null||b===null||a===b)return null;return a>b?'a':'b'}
-function update(){let AS=0,BS=0,AG=0,BG=0,lines=[];cards.forEach(c=>{let aw=0,bw=0;for(const k of ['1','2']){let a=n($('.s'+k+'a',c).value),b=n($('.s'+k+'b',c).value);if(a!==null)AG+=a;if(b!==null)BG+=b;let w=setwin(a,b);if(w==='a'){AS++;aw++}if(w==='b'){BS++;bw++}}let ta=n($('.tba',c).value),tb=n($('.tbb',c).value);let tw=setwin(ta,tb);if(tw==='a')aw++;if(tw==='b')bw++;let win=aw===bw?'—':aw>bw?teamA():teamB();$('.winner',c).textContent=(c.dataset.defaulted?'DEFAULT — ':'')+'Winner: '+win;lines.push(c.dataset.name+' — '+names(c,'a')+' vs '+names(c,'b')+(c.dataset.defaulted?' (Default/Forfeit)':''));});
-$('#sportsALabel').textContent=teamA();$('#sportsBLabel').textContent=teamB();$('#aSetsLabel').textContent=teamA()+' Sets Won';$('#bSetsLabel').textContent=teamB()+' Sets Won';$('#aGamesLabel').textContent=teamA()+' Total Games';$('#bGamesLabel').textContent=teamB()+' Total Games';$('#aSets').textContent=AS;$('#bSets').textContent=BS;$('#aGames').textContent=AG;$('#bGames').textContent=BG;$('#recap').textContent=($('#date').value||'No date')+'\n'+teamA()+' vs '+teamB()+'\n\n'+lines.join('\n\n')+'\n\nSets: '+AS+'–'+BS+' | Games: '+AG+'–'+BG+'\n\nSportsmanship\n'+teamA()+': '+($('#sportsA').value||'—')+'\n'+teamB()+': '+($('#sportsB').value||'—');save()}
+function update(){
+ let AS=0,BS=0,AG=0,BG=0,lines=[];
+ cards.forEach(c=>{
+  let aw=0,bw=0,scores=[];
+  for(const k of ['1','2']){
+   const a=n($('.s'+k+'a',c).value),b=n($('.s'+k+'b',c).value);
+   if(a!==null&&Number.isFinite(a))AG+=a;
+   if(b!==null&&Number.isFinite(b))BG+=b;
+   const w=setwin(a,b);
+   if(w==='a'){AS++;aw++}if(w==='b'){BS++;bw++}
+   if(a!==null&&b!==null)scores.push('Set '+k+': '+a+'–'+b);
+  }
+  const ta=n($('.tba',c).value),tb=n($('.tbb',c).value);
+  // Match tiebreak points are not games: winner receives exactly one game.
+  const tw=ta!==null&&tb!==null?setwin(ta,tb):null;
+  // A match tiebreak is one additional GAME for the winning team only.
+  // Keep its points separate from the two regular set scores.
+  const tbGameA=tw==='a'?1:0;
+  const tbGameB=tw==='b'?1:0;
+  AG+=tbGameA; BG+=tbGameB;
+  aw+=tbGameA; bw+=tbGameB;
+  if(ta!==null&&tb!==null)scores.push('10-Point Tiebreak: '+ta+'–'+tb);
+  const win=aw===bw?'—':aw>bw?teamA():teamB();
+  $('.winner',c).textContent=(c.dataset.defaulted?'DEFAULT — ':'')+'Winner: '+win;
+  const entry=[c.dataset.name,teamA()+': '+names(c,'a'),teamB()+': '+names(c,'b'),...scores];
+  if(c.dataset.defaulted)entry.push('Default / Forfeit: '+(c.dataset.defaultWinner==='a'?teamA():teamB())+' awarded match');
+  entry.push('Winner: '+win);
+  lines.push(entry.join('\n'));
+ });
+ $('#sportsALabel').textContent=teamA();$('#sportsBLabel').textContent=teamB();
+ $('#aSetsLabel').textContent=teamA()+' Sets Won';$('#bSetsLabel').textContent=teamB()+' Sets Won';
+ $('#aGamesLabel').textContent=teamA()+' Total Games';$('#bGamesLabel').textContent=teamB()+' Total Games';
+ $('#aSets').textContent=AS;$('#bSets').textContent=BS;$('#aGames').textContent=AG;$('#bGames').textContent=BG;
+ const result=AG===BG?'Tie':AG>BG?teamA():teamB();
+ $('#recap').textContent=[($('#date').value||'No date'),teamA()+' vs '+teamB(),'',
+  'TEAM RESULTS',teamA()+': '+AG+' games | '+AS+' sets',teamB()+': '+BG+' games | '+BS+' sets',
+  'Overall Winner: '+result,'','MATCH RESULTS',lines.join('\n\n'),'',
+  'SPORTSMANSHIP',teamA()+': '+($('#sportsA').value||'—'),teamB()+': '+($('#sportsB').value||'—')].join('\n');
+ save();
+}
 function save(){let o={};$$('input').forEach((x,i)=>o[i]=x.value);o.def=cards.map(c=>({d:c.dataset.defaulted||'',w:c.dataset.defaultWinner||''}));localStorage.setItem(KEY,JSON.stringify(o))}
 function load(){try{let o=JSON.parse(localStorage.getItem(KEY)||'{}');$$('input').forEach((x,i)=>{if(o[i]!=null)x.value=o[i]});(o.def||[]).forEach((d,i)=>{if(cards[i]){cards[i].dataset.defaulted=d.d;cards[i].dataset.defaultWinner=d.w}})}catch(e){}}
 cards.forEach(c=>setupDefault(c,true));$$('input').forEach(x=>x.addEventListener('input',update));$('#share').onclick=async()=>{const text=$('#recap').textContent;if(navigator.share){try{await navigator.share({text})}catch(e){}}else location.href='sms:&body='+encodeURIComponent(text)};$('#clear').onclick=()=>{localStorage.removeItem(KEY);location.reload()};load();update();
